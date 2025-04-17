@@ -1,6 +1,10 @@
-# AGISDK
+<p align="center">
+  <a href="https://theagi.company">
+    <h3 align="center">AGI SDK</h3>
+  </a>
+</p>
 
-AGISDK is a toolkit for building and evaluating AI agents for browser-based tasks.
+AGI SDK is a toolkit for building and evaluating AI agents. It comes with support for the REAL Benchmark to evaluate browser-based agents in real-world settings.
 
 ## Installation
 
