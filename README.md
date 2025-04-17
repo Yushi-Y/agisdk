@@ -19,7 +19,7 @@ pip install -e .
 
 ## Quick Start
 
-Here's a simple example to get you started:
+Here's a simple example to get you started for benchmarking _gpt-4o_ on the REAL Bench "Omnizon" environment:
 
 ```python
 from agisdk import real
@@ -37,7 +37,7 @@ results = harness.run()
 
 ## Creating Custom Agents
 
-You can create your own agent by extending the Agent class:
+You can create your own custom agent by extending the Agent class:
 
 ```python
 import dataclasses
@@ -147,7 +147,7 @@ Actions are specified as strings in the format of function calls. Here are some 
 
 ## Available Tasks
 
-The AGISDK includes several pre-configured task environments:
+The AGI SDK includes several pre-configured task environments:
 
 - `webclones.omnizon-1` through `webclones.omnizon-10`: E-commerce shopping tasks
 - `webclones.dashdish-1` through `webclones.dashdish-11`: Food delivery tasks
