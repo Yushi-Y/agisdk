@@ -12,8 +12,10 @@ import logging
 from pathlib import Path
 from typing import List, Dict, Optional, Any
 
-# Import the agent and core functionality
+# Import the agent and core functionality 
 import realeval_agents  # This registers the agents
+# Make sure webclones tasks are registered
+from agisdk.real.browsergym import webclones
 from realeval import (
     create_agent_args, 
     get_tasks, 

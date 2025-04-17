@@ -11,9 +11,9 @@ from typing import Dict, Tuple
 # Option 1: Using the demo agent with a specified model
 harness1 = real.harness(
     model="gpt-4o", 
-    leaderboard=False, 
-    task_name="webclones.omnizon-1",
-    headless=False
+    task_name="webclones.omnizon-2",
+    headless=False,
+    max_steps=12,
 )
 
 # Option 2: Creating and using a custom agent

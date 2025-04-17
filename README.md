@@ -49,14 +49,14 @@ class MyAgent(Agent):
     def __init__(self) -> None:
         super().__init__()
         # Initialize your agent's state
-        
+
     def get_agent_action(self, obs) -> Tuple[str, str]:
         """
         Core agent logic to analyze observations and select actions.
-        
+
         Args:
             obs: The observation from the environment
-            
+
         Returns:
             A tuple of (action_string, final_message)
             - If final_message is None, the episode continues with the given action
@@ -65,17 +65,17 @@ class MyAgent(Agent):
         # Example: Navigate to Google
         if "google" not in obs.get("url", ""):
             return "goto('https://www.google.com')", None
-            
+
         # Example: End the episode
         return None, "Task completed successfully!"
-    
+
     def get_action(self, obs: dict) -> Tuple[str, Dict]:
         """
         Convert agent_action output to the format expected by browsergym.
         You usually don't need to modify this method.
         """
         agent_action, final_message = self.get_agent_action(obs)
-        
+
         if final_message:
             return f"send_msg_to_user(\"{final_message}\")", {}
         else:
@@ -84,7 +84,7 @@ class MyAgent(Agent):
 @dataclasses.dataclass
 class MyAgentArgs(AbstractAgentArgs):
     agent_name: str = "MyAgent"
-    
+
     def make_agent(self):
         return MyAgent()
 
@@ -163,17 +163,17 @@ real.harness(
     # Agent configuration (provide one of these)
     model="gpt-4o",           # Use the pre-configured DemoAgent with this model
     agentargs=MyAgentArgs(),  # Or provide your own agent arguments
-    
+
     # Task configuration
     task_name="webclones.omnizon-1",  # Which task to run
     headless=False,                   # Whether to show the browser
     wait_for_user_message=False,      # Whether to wait for user messages
     max_steps=100,                    # Maximum number of steps
-    
+
     # Tracking
-    leaderboard=False,       # Whether to submit to leaderboard (WIP) 
+    leaderboard=False,       # Whether to submit to leaderboard (WIP)
     run_id="my_unique_id",   # Unique ID for the run
-    
+
     # Output
     results_dir="./results"   # Where to store results
 )

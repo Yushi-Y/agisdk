@@ -25,7 +25,7 @@ def harness(
     task_name: str = "webclones.omnizon-1",
     headless: bool = False,
     wait_for_user_message: bool = False,
-    max_steps: int = 100,
+    max_steps: int = 25,
     results_dir: str = "./results",
     **kwargs
 ):

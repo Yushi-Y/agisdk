@@ -66,6 +66,99 @@ def get_available_task_types() -> List[str]:
                 break
     return sorted(task_types)
 
+def create_cache_key(task_name: str, agent_args: AbstractAgentArgs, env_args_dict: Dict[str, Any]) -> str:
+    """
+    Create a unique cache key for a task-agent-env combination.
+    
+    Args:
+        task_name: Name of the task
+        agent_args: Arguments for the agent
+        env_args_dict: Dictionary of arguments for the environment
+        
+    Returns:
+        A string key for the cache
+    """
+    # Extract core agent info for the cache key
+    agent_model = getattr(agent_args, "model_name", "unknown")
+    agent_type = agent_args.agent_name if hasattr(agent_args, "agent_name") else type(agent_args).__name__
+    
+    # Extract core environment settings
+    max_steps = env_args_dict.get("max_steps", "default")
+    
+    # Create a reproducible cache key
+    cache_key = f"{task_name}_{agent_type}_{agent_model}_{max_steps}"
+    
+    return cache_key
+
+def find_experiment_dirs(results_dir: str) -> List[Path]:
+    """
+    Find all experiment directories in the results directory.
+    
+    Args:
+        results_dir: Directory containing experiment results
+        
+    Returns:
+        List of experiment directory paths
+    """
+    results_path = Path(results_dir)
+    
+    # Experiment directories are identified by the presence of summary_info.json
+    exp_dirs = []
+    
+    # Walk through all directories in results_dir
+    for root, dirs, files in os.walk(results_dir):
+        root_path = Path(root)
+        
+        # Check if this directory has the required files to be an experiment directory
+        if "summary_info.json" in files:
+            exp_dirs.append(root_path)
+    
+    return exp_dirs
+
+def get_experiment_info(exp_dir: Path) -> Optional[Dict[str, Any]]:
+    """
+    Extract information about an experiment from its directory.
+    
+    Args:
+        exp_dir: Path to experiment directory
+        
+    Returns:
+        Dictionary with experiment information, or None if info can't be extracted
+    """
+    try:
+        # Get modification time as timestamp
+        timestamp = os.path.getmtime(exp_dir / "summary_info.json")
+        
+        # Load summary info
+        with open(exp_dir / "summary_info.json", "r") as f:
+            summary_info = json.load(f)
+        
+        # Extract relevant information directly from summary_info.json
+        task_name = summary_info.get("task_name")
+        agent_type = summary_info.get("agent_type")
+        model_name = summary_info.get("model_name", "unknown")
+        max_steps = summary_info.get("max_steps")
+        
+        # Create complete info dict
+        info = {
+            "task_name": task_name,
+            "agent_type": agent_type,
+            "model_name": model_name,
+            "max_steps": max_steps,
+            "timestamp": timestamp,
+            "exp_dir": str(exp_dir),
+            "cache_key": f"{task_name}_{agent_type}_{model_name}_{max_steps}",
+        }
+        
+        # Add any other summary information
+        info.update(summary_info)
+        
+        return info
+    except Exception as e:
+        print(f"Warning: Failed to extract info from {exp_dir}: {e}")
+        return None
+
+
 def get_tasks(
     task_type: Optional[str] = None,
     task_id: Optional[int] = None,
