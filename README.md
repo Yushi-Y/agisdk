@@ -4,7 +4,7 @@
   </a>
 </p>
 
-AGI SDK is a toolkit for building and evaluating AI agents. It comes with support for the REAL Benchmark to evaluate browser-based agents in real-world settings.
+AGI SDK is a toolkit for building and evaluating AI agents. It comes with support for the [REAL benchmark](https://realevals.xyz) to evaluate browser-based agents in real world settings.
 
 ## Installation
 
@@ -186,6 +186,13 @@ Check out the example scripts in the repository:
 - `harness_example.py`: Basic usage of the harness
 - `example.py`: More advanced example with custom agent logic
 
-## License
+## Contributing
 
-[Your License Here]
+We welcome any contributions to the AGI SDK, whether it's submitting an idea, fixing a typo, adding a new guide, or improving an existing one.
+
+If you have ideas for new examples or guides, share them on the [issues page](https://github.com/agi-inc/agisdk/issues).
+
+If you want to directly contribute code, you can fork the repository, make your changes, and submit a pull request.
+To avoid duplication of efforts, please review the existing issues and pull requests before contributing.
+
+Happy building! 🙌
