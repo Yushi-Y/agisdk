@@ -253,6 +253,8 @@ The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz]
 
 The harness will automatically set the `RUNID` environment variable when the `leaderboard` flag is set to `True` and a `run_id` is provided.
 
+**Important**: For your run to be verified and displayed publicly on the leaderboard, you must contact participate@realevals.xyz after completing your submission.
+
 ## Example Scripts
 
 Check out the example scripts in the repository:
