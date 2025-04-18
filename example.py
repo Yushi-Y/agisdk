@@ -88,7 +88,6 @@ def run_custom_agent():
     # Create harness with custom agent
     harness = real.harness(
         agentargs=MyCustomAgentArgs(),
-        task_name="webclones.omnizon-1",
         headless=False,
     )
     
@@ -118,7 +117,7 @@ def run_leaderboard_submission():
 if __name__ == "__main__":
     # Run the built-in agent example
     print("Running built-in agent example...")
-    results = run_builtin_agent()
+    results = run_custom_agent()
     
     # Uncomment to run other examples
     # print("\nRunning custom agent example...")
