@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: agisdk
-Version: 0.1.0
+Version: 0.1.4
 Summary: AGI SDK - tools for building and evaluating AI web agents
 Author-email: Diego Caples <diego@theagi.company>
 Project-URL: Homepage, https://github.com/agi-inc/agisdk
@@ -14,7 +14,7 @@ Classifier: Development Status :: 4 - Beta
 Classifier: Intended Audience :: Developers
 Classifier: Intended Audience :: Science/Research
 Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
-Requires-Python: >=3.8
+Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 Requires-Dist: numpy>=1.20.0
 Requires-Dist: pillow>=8.0.0
@@ -265,6 +265,7 @@ REAL.harness(
 The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard - the Realistic Evaluations for Agents Leaderboard (REAL). This benchmark features fully-deterministic websites with realistic designs and functionality, ensuring consistent and fair agent evaluation.
 
 The REAL benchmark includes:
+
 - High-fidelity websites built with modern web technologies
 - Practical goals written by humans
 - Fully deterministic environments for consistent evaluation
