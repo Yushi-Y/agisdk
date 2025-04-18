@@ -1,3 +1,4 @@
+README.md
 pyproject.toml
 src/__init__.py
 src/agisdk/__init__.py
@@ -6,6 +7,7 @@ src/agisdk.egg-info/SOURCES.txt
 src/agisdk.egg-info/dependency_links.txt
 src/agisdk.egg-info/top_level.txt
 src/agisdk/real/__init__.py
+src/agisdk/real/harness.py
 src/agisdk/real/browsergym/__init__.py
 src/agisdk/real/browsergym/core/__init__.py
 src/agisdk/real/browsergym/core/chat.py
@@ -23,4 +25,17 @@ src/agisdk/real/browsergym/core/action/openai_cua.py
 src/agisdk/real/browsergym/core/action/parsers.py
 src/agisdk/real/browsergym/core/action/python.py
 src/agisdk/real/browsergym/core/action/utils.py
+src/agisdk/real/browsergym/experiments/__init__.py
+src/agisdk/real/browsergym/experiments/agent.py
+src/agisdk/real/browsergym/experiments/loop.py
+src/agisdk/real/browsergym/experiments/utils.py
+src/agisdk/real/browsergym/utils/__init__.py
 src/agisdk/real/browsergym/utils/obs.py
+src/agisdk/real/browsergym/webclones/__init__.py
+src/agisdk/real/browsergym/webclones/base.py
+src/agisdk/real/browsergym/webclones/evaluate.py
+src/agisdk/real/browsergym/webclones/task_config.py
+src/agisdk/real/browsergym/webclones/utils.py
+src/agisdk/real/demo_agent/__init__.py
+src/agisdk/real/demo_agent/basic_agent.py
+src/agisdk/real/demo_agent/run_demo.py

@@ -1,5 +1,5 @@
 from . import browsergym
-from .harness import harness
+from .harness import harness, Agent, AbstractAgentArgs
 
 def hello(name="World"):
     """A real greeting function for the real submodule."""
