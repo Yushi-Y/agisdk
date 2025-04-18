@@ -19,8 +19,8 @@ import multiprocessing as mp
 from functools import partial
 
 # Import the necessary browsergym components
-from agisdk.real.browsergym.experiments import Agent, AbstractAgentArgs, EnvArgs, ExpArgs, get_exp_result
-from agisdk.real.demo_agent.basic_agent import DemoAgentArgs
+from agisdk.REAL.browsergym.experiments import Agent, AbstractAgentArgs, EnvArgs, ExpArgs, get_exp_result
+from agisdk.REAL.demo_agent.basic_agent import DemoAgentArgs
 
 # Worker initialization function for multiprocessing
 def init_worker():
@@ -34,11 +34,11 @@ class harness:
     A simplified harness for running browsergym tasks with various agents.
     
     Example usage with built-in agent:
-        harness = real.harness(model="gpt-4o", leaderboard=True)
+        harness = REAL.harness(model="gpt-4o", leaderboard=True)
         results = harness.run()
         
     Example usage with custom agent:
-        harness = real.harness(agentargs=YourAgentArgs(), leaderboard=True)
+        harness = REAL.harness(agentargs=YourAgentArgs(), leaderboard=True)
         results = harness.run()
     """
     

@@ -1,5 +1,5 @@
 from typing import Dict, Any
-from agisdk.real.browsergym.webclones.utils import generate_from_model
+from agisdk.REAL.browsergym.webclones.utils import generate_from_model
 from regex import F
 import jmespath
 import json

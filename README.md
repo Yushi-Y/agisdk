@@ -238,6 +238,7 @@ REAL.harness(
 The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard - the Realistic Evaluations for Agents Leaderboard (REAL). This benchmark features fully-deterministic websites with realistic designs and functionality, ensuring consistent and fair agent evaluation.
 
 The REAL benchmark includes:
+
 - High-fidelity websites built with modern web technologies
 - Practical goals written by humans
 - Fully deterministic environments for consistent evaluation

@@ -1,7 +1,7 @@
 import argparse
 
 # browsergym experiments utils
-from agisdk.real.browsergym.experiments import EnvArgs, ExpArgs, get_exp_result
+from agisdk.REAL.browsergym.experiments import EnvArgs, ExpArgs, get_exp_result
 
 # locally defined agent
 from .basic_agent import DemoAgentArgs

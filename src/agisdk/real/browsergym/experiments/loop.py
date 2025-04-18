@@ -20,7 +20,7 @@ import numpy as np
 from PIL import Image
 from tqdm import tqdm
 
-from agisdk.real.browsergym.core.chat import Chat
+from agisdk.REAL.browsergym.core.chat import Chat
 
 from .agent import Agent
 from .utils import count_messages_token, count_tokens
@@ -829,7 +829,7 @@ def _get_env_name(task_name: str):
     # elif task_name.startswith("visualwebarena"):
     #     import browsergym.visualwebarena
     if task_name.startswith("webclones"):
-        import agisdk.real.browsergym.webclones
+        import agisdk.REAL.browsergym.webclones
     else:
         raise ValueError(
             f"Task {task_name} not found. Please register the task in browsergym."

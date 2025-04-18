@@ -8,8 +8,8 @@ import os
 import dataclasses
 from typing import Dict, Tuple
 
-from agisdk.real.browsergym.experiments import Agent, AbstractAgentArgs
-from agisdk.real.demo_agent.basic_agent import DemoAgentArgs
+from agisdk.REAL.browsergym.experiments import Agent, AbstractAgentArgs
+from agisdk.REAL.demo_agent.basic_agent import DemoAgentArgs
 from operator_agent import OperatorAgentArgs
 # from custom_agent import your_agent
 

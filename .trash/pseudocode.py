@@ -1,14 +1,14 @@
 from agisdk import real
-harness = real.harness(model="gpt-4o", leaderboard=True, run_id="1233_1233_4313_1342")
+harness = REAL.harness(model="gpt-4o", leaderboard=True, run_id="1233_1233_4313_1342")
 results = harness.run()
 
 from typing import Union, Tuple, Dict
 
 
 #######
-from agisdk import real
+from agisdk import REAL
 
-class YourAgent(real.Agent):
+class YourAgent(REAL.Agent):
 
     def __init__(self) -> None:
         super().__init__()
@@ -42,13 +42,13 @@ class YourAgent(real.Agent):
 
 
 @dataclasses.dataclass
-class YourAgentArgs(real.AbstractAgentArgs):
+class YourAgentArgs(REAL.AbstractAgentArgs):
     agent_name: str = "AGI"
     
     def make_agent(self):
         return YourAgent()
 
-harness = real.harness(
+harness = REAL.harness(
     agentargs=YourAgentArgs(agent_name="AGI"),
     leaderboard=True,
     run_id="1233_1233_4313_1342",

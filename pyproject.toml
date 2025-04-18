@@ -6,20 +6,36 @@ build-backend = "setuptools.build_meta"
 name = "agisdk"
 version = "0.1.0"
 authors = [
-    {name = "Author", email = "author@example.com"},
+    {name = "Diego Caples", email = "diego@theagi.company"},
 ]
-description = "AGI SDK package"
+description = "AGI SDK - tools for building and evaluating AI web agents"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.20.0",
+    "pillow>=8.0.0",
+    "gymnasium>=0.28.0",
+    "playwright>=1.20.0",
+    "tqdm>=4.62.0",
+    "python-dotenv>=0.19.0",
+    "openai>=1.0.0",
+    "requests>=2.25.0",
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/yourusername/agisdk"
-"Bug Tracker" = "https://github.com/yourusername/agisdk/issues"
+"Homepage" = "https://github.com/agi-inc/agisdk"
+"Bug Tracker" = "https://github.com/agi-inc/agisdk/issues"
+"Documentation" = "https://github.com/agi-inc/agisdk"
+"Leaderboard" = "https://realevals.xyz"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

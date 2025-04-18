@@ -1,4 +1,4 @@
-from agisdk.real.browsergym.core.registration import register_task
+from agisdk.REAL.browsergym.core.registration import register_task
 from . import task_config, base
 
 # register the RealBench benchmark

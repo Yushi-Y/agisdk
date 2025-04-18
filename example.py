@@ -13,7 +13,7 @@ from agisdk import REAL
 def run_builtin_agent():
     # Create a harness with the gpt-4o model
     harness = REAL.harness(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         task_name="webclones.omnizon-2",  # Specific task
         headless=False,                   # Show browser window
         max_steps=25,                     # Maximum steps per task
@@ -112,13 +112,4 @@ def run_leaderboard_submission():
 
 
 if __name__ == "__main__":
-    # Run the built-in agent example
-    # print("Running built-in agent example...")
-    # results = run_custom_agent()
-    
-    # Uncomment to run other examples
-    # print("\nRunning custom agent example...")
-    # results = run_custom_agent()
-    
-    print("\nRunning leaderboard submission example...")
-    results = run_leaderboard_submission()
+    results = run_builtin_agent()

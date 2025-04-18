@@ -7,10 +7,10 @@ import logging
 from PIL import Image
 from typing import Literal
 
-from agisdk.real.browsergym.experiments import Agent, AbstractAgentArgs
-from agisdk.real.browsergym.core.action.highlevel import HighLevelActionSet
-from agisdk.real.browsergym.core.action.python import PythonActionSet
-from agisdk.real.browsergym.utils.obs import flatten_axtree_to_str, flatten_dom_to_str, prune_html
+from agisdk.REAL.browsergym.experiments import Agent, AbstractAgentArgs
+from agisdk.REAL.browsergym.core.action.highlevel import HighLevelActionSet
+from agisdk.REAL.browsergym.core.action.python import PythonActionSet
+from agisdk.REAL.browsergym.utils.obs import flatten_axtree_to_str, flatten_dom_to_str, prune_html
 
 logger = logging.getLogger(__name__)
 

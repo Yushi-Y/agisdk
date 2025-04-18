@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any
 
-from agisdk.real.browsergym.core.action.base import AbstractActionSet
-from agisdk.real.browsergym.core.action.highlevel import HighLevelActionSet
-from agisdk.real.browsergym.utils.obs import flatten_axtree_to_str, flatten_dom_to_str, prune_html
+from agisdk.REAL.browsergym.core.action.base import AbstractActionSet
+from agisdk.REAL.browsergym.core.action.highlevel import HighLevelActionSet
+from agisdk.REAL.browsergym.utils.obs import flatten_axtree_to_str, flatten_dom_to_str, prune_html
 
 
 def default_obs_preprocessor(obs: dict) -> dict:

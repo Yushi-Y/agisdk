@@ -9,9 +9,9 @@ import re
 from collections import defaultdict
 from bs4 import BeautifulSoup
 
-from agisdk.real.browsergym.core.constants import BROWSERGYM_ID_ATTRIBUTE as BID_ATTR
-from agisdk.real.browsergym.core.constants import BROWSERGYM_VISIBILITY_ATTRIBUTE as VIS_ATTR
-from agisdk.real.browsergym.core.constants import BROWSERGYM_SETOFMARKS_ATTRIBUTE as SOM_ATTR
+from agisdk.REAL.browsergym.core.constants import BROWSERGYM_ID_ATTRIBUTE as BID_ATTR
+from agisdk.REAL.browsergym.core.constants import BROWSERGYM_VISIBILITY_ATTRIBUTE as VIS_ATTR
+from agisdk.REAL.browsergym.core.constants import BROWSERGYM_SETOFMARKS_ATTRIBUTE as SOM_ATTR
 
 logger = logging.getLogger(__name__)
 

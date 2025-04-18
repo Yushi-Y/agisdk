@@ -24,7 +24,7 @@ from functools import partial
 import tempfile as tempfile_module
 tempfile = tempfile_module
 
-from agisdk.real.browsergym.experiments import Agent, AbstractAgentArgs, EnvArgs, ExpArgs, get_exp_result
+from agisdk.REAL.browsergym.experiments import Agent, AbstractAgentArgs, EnvArgs, ExpArgs, get_exp_result
 
 # Worker initialization function for multiprocessing
 def init_worker():

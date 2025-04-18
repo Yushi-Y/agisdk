@@ -2,9 +2,9 @@ import os
 import json
 
 import playwright.sync_api
-from agisdk.real.browsergym.core.task import AbstractBrowserTask
-from agisdk.real.browsergym.webclones.task_config import TaskConfig
-from agisdk.real.browsergym.webclones.evaluate import WebCloneEvaluator
+from agisdk.REAL.browsergym.core.task import AbstractBrowserTask
+from agisdk.REAL.browsergym.webclones.task_config import TaskConfig
+from agisdk.REAL.browsergym.webclones.evaluate import WebCloneEvaluator
 
 class AbstractWebCloneTask(AbstractBrowserTask):
     """

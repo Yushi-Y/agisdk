@@ -9,7 +9,7 @@ import io
 import logging
 from PIL import Image
 
-from agisdk.real.browsergym.experiments import Agent, AbstractAgentArgs
+from agisdk.REAL.browsergym.experiments import Agent, AbstractAgentArgs
 
 logger = logging.getLogger(__name__)
 

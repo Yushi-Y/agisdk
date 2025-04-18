@@ -5,6 +5,7 @@ src/agisdk/__init__.py
 src/agisdk.egg-info/PKG-INFO
 src/agisdk.egg-info/SOURCES.txt
 src/agisdk.egg-info/dependency_links.txt
+src/agisdk.egg-info/requires.txt
 src/agisdk.egg-info/top_level.txt
 src/agisdk/real/__init__.py
 src/agisdk/real/harness.py
