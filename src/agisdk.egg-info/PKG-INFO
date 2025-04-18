@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: agisdk
-Version: 0.1.5
+Version: 0.1.7
 Summary: AGI SDK - tools for building and evaluating AI web agents
 Author-email: Diego Caples <diego@theagi.company>
 Project-URL: Homepage, https://github.com/agi-inc/agisdk
