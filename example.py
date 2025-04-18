@@ -26,7 +26,6 @@ def run_builtin_agent():
     return results
 
 
-# Define custom agent at module level for pickle support
 class MyCustomAgent(real.Agent):
     def __init__(self) -> None:
         super().__init__()
@@ -73,8 +72,6 @@ class MyCustomAgent(real.Agent):
             # Continue with the specified action
             return agent_action, {}
 
-
-# Create agent arguments class at module level
 @dataclasses.dataclass
 class MyCustomAgentArgs(real.AbstractAgentArgs):
     agent_name: str = "MyCustomAgent"
@@ -100,13 +97,13 @@ def run_custom_agent():
 def run_leaderboard_submission():
     # Create a harness for leaderboard submission
     harness = real.harness(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         leaderboard=True,
-        run_id="my_run_id_123",    # Your unique run ID for the leaderboard
-        task_type="omnizon",       # Run all omnizon tasks
+        run_id="1e7a0bed-f6fa-483a-b304-1f4084187e7e",    # Your unique run ID for the leaderboard
+        # task_type="omnizon",       # Run all omnizon tasks
         headless=True,             # Run headless for submissions
         parallel=True,             # Run tasks in parallel
-        num_workers=4,             # Number of parallel workers
+        num_workers=20,             # Number of parallel workers
     )
     
     # Run tasks
@@ -116,12 +113,12 @@ def run_leaderboard_submission():
 
 if __name__ == "__main__":
     # Run the built-in agent example
-    print("Running built-in agent example...")
-    results = run_custom_agent()
+    # print("Running built-in agent example...")
+    # results = run_custom_agent()
     
     # Uncomment to run other examples
     # print("\nRunning custom agent example...")
     # results = run_custom_agent()
     
-    # print("\nRunning leaderboard submission example...")
-    # results = run_leaderboard_submission()
+    print("\nRunning leaderboard submission example...")
+    results = run_leaderboard_submission()

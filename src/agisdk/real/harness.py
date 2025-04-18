@@ -134,7 +134,7 @@ class harness:
         
         # Handle run_id and leaderboard submission
         if run_id:
-            self.env_args["task_kwargs"] = {"run_id": run_id}
+            # self.env_args["task_kwargs"] = {"run_id": run_id}
             
             # Set the RUNID environment variable when leaderboard submission is enabled
             if leaderboard:
