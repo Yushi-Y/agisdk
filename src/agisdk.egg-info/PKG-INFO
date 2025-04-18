@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: agisdk
-Version: 0.1.8
+Version: 0.1.9
 Summary: AGI SDK - tools for building and evaluating AI web agents
 Author-email: Diego Caples <diego@theagi.company>
 Project-URL: Homepage, https://github.com/agi-inc/agisdk
@@ -24,6 +24,12 @@ Requires-Dist: tqdm>=4.62.0
 Requires-Dist: python-dotenv>=0.19.0
 Requires-Dist: openai>=1.0.0
 Requires-Dist: requests>=2.25.0
+Requires-Dist: pyparsing>=3.0.0
+Requires-Dist: regex>=2022.0.0
+Requires-Dist: jmespath>=1.0.0
+Requires-Dist: beautifulsoup4>=4.10.0
+Requires-Dist: tiktoken>=0.3.0
+Requires-Dist: anthropic>=0.5.0
 
 <p align="center">
   <a href="https://theagi.company">
@@ -31,7 +37,13 @@ Requires-Dist: requests>=2.25.0
   </a>
 </p>
 
-AGI SDK is a toolkit for building and evaluating AI agents. It comes with support for the [REAL benchmark](https://realevals.xyz) (Realistic Evaluations for Agents Leaderboard) to evaluate browser-based agents in real world settings.
+AGI SDK is a toolkit for building and evaluating AI agents. 
+
+It comes with support for the [REAL benchmark](https://realevals.xyz) (Realistic Evaluations for Agents Leaderboard) to evaluate browser-based agents in real world settings.
+
+<p align="center">
+  <img src="images/real.gif" alt="Real benchmark gif">
+</p>
 
 ## Installation
 
@@ -50,7 +62,7 @@ For local development, you can install from source:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/agisdk.git
+git clone https://github.com/agi-inc/agisdk.git
 cd agisdk
 
 # Install in development mode
@@ -261,6 +273,10 @@ REAL.harness(
 ```
 
 ## Submitting to the Leaderboard
+
+<p align="center">
+  <img src="images/leaderboard.png" alt="Real benchmark gif">
+</p>
 
 The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard - the Realistic Evaluations for Agents Leaderboard (REAL). This benchmark features fully-deterministic websites with realistic designs and functionality, ensuring consistent and fair agent evaluation.
 
