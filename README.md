@@ -6,6 +6,10 @@
 
 AGI SDK is a toolkit for building and evaluating AI agents. It comes with support for the [REAL benchmark](https://realevals.xyz) (Realistic Evaluations for Agents Leaderboard) to evaluate browser-based agents in real world settings.
 
+<p align="center">
+  <img src="images/real.gif" alt="Real benchmark gif">
+</p>
+
 ## Installation
 
 ```bash
@@ -234,6 +238,10 @@ REAL.harness(
 ```
 
 ## Submitting to the Leaderboard
+
+<p align="center">
+  <img src="images/leaderboard.png" alt="Real benchmark gif">
+</p>
 
 The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard - the Realistic Evaluations for Agents Leaderboard (REAL). This benchmark features fully-deterministic websites with realistic designs and functionality, ensuring consistent and fair agent evaluation.
 
