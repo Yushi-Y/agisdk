@@ -6,13 +6,13 @@ Examples demonstrating the usage of the agisdk harness.
 import dataclasses
 from typing import Dict, Tuple, Union, Optional
 
-from agisdk import real
+from agisdk import REAL
 
 
 # Example using a built-in agent with a specified model
 def run_builtin_agent():
     # Create a harness with the gpt-4o model
-    harness = real.harness(
+    harness = REAL.harness(
         model="gpt-4o",
         task_name="webclones.omnizon-2",  # Specific task
         headless=False,                   # Show browser window
@@ -26,7 +26,7 @@ def run_builtin_agent():
     return results
 
 
-class MyCustomAgent(real.Agent):
+class MyCustomAgent(REAL.Agent):
     def __init__(self) -> None:
         super().__init__()
         self.steps = 0
@@ -73,7 +73,7 @@ class MyCustomAgent(real.Agent):
             return agent_action, {}
 
 @dataclasses.dataclass
-class MyCustomAgentArgs(real.AbstractAgentArgs):
+class MyCustomAgentArgs(REAL.AbstractAgentArgs):
     agent_name: str = "MyCustomAgent"
     
     def make_agent(self):
@@ -83,7 +83,7 @@ class MyCustomAgentArgs(real.AbstractAgentArgs):
 # Example creating and using a custom agent
 def run_custom_agent():
     # Create harness with custom agent
-    harness = real.harness(
+    harness = REAL.harness(
         agentargs=MyCustomAgentArgs(),
         headless=False,
     )
@@ -96,7 +96,7 @@ def run_custom_agent():
 # Example running multiple tasks with leaderboard submission
 def run_leaderboard_submission():
     # Create a harness for leaderboard submission
-    harness = real.harness(
+    harness = REAL.harness(
         model="gpt-4o-mini",
         leaderboard=True,
         run_id="1e7a0bed-f6fa-483a-b304-1f4084187e7e",    # Your unique run ID for the leaderboard

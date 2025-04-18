@@ -28,10 +28,10 @@ export OPENAI_API_KEY="your-api-key"
 Here's a simple example to get you started for benchmarking an AI agent on the REAL Bench environment:
 
 ```python
-from agisdk import real
+from agisdk import REAL
 
 # Create a harness with a pre-configured model
-harness = real.harness(
+harness = REAL.harness(
     model="gpt-4o",
     task_name="webclones.omnizon-1",
     headless=False
@@ -49,10 +49,10 @@ You can create your own custom agent by extending the Agent class:
 import dataclasses
 from typing import Dict, Tuple, Optional
 
-from agisdk import real
+from agisdk import REAL
 
 # Define custom agent at module level for pickle support
-class MyCustomAgent(real.Agent):
+class MyCustomAgent(REAL.Agent):
     def __init__(self) -> None:
         super().__init__()
         self.steps = 0
@@ -100,14 +100,14 @@ class MyCustomAgent(real.Agent):
 
 # Create agent arguments class at module level
 @dataclasses.dataclass
-class MyCustomAgentArgs(real.AbstractAgentArgs):
+class MyCustomAgentArgs(REAL.AbstractAgentArgs):
     agent_name: str = "MyCustomAgent"
 
     def make_agent(self):
         return MyCustomAgent()
 
 # Create harness with custom agent
-harness = real.harness(
+harness = REAL.harness(
     agentargs=MyCustomAgentArgs(),
     task_name="webclones.omnizon-1",
     headless=False,
@@ -188,7 +188,7 @@ Each task comes with practical, human-written goals that test an agent's ability
 The harness function accepts the following parameters:
 
 ```python
-real.harness(
+REAL.harness(
     # Agent configuration (provide one of these)
     model="gpt-4o",                                # OpenAI models
     model="sonnet-3.7",                            # Anthropic models
@@ -252,7 +252,7 @@ The REAL benchmark includes:
 4. **Submit your results**:
 
    ```python
-   harness = real.harness(
+   harness = REAL.harness(
        model="gpt-4o",
        leaderboard=True,              # Enable leaderboard submission
        run_id="your_copied_run_id",   # Your unique run ID
