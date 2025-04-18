@@ -19,7 +19,7 @@ pip install -e .
 
 ## Quick Start
 
-Here's a simple example to get you started for benchmarking _gpt-4o_ on the REAL Bench "Omnizon" environment:
+Here's a simple example to get you started for benchmarking an AI model on the REAL Bench environment:
 
 ```python
 from agisdk import real
@@ -41,61 +41,73 @@ You can create your own custom agent by extending the Agent class:
 
 ```python
 import dataclasses
-from agisdk import real
-from agisdk.real.browsergym.experiments import Agent, AbstractAgentArgs
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Optional
 
-class MyAgent(Agent):
+from agisdk import real
+
+# Define custom agent at module level for pickle support
+class MyCustomAgent(real.Agent):
     def __init__(self) -> None:
         super().__init__()
-        # Initialize your agent's state
-
-    def get_agent_action(self, obs) -> Tuple[str, str]:
+        self.steps = 0
+        
+    def get_agent_action(self, obs) -> Tuple[Optional[str], Optional[str]]:
         """
-        Core agent logic to analyze observations and select actions.
-
-        Args:
-            obs: The observation from the environment
-
+        Core agent logic - analyze observation and decide on action.
+        
         Returns:
-            A tuple of (action_string, final_message)
-            - If final_message is None, the episode continues with the given action
-            - If action_string is None and final_message is provided, the episode ends
+            Tuple of (action, final_message)
+            - If action is None, episode ends with final_message
+            - If action is not None, the agent takes the action and continues
         """
-        # Example: Navigate to Google
-        if "google" not in obs.get("url", ""):
+        self.steps += 1
+        
+        # Example of simple decision making based on URL
+        current_url = obs.get("url", "")
+        
+        # Example logic: Search for a product
+        if "google.com" in current_url:
+            return "goto('https://www.amazon.com')", None
+        elif "amazon.com" in current_url and self.steps == 1:
+            return "type('input[name=\"field-keywords\"]', 'wireless headphones')", None
+        elif "amazon.com" in current_url and self.steps == 2:
+            return "click('input[type=\"submit\"]')", None
+        elif "amazon.com" in current_url and self.steps >= 3:
+            # Complete the task with a message
+            return None, "Found wireless headphones on Amazon!"
+        else:
             return "goto('https://www.google.com')", None
-
-        # Example: End the episode
-        return None, "Task completed successfully!"
-
+    
     def get_action(self, obs: dict) -> Tuple[str, Dict]:
         """
-        Convert agent_action output to the format expected by browsergym.
-        You usually don't need to modify this method.
+        Convert agent's high-level action to browsergym action.
+        This method is required by the browsergym interface.
         """
         agent_action, final_message = self.get_agent_action(obs)
-
+        
         if final_message:
+            # End the episode with a message
             return f"send_msg_to_user(\"{final_message}\")", {}
         else:
+            # Continue with the specified action
             return agent_action, {}
 
+# Create agent arguments class at module level
 @dataclasses.dataclass
-class MyAgentArgs(AbstractAgentArgs):
-    agent_name: str = "MyAgent"
-
+class MyCustomAgentArgs(real.AbstractAgentArgs):
+    agent_name: str = "MyCustomAgent"
+    
     def make_agent(self):
-        return MyAgent()
+        return MyCustomAgent()
 
-# Create a harness with your custom agent
+# Create harness with custom agent
 harness = real.harness(
-    agentargs=MyAgentArgs(),
+    agentargs=MyCustomAgentArgs(),
     task_name="webclones.omnizon-1",
-    headless=False
+    headless=False,
 )
 
-# Run the experiment
+# Run the task
 results = harness.run()
 ```
 
@@ -164,27 +176,72 @@ real.harness(
     model="gpt-4o",           # Use the pre-configured DemoAgent with this model
     agentargs=MyAgentArgs(),  # Or provide your own agent arguments
 
-    # Task configuration
-    task_name="webclones.omnizon-1",  # Which task to run
+    # Task selection (provide one of these)
+    task_name="webclones.omnizon-1",  # Specific task to run
+    task_type="omnizon",              # Run all tasks of this type
+    task_id=1,                        # Run specific task ID within a type
+
+    # Browser configuration
     headless=False,                   # Whether to show the browser
-    wait_for_user_message=False,      # Whether to wait for user messages
-    max_steps=100,                    # Maximum number of steps
+    max_steps=25,                     # Maximum number of steps
+    browser_dimensions=(1280, 720),   # Browser window dimensions
+    
+    # Observation options
+    use_html=False,                   # Include HTML in observations
+    use_axtree=True,                  # Include accessibility tree
+    use_screenshot=True,              # Include screenshots
 
-    # Tracking
-    leaderboard=False,       # Whether to submit to leaderboard (WIP)
-    run_id="my_unique_id",   # Unique ID for the run
+    # Leaderboard submission
+    leaderboard=False,                # Whether to submit to leaderboard
+    run_id="my_unique_id",            # Unique ID for the submission
 
-    # Output
-    results_dir="./results"   # Where to store results
+    # Execution options
+    parallel=False,                   # Run tasks in parallel
+    num_workers=4,                    # Number of parallel workers
+    use_cache=True,                   # Use cached results when available
+    cache_only=False,                 # Only use cached results
+    force_refresh=False,              # Force re-running tasks
+    
+    # Output options
+    results_dir="./results"           # Where to store results
 )
 ```
+
+## Submitting to the Leaderboard
+
+The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard:
+
+1. **Create an account**: Visit [RealEvals.xyz](https://realevals.xyz) and sign up for an account, then visit your profile page.
+
+2. **Register your model**:
+   - Click on "Models" in the navigation
+   - Create a new model with a descriptive name and relevant details
+
+3. **Create a run**:
+   - Go to the "Runs" section
+   - Create a new run associated with your model
+   - Copy the generated run ID (this is your unique submission identifier)
+
+4. **Submit your results**:
+   ```python
+   harness = real.harness(
+       model="gpt-4o",
+       leaderboard=True,              # Enable leaderboard submission
+       run_id="your_copied_run_id",   # Your unique run ID
+       task_type="omnizon",           # Run all tasks of this type
+       headless=True,                 # Typically run headless for submissions
+   )
+   
+   results = harness.run()
+   ```
+
+The harness will automatically set the `RUNID` environment variable when the `leaderboard` flag is set to `True` and a `run_id` is provided.
 
 ## Example Scripts
 
 Check out the example scripts in the repository:
 
-- `harness_example.py`: Basic usage of the harness
-- `example.py`: More advanced example with custom agent logic
+- `example.py`: Demonstrates both built-in and custom agent implementations
 
 ## Contributing
 

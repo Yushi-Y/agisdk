@@ -132,9 +132,21 @@ class harness:
             "viewport": viewport,
         }
         
-        # Add task_kwargs with run_id if provided
+        # Handle run_id and leaderboard submission
         if run_id:
             self.env_args["task_kwargs"] = {"run_id": run_id}
+            
+            # Set the RUNID environment variable when leaderboard submission is enabled
+            if leaderboard:
+                logger.info(f"Setting RUNID environment variable to {run_id} for leaderboard submission")
+                os.environ["RUNID"] = run_id
+            else:
+                # Unset RUNID if leaderboard isn't enabled but it exists in environment
+                if "RUNID" in os.environ:
+                    logger.info("Unsetting RUNID environment variable (leaderboard disabled)")
+                    del os.environ["RUNID"]
+        elif leaderboard:
+            logger.warning("Leaderboard submission is enabled but run_id is not provided. Please provide a run_id.")
         
         # Store task selection parameters
         self.task_name = task_name
