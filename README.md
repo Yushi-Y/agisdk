@@ -15,7 +15,21 @@ cd agisdk
 
 # Install in development mode
 pip install -e .
+
+# Install browser binaries required by Playwright
+playwright install --force
 ```
+
+### Environment Variables
+
+The AGI SDK requires an OpenAI API key for evaluation and operator agent functionality:
+
+```bash
+# Set your OpenAI API key (required)
+export OPENAI_API_KEY="your-api-key"
+```
+
+This environment variable is required even if you're using models from other providers like Anthropic or OpenRouter, as the evaluation system uses OpenAI's models.
 
 ## Quick Start
 
@@ -173,8 +187,10 @@ The harness function accepts the following parameters:
 ```python
 real.harness(
     # Agent configuration (provide one of these)
-    model="gpt-4o",           # Use the pre-configured DemoAgent with this model
-    agentargs=MyAgentArgs(),  # Or provide your own agent arguments
+    model="gpt-4o",                                # OpenAI models
+    model="sonnet-3.7",                            # Anthropic models
+    model="openrouter/deepseek/deepseek-chat-v3-0324", # OpenRouter models (with openrouter/ prefix)
+    agentargs=MyAgentArgs(),                       # Or provide your own agent arguments
 
     # Task selection (provide one of these)
     task_name="webclones.omnizon-1",  # Specific task to run
@@ -251,5 +267,17 @@ If you have ideas for new examples or guides, share them on the [issues page](ht
 
 If you want to directly contribute code, you can fork the repository, make your changes, and submit a pull request.
 To avoid duplication of efforts, please review the existing issues and pull requests before contributing.
+
+## Additional Environment Variables
+
+To use models from other providers, set their respective API keys:
+
+```bash
+# For Anthropic models (like sonnet-3.7)
+export ANTHROPIC_API_KEY="your-anthropic-api-key"
+
+# For OpenRouter models
+export OPENROUTER_API_KEY="your-openrouter-api-key"
+```
 
 Happy building! 🙌
