@@ -5,13 +5,12 @@ import logging
 import playwright.sync_api
 import re
 import time
-
-from importlib import resources
+import os
 
 from . import _get_global_playwright, chat_files
 
-
-CHATBOX_DIR = resources.files(chat_files)
+# Define CHATBOX_DIR using file path
+CHATBOX_DIR = Path(chat_files)
 
 logger = logging.getLogger(__name__)
 

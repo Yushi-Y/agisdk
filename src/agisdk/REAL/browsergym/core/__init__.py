@@ -1,6 +1,9 @@
 __version__ = "0.8.0"
 
 import playwright.sync_api
+import os
+import importlib.resources
+from pathlib import Path
 
 # we use a global playwright instance
 _PLAYWRIGHT = None
@@ -20,7 +23,12 @@ def _get_global_playwright():
     return _PLAYWRIGHT
 
 
-# register the open-ended task
+# Define chat_files directory to avoid circular import
+# This needs to happen BEFORE any modules that import chat_files
+current_dir = os.path.dirname(os.path.abspath(__file__))
+chat_files = os.path.join(current_dir, "chat_files")
+
+# Now we can safely import modules that might use chat_files
 from .registration import register_task
 from .task import OpenEndedTask
 
