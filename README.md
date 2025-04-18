@@ -33,7 +33,7 @@ This environment variable is required even if you're using models from other pro
 
 ## Quick Start
 
-Here's a simple example to get you started for benchmarking an AI model on the REAL Bench environment:
+Here's a simple example to get you started for benchmarking an AI agent on the REAL Bench environment:
 
 ```python
 from agisdk import real
@@ -64,21 +64,21 @@ class MyCustomAgent(real.Agent):
     def __init__(self) -> None:
         super().__init__()
         self.steps = 0
-        
+
     def get_agent_action(self, obs) -> Tuple[Optional[str], Optional[str]]:
         """
         Core agent logic - analyze observation and decide on action.
-        
+
         Returns:
             Tuple of (action, final_message)
             - If action is None, episode ends with final_message
             - If action is not None, the agent takes the action and continues
         """
         self.steps += 1
-        
+
         # Example of simple decision making based on URL
         current_url = obs.get("url", "")
-        
+
         # Example logic: Search for a product
         if "google.com" in current_url:
             return "goto('https://www.amazon.com')", None
@@ -91,14 +91,14 @@ class MyCustomAgent(real.Agent):
             return None, "Found wireless headphones on Amazon!"
         else:
             return "goto('https://www.google.com')", None
-    
+
     def get_action(self, obs: dict) -> Tuple[str, Dict]:
         """
         Convert agent's high-level action to browsergym action.
         This method is required by the browsergym interface.
         """
         agent_action, final_message = self.get_agent_action(obs)
-        
+
         if final_message:
             # End the episode with a message
             return f"send_msg_to_user(\"{final_message}\")", {}
@@ -110,7 +110,7 @@ class MyCustomAgent(real.Agent):
 @dataclasses.dataclass
 class MyCustomAgentArgs(real.AbstractAgentArgs):
     agent_name: str = "MyCustomAgent"
-    
+
     def make_agent(self):
         return MyCustomAgent()
 
@@ -145,7 +145,7 @@ Your agent gets access to the following observation structure:
     'last_action': "...",            # Last action performed
     'last_action_error': "...",      # Error from last action (if any)
     'elapsed_time': 0.0,             # Time elapsed in the episode
-    'browser': {...}                 # Browser object
+    'browser': {...}                 # Playwright browser object (for direct control)
 }
 ```
 
@@ -201,7 +201,7 @@ real.harness(
     headless=False,                   # Whether to show the browser
     max_steps=25,                     # Maximum number of steps
     browser_dimensions=(1280, 720),   # Browser window dimensions
-    
+
     # Observation options
     use_html=False,                   # Include HTML in observations
     use_axtree=True,                  # Include accessibility tree
@@ -217,7 +217,7 @@ real.harness(
     use_cache=True,                   # Use cached results when available
     cache_only=False,                 # Only use cached results
     force_refresh=False,              # Force re-running tasks
-    
+
     # Output options
     results_dir="./results"           # Where to store results
 )
@@ -230,15 +230,18 @@ The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz]
 1. **Create an account**: Visit [RealEvals.xyz](https://realevals.xyz) and sign up for an account, then visit your profile page.
 
 2. **Register your model**:
+
    - Click on "Models" in the navigation
    - Create a new model with a descriptive name and relevant details
 
 3. **Create a run**:
+
    - Go to the "Runs" section
    - Create a new run associated with your model
    - Copy the generated run ID (this is your unique submission identifier)
 
 4. **Submit your results**:
+
    ```python
    harness = real.harness(
        model="gpt-4o",
@@ -247,7 +250,7 @@ The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz]
        task_type="omnizon",           # Run all tasks of this type
        headless=True,                 # Typically run headless for submissions
    )
-   
+
    results = harness.run()
    ```
 
