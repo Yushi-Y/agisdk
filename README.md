@@ -18,18 +18,10 @@ pip install -e .
 
 # Install browser binaries required by Playwright
 playwright install --force
-```
 
-### Environment Variables
-
-The AGI SDK requires an OpenAI API key for evaluation and operator agent functionality:
-
-```bash
-# Set your OpenAI API key (required)
+# Set your OpenAI API key (required for evaluation)
 export OPENAI_API_KEY="your-api-key"
 ```
-
-This environment variable is required even if you're using models from other providers like Anthropic or OpenRouter, as the evaluation system uses OpenAI's models.
 
 ## Quick Start
 
