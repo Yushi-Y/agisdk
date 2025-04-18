@@ -9,18 +9,25 @@ AGI SDK is a toolkit for building and evaluating AI agents. It comes with suppor
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/agisdk.git
-cd agisdk
-
-# Install in development mode
-pip install -e .
+# Install from PyPI
+pip install agisdk
 
 # Install browser binaries required by Playwright
 playwright install --force
 
 # Set your OpenAI API key (required for evaluation)
 export OPENAI_API_KEY="your-api-key"
+```
+
+For local development, you can install from source:
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/agisdk.git
+cd agisdk
+
+# Install in development mode
+pip install -e .
 ```
 
 ## Quick Start
