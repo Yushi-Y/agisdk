@@ -4,7 +4,7 @@
   </a>
 </p>
 
-AGI SDK is a toolkit for building and evaluating AI agents. It comes with support for the [REAL benchmark](https://realevals.xyz) to evaluate browser-based agents in real world settings.
+AGI SDK is a toolkit for building and evaluating AI agents. It comes with support for the [REAL benchmark](https://realevals.xyz) (Realistic Evaluations for Agents Leaderboard) to evaluate browser-based agents in real world settings.
 
 ## Installation
 
@@ -165,12 +165,23 @@ Actions are specified as strings in the format of function calls. Here are some 
 
 ## Available Tasks
 
-The AGI SDK includes several pre-configured task environments:
+The AGI SDK includes high-fidelity, fully-deterministic websites for agents to explore. These are modern web stack sites (React + Next.js) with rich functionality for core user flows, realistic mock data, and consistent behavior for testing and evaluation.
 
-- `webclones.omnizon-1` through `webclones.omnizon-10`: E-commerce shopping tasks
-- `webclones.dashdish-1` through `webclones.dashdish-11`: Food delivery tasks
-- `webclones.fly-unified-1` through `webclones.fly-unified-14`: Flight booking tasks
-- And many more...
+The benchmark includes these environments:
+
+- **Omnizon** (`webclones.omnizon-*`): Similar to Amazon, for e-commerce shopping tasks
+- **DashDish** (`webclones.dashdish-*`): Similar to DoorDash, for food delivery tasks
+- **Fly Unified** (`webclones.fly-unified-*`): Similar to United Airlines, for flight booking
+- **Staynb** (`webclones.staynb-*`): Similar to Airbnb, for accommodation booking
+- **GoCalendar** (`webclones.gocalendar-*`): Similar to Google Calendar, for scheduling
+- **GoMail** (`webclones.gomail-*`): Similar to Gmail, for email tasks
+- **OpenDining** (`webclones.opendining-*`): Similar to OpenTable, for restaurant reservations
+- **NetworkIn** (`webclones.networkin-*`): Similar to LinkedIn, for professional networking
+- **Udriver** (`webclones.udriver-*`): Similar to Uber, for ride booking
+- **TopWork** (`webclones.topwork-*`): Similar to UpWork, for freelance job marketplace
+- **Zilloft** (`webclones.zilloft-*`): Similar to Zillow, for real estate browsing
+
+Each task comes with practical, human-written goals that test an agent's ability to navigate and complete realistic web tasks.
 
 ## Harness Configuration
 
@@ -217,7 +228,13 @@ real.harness(
 
 ## Submitting to the Leaderboard
 
-The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard:
+The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard - the Realistic Evaluations for Agents Leaderboard (REAL). This benchmark features fully-deterministic websites with realistic designs and functionality, ensuring consistent and fair agent evaluation.
+
+The REAL benchmark includes:
+- High-fidelity websites built with modern web technologies
+- Practical goals written by humans
+- Fully deterministic environments for consistent evaluation
+- Varying difficulty levels (easy, medium, hard categories)
 
 1. **Create an account**: Visit [RealEvals.xyz](https://realevals.xyz) and sign up for an account, then visit your profile page.
 
