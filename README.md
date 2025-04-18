@@ -27,7 +27,7 @@ For local development, you can install from source:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/agisdk.git
+git clone https://github.com/agi-inc/agisdk.git
 cd agisdk
 
 # Install in development mode
