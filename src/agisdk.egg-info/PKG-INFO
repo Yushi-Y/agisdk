@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: agisdk
-Version: 0.1.9
+Version: 0.1.10
 Summary: AGI SDK - tools for building and evaluating AI web agents
 Author-email: Diego Caples <diego@theagi.company>
 Project-URL: Homepage, https://github.com/agi-inc/agisdk
@@ -16,6 +16,7 @@ Classifier: Intended Audience :: Science/Research
 Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
+License-File: LICENSE
 Requires-Dist: numpy>=1.20.0
 Requires-Dist: pillow>=8.0.0
 Requires-Dist: gymnasium>=0.28.0
@@ -30,6 +31,8 @@ Requires-Dist: jmespath>=1.0.0
 Requires-Dist: beautifulsoup4>=4.10.0
 Requires-Dist: tiktoken>=0.3.0
 Requires-Dist: anthropic>=0.5.0
+Requires-Dist: lxml
+Dynamic: license-file
 
 <p align="center">
   <a href="https://theagi.company">
