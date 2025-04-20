@@ -200,7 +200,7 @@ To use models from other providers, set their respective API keys:
 ```bash
 # For Anthropic models (like sonnet-3.7)
 export ANTHROPIC_API_KEY="your-anthropic-api-key"
-
+```
 
 ## Observation Structure
 
