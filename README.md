@@ -312,6 +312,7 @@ REAL.harness(
 ```
 
 # For OpenRouter models
+```
 export OPENROUTER_API_KEY="your-openrouter-api-key"
 ```
 
