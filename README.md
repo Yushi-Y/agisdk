@@ -130,6 +130,77 @@ harness = REAL.harness(
 results = harness.run()
 ```
 
+
+## Submitting to the Leaderboard
+
+<p align="center">
+  <img src="images/leaderboard.png" alt="Real benchmark gif">
+</p>
+
+The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard - the Realistic Evaluations for Agents Leaderboard (REAL). This benchmark features fully-deterministic websites with realistic designs and functionality, ensuring consistent and fair agent evaluation.
+
+The REAL benchmark includes:
+
+- High-fidelity websites built with modern web technologies
+- Practical goals written by humans
+- Fully deterministic environments for consistent evaluation
+- Varying difficulty levels (easy, medium, hard categories)
+
+1. **Create an account**: Visit [RealEvals.xyz](https://realevals.xyz) and sign up for an account, then visit your profile page.
+
+2. **Register your model**:
+
+   - Click on "Models" in the navigation
+   - Create a new model with a descriptive name and relevant details
+
+3. **Create a run**:
+
+   - Go to the "Runs" section
+   - Create a new run associated with your model
+   - Copy the generated run ID (this is your unique submission identifier)
+
+4. **Submit your results**:
+
+   ```python
+   harness = REAL.harness(
+       model="gpt-4o",
+       leaderboard=True,              # Enable leaderboard submission
+       run_id="your_copied_run_id",   # Your unique run ID
+       task_type="omnizon",           # Run all tasks of this type
+       headless=True,                 # Typically run headless for submissions
+   )
+
+   results = harness.run()
+   ```
+
+The harness will automatically set the `RUNID` environment variable when the `leaderboard` flag is set to `True` and a `run_id` is provided.
+
+**Important**: For your run to be verified and displayed publicly on the leaderboard, you must contact participate@realevals.xyz after completing your submission.
+
+## Example Scripts
+
+Check out the example scripts in the repository:
+
+- `example.py`: Demonstrates both built-in and custom agent implementations
+
+## Contributing
+
+We welcome any contributions to the AGI SDK, whether it's submitting an idea, fixing a typo, adding a new guide, or improving an existing one.
+
+If you have ideas for new examples or guides, share them on the [issues page](https://github.com/agi-inc/agisdk/issues).
+
+If you want to directly contribute code, you can fork the repository, make your changes, and submit a pull request.
+To avoid duplication of efforts, please review the existing issues and pull requests before contributing.
+
+## Additional Environment Variables
+
+To use models from other providers, set their respective API keys:
+
+```bash
+# For Anthropic models (like sonnet-3.7)
+export ANTHROPIC_API_KEY="your-anthropic-api-key"
+
+
 ## Observation Structure
 
 Your agent gets access to the following observation structure:
@@ -238,75 +309,6 @@ REAL.harness(
     results_dir="./results"           # Where to store results
 )
 ```
-
-## Submitting to the Leaderboard
-
-<p align="center">
-  <img src="images/leaderboard.png" alt="Real benchmark gif">
-</p>
-
-The AGI SDK allows you to submit your agent's performance to the [RealEvals.xyz](https://realevals.xyz) leaderboard - the Realistic Evaluations for Agents Leaderboard (REAL). This benchmark features fully-deterministic websites with realistic designs and functionality, ensuring consistent and fair agent evaluation.
-
-The REAL benchmark includes:
-
-- High-fidelity websites built with modern web technologies
-- Practical goals written by humans
-- Fully deterministic environments for consistent evaluation
-- Varying difficulty levels (easy, medium, hard categories)
-
-1. **Create an account**: Visit [RealEvals.xyz](https://realevals.xyz) and sign up for an account, then visit your profile page.
-
-2. **Register your model**:
-
-   - Click on "Models" in the navigation
-   - Create a new model with a descriptive name and relevant details
-
-3. **Create a run**:
-
-   - Go to the "Runs" section
-   - Create a new run associated with your model
-   - Copy the generated run ID (this is your unique submission identifier)
-
-4. **Submit your results**:
-
-   ```python
-   harness = REAL.harness(
-       model="gpt-4o",
-       leaderboard=True,              # Enable leaderboard submission
-       run_id="your_copied_run_id",   # Your unique run ID
-       task_type="omnizon",           # Run all tasks of this type
-       headless=True,                 # Typically run headless for submissions
-   )
-
-   results = harness.run()
-   ```
-
-The harness will automatically set the `RUNID` environment variable when the `leaderboard` flag is set to `True` and a `run_id` is provided.
-
-**Important**: For your run to be verified and displayed publicly on the leaderboard, you must contact participate@realevals.xyz after completing your submission.
-
-## Example Scripts
-
-Check out the example scripts in the repository:
-
-- `example.py`: Demonstrates both built-in and custom agent implementations
-
-## Contributing
-
-We welcome any contributions to the AGI SDK, whether it's submitting an idea, fixing a typo, adding a new guide, or improving an existing one.
-
-If you have ideas for new examples or guides, share them on the [issues page](https://github.com/agi-inc/agisdk/issues).
-
-If you want to directly contribute code, you can fork the repository, make your changes, and submit a pull request.
-To avoid duplication of efforts, please review the existing issues and pull requests before contributing.
-
-## Additional Environment Variables
-
-To use models from other providers, set their respective API keys:
-
-```bash
-# For Anthropic models (like sonnet-3.7)
-export ANTHROPIC_API_KEY="your-anthropic-api-key"
 
 # For OpenRouter models
 export OPENROUTER_API_KEY="your-openrouter-api-key"
