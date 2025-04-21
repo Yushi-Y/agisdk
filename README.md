@@ -38,6 +38,12 @@ pip install -e .
 
 ## Quick Start
 
+After installing the package, you can run the example script in the `example/example.py` file. Just run:
+
+```bash
+python example/example.py
+```
+
 Here's a simple example to get you started for benchmarking an AI agent on the REAL Bench environment:
 
 ```python
@@ -53,6 +59,7 @@ harness = REAL.harness(
 # Run the experiment
 results = harness.run()
 ```
+
 
 ## Creating Custom Agents
 
