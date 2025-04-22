@@ -381,19 +381,59 @@ class harness:
         Returns:
             Dictionary of results indexed by task name
         """
-        # Generate a unique run ID for this batch
+        # Generate a unique run ID for this batch (but potentially override with cached run_id for leaderboard)
         import uuid
         from datetime import datetime
+        
+        # Initialize with a new UUID
         run_uuid = str(uuid.uuid4())
         run_timestamp = datetime.now().isoformat()
+        
+        
+        '''
+            Identify and Use Cached Run IDs:
+            - When running leaderboard submissions with caching enabled, the system now checks if there are cached leaderboard results
+            - If found, it extracts and uses the same run_id from the cached results
+            - This ensures that subsequent leaderboard submissions using cached results maintain the same run_id
+            
+            Prioritization of Run IDs:
+            - Explicitly provided run_id (via harness initialization) takes highest priority
+            - Cached leaderboard run_id takes second priority
+            - New auto-generated run_id is used as a last resort
+
+        '''
+        # Check if there's a consistent run_id we should use from the cache for leaderboard submissions
+        cached_run_id = None
+        if self.leaderboard and use_cache and not force_refresh:
+            # Try to find a cached leaderboard result to extract its run_id
+            for task_name in tasks[:1]:  # Just check one task to determine the run_id
+                cached_result = self._find_cached_result(task_name, agent_args, env_args_dict, results_dir)
+                if cached_result and cached_result.get("leaderboard", False):
+                    cached_run_id = cached_result.get("run_uuid")
+                    if cached_run_id:
+                        print(f"Using cached leaderboard run_id: {cached_run_id}")
+                        run_uuid = cached_run_id
+                        break
+        
         print(f"Running multiple tasks with ID: {run_uuid}")
+        
+        # If this is a leaderboard run, set the RUNID environment variable
+        if self.leaderboard:
+            if hasattr(self, "run_id") and self.run_id:
+                # If harness was initialized with a specific run_id, use that instead
+                run_uuid = self.run_id
+                print(f"Using explicitly provided run_id: {run_uuid}")
+            logger.info(f"Setting RUNID environment variable to {run_uuid} for leaderboard submission")
+            os.environ["RUNID"] = run_uuid
+        
         # Store run metadata for tracking
         run_metadata = {
             "run_uuid": run_uuid,
             "run_timestamp": run_timestamp,
             "agent_type": agent_args.agent_name if hasattr(agent_args, "agent_name") else type(agent_args).__name__,
             "model_name": getattr(agent_args, "model_name", "unknown"),
-            "total_tasks": len(tasks)
+            "total_tasks": len(tasks),
+            "leaderboard": self.leaderboard if hasattr(self, "leaderboard") else False
         }
         
         print(f"Starting run with ID: {run_uuid}")

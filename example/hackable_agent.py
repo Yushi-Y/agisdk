@@ -428,6 +428,12 @@ if __name__ == "__main__":
     parser.add_argument("--headless", type=str2bool, default=False,
                         help="Run headless (default: False)")
     
+    #Leaderboard arguments
+    parser.add_argument("--run_id", type=str, default=None,
+                        help="Run ID for leaderboard submission (required for leaderboard)")
+    parser.add_argument("--leaderboard", type=str2bool, default=False,
+                        help="Submit results to leaderboard (default: False)")
+    
     
     args = parser.parse_args()
     
