@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://theagi.company">
-    <h3 align="center">AGI SDK</h3>
-  </a>
+  <h3 align="center">AGI SDK</h3>
 </p>
+
+<p align="center"><a href="https://arxiv.org/abs/2504.11543">📄 Paper</a> | <a href="https://www.theagi.company/blog/introducing-real-bench">📝 Blog</a> | <a href="https://www.theagi.company">🏢 AGI Inc</a> | <a href="https://www.realevals.xyz">🏆 Leaderboard</a></p>
 
 AGI SDK is a toolkit for building and evaluating AI agents. 
 
@@ -136,15 +136,6 @@ harness = REAL.harness(
 results = harness.run()
 ```
 
-## Contributing
-
-We welcome any contributions to the AGI SDK, whether it's submitting an idea, fixing a typo, adding a new guide, or improving an existing one.
-
-If you have ideas for new examples or guides, share them on the [issues page](https://github.com/agi-inc/agisdk/issues).
-
-If you want to directly contribute code, you can fork the repository, make your changes, and submit a pull request.
-To avoid duplication of efforts, please review the existing issues and pull requests before contributing.
-
 ## Additional Environment Variables
 
 To use models from other providers, set their respective API keys:
@@ -267,5 +258,15 @@ REAL.harness(
 ```
 export OPENROUTER_API_KEY="your-openrouter-api-key"
 ```
+
+## Contributing
+
+We welcome any contributions to the AGI SDK, whether it's submitting an idea, fixing a typo, adding a new guide, or improving an existing one.
+
+- For general ideas or issues, share them on the [issues page](https://github.com/agi-inc/agisdk/issues).
+- For issues with specific REAL tasks or websites, please report them in the corresponding column in our [project board](https://github.com/orgs/agi-inc/projects/2) so we can track and improve REAL.
+
+If you want to directly contribute code, you can fork the repository, make your changes, and submit a pull request.
+To avoid duplication of efforts, please review the existing issues and pull requests before contributing.
 
 Happy building! 🙌
