@@ -337,23 +337,27 @@ You will now think step by step and produce your next best action. Reflect on yo
 @dataclasses.dataclass
 class DemoAgentArgs(AbstractAgentArgs):
     """
-    This class is meant to store the arguments that define the agent.
-
+    Arguments for the DemoAgent.
+    
     By isolating them in a dataclass, this ensures serialization without storing
     internal states of the agent.
     
-    This implementation only supports OpenAI's GPT-4o model.
+    This implementation uses the agisdk module for creating agents and passing parameters.
+    By default, it uses OpenAI's GPT-4o model, but can be configured for other models.
     """
 
-    model_name: str = "gpt-4o"
-    chat_mode: bool = False
-    demo_mode: str = "off"
-    use_html: bool = False
-    use_axtree: bool = True
-    use_screenshot: bool = False
-    system_message_handling: Literal["separate", "combined"] = "separate"
+    agent_name: str = "DemoAgent"  # Agent name for the SDK to recognize
+    model_name: str = "gpt-4o"     # Default model, can be changed at runtime
+    chat_mode: bool = False        # Whether to enable chat mode
+    demo_mode: str = "off"         # Visual effects mode (off, minimal, full)
+    use_html: bool = False         # Whether to include HTML in observations
+    use_axtree: bool = True        # Whether to include accessibility tree
+    use_screenshot: bool = False   # Whether to include screenshots
+    system_message_handling: Literal["separate", "combined"] = "separate"  # How to handle system messages
 
     def make_agent(self):
+        """Create and return an instance of DemoAgent with the configured parameters."""
+        # This method is called by the agisdk harness to instantiate the agent
         return DemoAgent(
             model_name=self.model_name,
             chat_mode=self.chat_mode,
@@ -367,25 +371,38 @@ class DemoAgentArgs(AbstractAgentArgs):
 
 
 # Example creating and using the DemoAgent
-def run_demo_agent():
+def run_demo_agent(model_name="gpt-4o", task_name="webclones.omnizon-1"):
     """
     Run a test with the DemoAgent on a browsergym task.
-    """
-    logger.info("Starting DemoAgent test")
     
-    # Create harness with DemoAgent
+    Args:
+        model_name: The model to use with the agent
+        task_name: The browsergym task to run
+    
+    Returns:
+        Results dictionary from the harness run
+    """
+    logger.info(f"Starting DemoAgent test with model: {model_name} on task: {task_name}")
+    
+    # Create the agent arguments with the specified parameters
+    agent_args = DemoAgentArgs(
+        model_name=model_name,
+        chat_mode=False,
+        demo_mode="off",
+        use_html=False,
+        use_axtree=True,
+        use_screenshot=True,
+        system_message_handling="separate"
+    )
+    
+    # Pass the agent arguments to the harness through the agisdk module
     harness = REAL.harness(
-        agentargs=DemoAgentArgs(
-            chat_mode=False,
-            demo_mode="off",
-            use_html=False,
-            use_axtree=True,
-            use_screenshot=True,
-            system_message_handling="separate"
-        ),
-        task_name="webclones.omnizon-1",  # Specific task
-        headless=False,                   # Show browser window
-        max_steps=25,                     # Maximum steps per task
+        agentargs=agent_args,
+        task_name=task_name,        # The specific task to run
+        headless=False,             # Show browser window
+        max_steps=25,               # Maximum steps per task
+        use_axtree=agent_args.use_axtree,         # Pass through from agent args
+        use_screenshot=agent_args.use_screenshot,  # Pass through from agent args
     )
     
     # Run the task
@@ -400,4 +417,19 @@ def run_demo_agent():
 
 
 if __name__ == "__main__":
-    results = run_demo_agent()
+    import argparse
+    
+    # Set up command-line argument parsing
+    parser = argparse.ArgumentParser(description="Run DemoAgent on browsergym tasks")
+    parser.add_argument("--model", type=str, default="gpt-4o",
+                        help="Model to use with the agent (default: gpt-4o)")
+    parser.add_argument("--task", type=str, default="webclones.omnizon-1",
+                        help="Task to run (default: webclones.omnizon-1)")
+    parser.add_argument("--headless", type=str2bool, default=False,
+                        help="Run headless (default: False)")
+    
+    
+    args = parser.parse_args()
+    
+    # Run the agent with the specified parameters
+    results = run_demo_agent(model_name=args.model, task_name=args.task, headless=args.headless)
