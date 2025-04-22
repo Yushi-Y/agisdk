@@ -546,13 +546,18 @@ class harness:
         model_name = getattr(agent_args, "model_name", "unknown")
         max_steps = env_args.max_steps
         
+        # Check if this is a leaderboard run
+        is_leaderboard = self.leaderboard if hasattr(self, "leaderboard") else False
+        leaderboard_suffix = "_leaderboard" if is_leaderboard else ""
+        
         # Create initial summary info with metadata
         initial_summary = {
             "task_name": task_name,
             "agent_type": agent_type,
             "model_name": model_name,
             "max_steps": max_steps,
-            "cache_key": f"{task_name}_{agent_type}_{model_name}_{max_steps}",
+            "leaderboard": is_leaderboard,  # Store leaderboard flag in metadata
+            "cache_key": f"{task_name}_{agent_type}_{model_name}_{max_steps}{leaderboard_suffix}",
             "experiment_status": "started",
             "run_uuid": run_uuid,  # Add the run UUID for tracking
         }
@@ -672,8 +677,12 @@ class harness:
         # Extract core environment settings
         max_steps = env_args_dict.get("max_steps", "default")
         
-        # Create a reproducible cache key
-        cache_key = f"{task_name}_{agent_type}_{agent_model}_{max_steps}"
+        # Check if this is a leaderboard run
+        is_leaderboard = self.leaderboard if hasattr(self, "leaderboard") else False
+        leaderboard_suffix = "_leaderboard" if is_leaderboard else ""
+        
+        # Create a reproducible cache key with leaderboard flag
+        cache_key = f"{task_name}_{agent_type}_{agent_model}_{max_steps}{leaderboard_suffix}"
         
         return cache_key
     
