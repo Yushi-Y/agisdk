@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://theagi.company">
-    <h3 align="center">AGI SDK</h3>
-  </a>
+  <h3 align="center">AGI SDK</h3>
 </p>
 
 <p align="center"><a href="https://arxiv.org/abs/2504.11543">📄 Paper</a> | <a href="https://www.theagi.company/blog/introducing-real-bench">📝 Blog</a> | <a href="https://www.theagi.company">🏢 AGI Inc</a> | <a href="https://www.realevals.xyz">🏆 Leaderboard</a></p>
