@@ -112,4 +112,4 @@ def run_leaderboard_submission():
 
 
 if __name__ == "__main__":
-    results = run_builtin_agent()
+    results = run_builtin_agent()  # run_custom_agent() or run_leaderboard_submission()

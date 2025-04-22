@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+import dataclasses
+from typing import Dict, Tuple, Union, Optional
+
+from agisdk import REAL
+
 import base64
 import dataclasses
 import numpy as np
@@ -60,169 +66,44 @@ class DemoAgent(Agent):
         self.use_html = use_html
         self.use_axtree = use_axtree
         self.use_screenshot = use_screenshot
-        self.previous_thinking_blocks = []
         self.system_message_handling = system_message_handling
 
         if not (use_html or use_axtree):
             raise ValueError(f"Either use_html or use_axtree must be set to True.")
 
         from openai import OpenAI
-        from anthropic import Anthropic
         import os
 
-        if model_name.startswith("gpt-") or model_name.startswith("o1") or model_name.startswith("o3"):
-            self.client = OpenAI()
-            self.model_name = model_name
-            # Define function to query OpenAI models
-            def query_model(system_msgs, user_msgs):
-                if self.system_message_handling == "combined":
-                    # Combine system and user messages into a single user message
-                    combined_content = ""
-                    if system_msgs:
-                        combined_content += system_msgs[0]["text"] + "\n\n"
-                    for msg in user_msgs:
-                        if msg["type"] == "text":
-                            combined_content += msg["text"] + "\n"
-                    response = self.client.chat.completions.create(
-                        model=self.model_name,
-                        messages=[
-                            {"role": "user", "content": combined_content},
-                        ],
-                    )
-                else:
-                    response = self.client.chat.completions.create(
-                        model=self.model_name,
-                        messages=[
-                            {"role": "system", "content": system_msgs},
-                            {"role": "user", "content": user_msgs},
-                        ],
-                    )
-                return response.choices[0].message.content
-            self.query_model = query_model
-            
-        elif model_name.startswith("openrouter/"):
-            # Extract the actual model name without the openrouter/ prefix
-            actual_model_name = model_name.replace("openrouter/", "", 1)
-            
-            # Initialize OpenRouter client (using OpenAI client with custom base URL)
-            self.client = OpenAI(
-                base_url="https://openrouter.ai/api/v1",
-                api_key=os.getenv("OPENROUTER_API_KEY"),
-            )
-            self.model_name = actual_model_name
-            
-            # Define function to query OpenRouter models
-            def query_model(system_msgs, user_msgs):
+        # Initialize OpenAI client for GPT-4o
+        self.client = OpenAI()
+        self.model_name = "gpt-4o"  # Always use GPT-4o regardless of input model_name
+        
+        # Define function to query OpenAI models
+        def query_model(system_msgs, user_msgs):
+            if self.system_message_handling == "combined":
+                # Combine system and user messages into a single user message
+                combined_content = ""
+                if system_msgs:
+                    combined_content += system_msgs[0]["text"] + "\n\n"
+                for msg in user_msgs:
+                    if msg["type"] == "text":
+                        combined_content += msg["text"] + "\n"
                 response = self.client.chat.completions.create(
-                    extra_headers={
-                        "HTTP-Referer": os.getenv("OPENROUTER_SITE_URL", ""),
-                        "X-Title": os.getenv("OPENROUTER_SITE_NAME", ""),
-                    },
+                    model=self.model_name,
+                    messages=[
+                        {"role": "user", "content": combined_content},
+                    ],
+                )
+            else:
+                response = self.client.chat.completions.create(
                     model=self.model_name,
                     messages=[
                         {"role": "system", "content": system_msgs},
                         {"role": "user", "content": user_msgs},
                     ],
                 )
-                return response.choices[0].message.content
-            self.query_model = query_model
-            
-        elif model_name.startswith("sonnet-3.7"):
-            self.client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-            self.model_name = "claude-3-7-sonnet-20250219"
-            if model_name.endswith(":thinking"):
-                thinking = {
-                        "type": "enabled",
-                        "budget_tokens": 4000,
-                    }
-                self.thinking_enabled = True
-            else:
-                thinking = {"type": "disabled"}
-                self.thinking_enabled = False
-                
-            # Define function to query Anthropic models
-            def query_model(system_msgs, user_msgs):
-                # Convert OpenAI format messages to Anthropic format
-                anthropic_content = []
-                for msg in user_msgs:
-                    if msg["type"] == "text":
-                        anthropic_content.append({"type": "text", "text": msg["text"]})
-                    elif msg["type"] == "image_url":
-                        # Handle base64 image URLs for Anthropic
-                        image_url = msg["image_url"]
-                        if isinstance(image_url, dict):
-                            image_url = image_url["url"]
-                        
-                        if image_url.startswith("data:image/jpeg;base64,"):
-                            base64_data = image_url.replace("data:image/jpeg;base64,", "")
-                            anthropic_content.append({
-                                "type": "image",
-                                "source": {
-                                    "type": "base64",
-                                    "media_type": "image/jpeg",
-                                    "data": base64_data
-                                }
-                            })
-                        else:
-                            # Skip external URLs or unsupported image formats
-                            anthropic_content.append({"type": "text", "text": "[Image URL not supported by Anthropic API]"})
-                
-                # Set up messages array for API call
-                messages = []
-                
-                # If we have previous thinking blocks, need to create an assistant message
-                if self.thinking_enabled and self.previous_thinking_blocks:
-                    # Add previous assistant message with thinking blocks
-                    messages.append({
-                        "role": "assistant",
-                        "content": self.previous_thinking_blocks
-                    })
-                
-                # Add the current user message
-                messages.append({
-                    "role": "user", 
-                    "content": anthropic_content
-                })
-                
-                # Make API request
-                response = self.client.messages.create(
-                    model=self.model_name,
-                    max_tokens=8000,
-                    messages=messages,
-                    thinking=thinking,
-                    system=system_msgs[0]["text"] if system_msgs else "",
-                )
-                
-                # Log complete response for debugging
-                logger.info(f"Response content types: {[content.type for content in response.content]}")
-                
-                # Store thinking blocks for future use
-                if self.thinking_enabled:
-                    # Clear previous blocks
-                    self.previous_thinking_blocks = []
-                    
-                    # Store all thinking and redacted_thinking blocks
-                    for content_block in response.content:
-                        if content_block.type in ["thinking", "redacted_thinking"]:
-                            self.previous_thinking_blocks.append(content_block)
-                
-                # Extract only the text content for the agent's action
-                text_content = None
-                for content_block in response.content:
-                    if content_block.type == "text":
-                        text_content = content_block.text
-                        break
-                
-                # Fallback if no text content found
-                if text_content is None:
-                    logger.warning("No text content found in response")
-                    # Default to first block's text as a fallback
-                    text_content = response.content[0].text
-                
-                return text_content
-            self.query_model = query_model
-        else:
-            raise ValueError(f"Model {model_name} not supported. Use a model name starting with 'gpt-', 'sonnet-3.7', or 'openrouter/' followed by the OpenRouter model ID.")
+            return response.choices[0].message.content
+        self.query_model = query_model
 
         self.action_set = HighLevelActionSet(
             subsets=["chat", "bid", "infeas"],  # define a subset of the action space
@@ -461,13 +342,7 @@ class DemoAgentArgs(AbstractAgentArgs):
     By isolating them in a dataclass, this ensures serialization without storing
     internal states of the agent.
     
-    The model_name parameter can be:
-    - An OpenAI model starting with "gpt-" (e.g., "gpt-4o", "gpt-4o-mini")
-    - An Anthropic model ("sonnet-3.7" or "sonnet-3.7:thinking")
-    - An OpenRouter model with the prefix "openrouter/" (e.g., "openrouter/anthropic/claude-3-5-sonnet")
-    
-    When using OpenRouter models, set the OPENROUTER_API_KEY environment variable.
-    Optional: Set OPENROUTER_SITE_URL and OPENROUTER_SITE_NAME environment variables.
+    This implementation only supports OpenAI's GPT-4o model.
     """
 
     model_name: str = "gpt-4o"
@@ -488,3 +363,41 @@ class DemoAgentArgs(AbstractAgentArgs):
             use_screenshot=self.use_screenshot,
             system_message_handling=self.system_message_handling,
         )
+
+
+
+# Example creating and using the DemoAgent
+def run_demo_agent():
+    """
+    Run a test with the DemoAgent on a browsergym task.
+    """
+    logger.info("Starting DemoAgent test")
+    
+    # Create harness with DemoAgent
+    harness = REAL.harness(
+        agentargs=DemoAgentArgs(
+            chat_mode=False,
+            demo_mode="off",
+            use_html=False,
+            use_axtree=True,
+            use_screenshot=True,
+            system_message_handling="separate"
+        ),
+        task_name="webclones.omnizon-1",  # Specific task
+        headless=False,                   # Show browser window
+        max_steps=25,                     # Maximum steps per task
+    )
+    
+    # Run the task
+    logger.info("Running task...")
+    results = harness.run()
+    
+    # Print results summary
+    logger.info("Task completed")
+    logger.info(f"Results: {results}")
+    
+    return results
+
+
+if __name__ == "__main__":
+    results = run_demo_agent()
