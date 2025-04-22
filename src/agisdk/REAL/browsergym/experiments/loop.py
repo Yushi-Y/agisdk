@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import pickle
+import re
 import sys
 import time
 import traceback
@@ -562,87 +563,99 @@ def _save_summary_info(
             # If we can't load the existing file, start fresh
             pass
     
-    # Get task ID from the task_name (e.g., "webclones.omnizon-1" -> "omnizon-1")
-    task_name = summary_info.get("task_name", "unknown")
-    task_id = task_name.split(".")[-1] if "." in task_name else task_name
-    
     # Extract agent response (last message from agent or error message)
     agent_response = ""
-    if len(episode_info) > 0 and episode_info[-1].agent_info.get("chat_messages"):
-        # Try to find the last message from the agent
-        for msg in reversed(episode_info[-1].agent_info.get("chat_messages", [])):
-            if msg.get("role") == "assistant":
-                agent_response = msg.get("message", "")
-                break
-    
-    # If no agent message found, use the last action as the response
-    if not agent_response and len(episode_info) > 0:
-        agent_response = episode_info[-1].action or ""
-    
-    # If there's an error, use that as the agent response
-    if err_msg:
-        agent_response = f"Error: {err_msg}"
-    
-    # Determine success based on reward
-    cum_reward = sum([step.reward for step in episode_info])
-    success = cum_reward > 0
-    
-    # Create the new format summary info
-    new_summary_info = {
-        # Keep original metadata for compatibility
-        "task_name": summary_info.get("task_name"),
-        "agent_type": summary_info.get("agent_type"),
-        "model_name": summary_info.get("model_name"),
-        "max_steps": summary_info.get("max_steps"),
+    # Try multiple ways to get the agent response
+    if len(episode_info) > 0:
+        # Method 1: Check chat_messages in agent_info
+        if episode_info[-1].agent_info.get("chat_messages"):
+            for msg in reversed(episode_info[-1].agent_info.get("chat_messages", [])):
+                if msg.get("role") == "assistant":
+                    agent_response = msg.get("message", "")
+                    break
         
-        # New format fields
-        "completed": len(episode_info) > 0 and (episode_info[-1].terminated or episode_info[-1].truncated),
-        "success": success,
-        "error": err_msg is not None,
-        "score": float(cum_reward),
-        "task_id": task_id,
-        "agent_response": agent_response,
-        "env_setup_error": err_msg,
-    }
+        # Method 2: Check model_response directly in agent_info
+        if not agent_response and episode_info[-1].agent_info.get("model_response"):
+            agent_response = episode_info[-1].agent_info.get("model_response")
+        
+        # Method 3: Check last action/response message
+        if not agent_response and episode_info[-1].action and "send_msg_to_user" in episode_info[-1].action:
+            # Extract the message from send_msg_to_user("message")
+            match = re.search(r'send_msg_to_user\("(.+?)"\)', episode_info[-1].action)
+            if match:
+                agent_response = match.group(1)
+        
+        # Method 4: Check task_info for criteria responses
+        if not agent_response and episode_info[-1].task_info and "criteria" in episode_info[-1].task_info:
+            for criterion in episode_info[-1].task_info.get("criteria", []):
+                if criterion.get("model_response"):
+                    agent_response = criterion.get("model_response")
+                    break
     
-    # Add finish state if available
+    # Extract task_id from path if possible
+    task_id = None
+    exp_dir_str = str(exp_dir)
+    # Try to extract the task name/ID from the directory path
+    task_match = re.search(r'on_([\w.-]+)_', exp_dir_str)
+    if task_match:
+        task_id = task_match.group(1)
+    
+    # Check if there was an error
+    had_error = err_msg is not None and len(err_msg) > 0
+    
+    # Calculate success based on rewards and errors
+    success = False
+    if len(episode_info) > 0:
+        # Consider success if terminal state reached with positive reward and no errors
+        success = (episode_info[-1].terminated and 
+                  sum([step.reward for step in episode_info]) > 0 and 
+                  not had_error)
+    
+    # Extract finish state if available
+    finish_state = {}
     if len(episode_info) > 0 and episode_info[-1].task_info:
-        new_summary_info["finish_state"] = episode_info[-1].task_info
-    else:
-        new_summary_info["finish_state"] = {
-            "config": {
-                "run_id": summary_info.get("run_uuid", "local"),
-                "task_id": task_id
-            }
-        }
+        finish_state = episode_info[-1].task_info
     
-    # Add evaluation results if available
-    eval_results = []
-    if len(episode_info) > 0 and episode_info[-1].task_info and "eval_results" in episode_info[-1].task_info:
-        eval_results = episode_info[-1].task_info["eval_results"]
-    else:
-        # Add a default evaluation result based on success
-        eval_results = [success]
+    # Get configuration from the task info if available
+    config = {}
+    if len(episode_info) > 0 and episode_info[-1].obs and "config" in episode_info[-1].obs:
+        config = episode_info[-1].obs["config"]
+    elif finish_state and "config" in finish_state:
+        config = finish_state["config"]
     
-    new_summary_info["eval_results"] = eval_results
+    # Update with new results data
+    summary_info.update({
+        # Legacy fields (keep for backward compatibility)
+        "n_steps": len(episode_info) - 1,
+        "cum_reward": sum([step.reward for step in episode_info]),
+        "cum_raw_reward": sum([step.raw_reward for step in episode_info if step.raw_reward]),
+        "err_msg": err_msg,
+        "stack_trace": stack_trace,
+        "experiment_status": "completed",
+        
+        # New fields matching the desired format
+        "completed": True,
+        "success": success,
+        "error": had_error,
+        "score": float(sum([step.raw_reward for step in episode_info if step.raw_reward]) or 0.0),
+        "task_id": task_id or "",
+        "agent_response": agent_response,
+        "finish_state": finish_state,
+        "eval_results": [],  # This would need to be populated by an evaluation system
+        "env_setup_error": err_msg if "Executable doesn't exist" in str(err_msg) or "playwright" in str(err_msg) else None,
+    })
     
-    # Add stats as a separate section for debugging and analysis
-    stats = {}
+    # Add stats
     for key, val in _aggregate_episode_stats(episode_info).items():
-        stats[key] = val
-    
-    new_summary_info["stats"] = stats
-    
-    # Add original error info for debugging
-    if err_msg:
-        new_summary_info["debug"] = {
-            "err_msg": err_msg,
-            "stack_trace": stack_trace
-        }
-    
+        summary_info[f"stats.{key}"] = val
+
+    if len(episode_info) > 0:
+        summary_info["terminated"] = episode_info[-1].terminated
+        summary_info["truncated"] = episode_info[-1].truncated
+
     # Write updated summary info
     with open(summary_info_path, "w") as f:
-        json.dump(new_summary_info, f, indent=4)
+        json.dump(summary_info, f, indent=4)
 
 
 def _is_debugging():
