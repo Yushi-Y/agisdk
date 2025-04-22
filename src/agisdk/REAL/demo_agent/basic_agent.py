@@ -54,6 +54,11 @@ class DemoAgent(Agent):
         use_axtree: bool,
         use_screenshot: bool,
         system_message_handling: Literal["separate", "combined"] = "separate",
+        openai_api_key: Optional[str] = None,
+        openrouter_api_key: Optional[str] = None,
+        openrouter_site_url: Optional[str] = None,
+        openrouter_site_name: Optional[str] = None,
+        anthropic_api_key: Optional[str] = None,
     ) -> None:
         super().__init__()
         self.chat_mode = chat_mode
@@ -71,7 +76,8 @@ class DemoAgent(Agent):
         import os
 
         if model_name.startswith("gpt-") or model_name.startswith("o1") or model_name.startswith("o3"):
-            self.client = OpenAI()
+            # Use provided API key or fall back to environment variable
+            self.client = OpenAI(api_key=openai_api_key)
             self.model_name = model_name
             # Define function to query OpenAI models
             def query_model(system_msgs, user_msgs):
@@ -107,16 +113,19 @@ class DemoAgent(Agent):
             # Initialize OpenRouter client (using OpenAI client with custom base URL)
             self.client = OpenAI(
                 base_url="https://openrouter.ai/api/v1",
-                api_key=os.getenv("OPENROUTER_API_KEY"),
+                api_key=openrouter_api_key or os.getenv("OPENROUTER_API_KEY"),
             )
+            # Store site info for headers
+            self.openrouter_site_url = openrouter_site_url or os.getenv("OPENROUTER_SITE_URL", "")
+            self.openrouter_site_name = openrouter_site_name or os.getenv("OPENROUTER_SITE_NAME", "")
             self.model_name = actual_model_name
             
             # Define function to query OpenRouter models
             def query_model(system_msgs, user_msgs):
                 response = self.client.chat.completions.create(
                     extra_headers={
-                        "HTTP-Referer": os.getenv("OPENROUTER_SITE_URL", ""),
-                        "X-Title": os.getenv("OPENROUTER_SITE_NAME", ""),
+                        "HTTP-Referer": self.openrouter_site_url,
+                        "X-Title": self.openrouter_site_name,
                     },
                     model=self.model_name,
                     messages=[
@@ -128,7 +137,7 @@ class DemoAgent(Agent):
             self.query_model = query_model
             
         elif model_name.startswith("sonnet-3.7"):
-            self.client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+            self.client = Anthropic(api_key=anthropic_api_key or os.getenv("ANTHROPIC_API_KEY"))
             self.model_name = "claude-3-7-sonnet-20250219"
             if model_name.endswith(":thinking"):
                 thinking = {
@@ -456,9 +465,9 @@ You will now think step by step and produce your next best action. Reflect on yo
 @dataclasses.dataclass
 class DemoAgentArgs(AbstractAgentArgs):
     """
-    This class is meant to store the arguments that define the agent.
+    This class stores the arguments that define the DemoAgent configuration.
 
-    By isolating them in a dataclass, this ensures serialization without storing
+    By isolating parameters in a dataclass, this ensures serialization without storing
     internal states of the agent.
     
     The model_name parameter can be:
@@ -466,8 +475,11 @@ class DemoAgentArgs(AbstractAgentArgs):
     - An Anthropic model ("sonnet-3.7" or "sonnet-3.7:thinking")
     - An OpenRouter model with the prefix "openrouter/" (e.g., "openrouter/anthropic/claude-3-5-sonnet")
     
-    When using OpenRouter models, set the OPENROUTER_API_KEY environment variable.
-    Optional: Set OPENROUTER_SITE_URL and OPENROUTER_SITE_NAME environment variables.
+    API keys can be provided directly as parameters or through environment variables:
+    - OpenAI models: provide openai_api_key or set OPENAI_API_KEY env var
+    - Anthropic models: provide anthropic_api_key or set ANTHROPIC_API_KEY env var
+    - OpenRouter models: provide openrouter_api_key or set OPENROUTER_API_KEY env var
+      Optional: provide openrouter_site_url/openrouter_site_name or set the corresponding env vars
     """
 
     model_name: str = "gpt-4o"
@@ -477,6 +489,13 @@ class DemoAgentArgs(AbstractAgentArgs):
     use_axtree: bool = True
     use_screenshot: bool = False
     system_message_handling: Literal["separate", "combined"] = "separate"
+    
+    # API keys and configuration - these can be None and the agent will fall back to environment variables
+    openai_api_key: Optional[str] = None
+    openrouter_api_key: Optional[str] = None
+    openrouter_site_url: Optional[str] = None
+    openrouter_site_name: Optional[str] = None
+    anthropic_api_key: Optional[str] = None
 
     def make_agent(self):
         return DemoAgent(
@@ -487,4 +506,10 @@ class DemoAgentArgs(AbstractAgentArgs):
             use_axtree=self.use_axtree,
             use_screenshot=self.use_screenshot,
             system_message_handling=self.system_message_handling,
+            # Pass API keys and configuration
+            openai_api_key=self.openai_api_key,
+            openrouter_api_key=self.openrouter_api_key,
+            openrouter_site_url=self.openrouter_site_url,
+            openrouter_site_name=self.openrouter_site_name,
+            anthropic_api_key=self.anthropic_api_key,
         )
