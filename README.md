@@ -4,6 +4,8 @@
   </a>
 </p>
 
+<p align="center"><a href="https://arxiv.org/abs/2504.11543">📄 Paper</a> | <a href="https://www.theagi.company/blog/introducing-real-bench">📝 Blog</a> | <a href="https://www.theagi.company">🏢 AGI Inc</a> | <a href="https://www.realevals.xyz">🏆 Leaderboard</a></p>
+
 AGI SDK is a toolkit for building and evaluating AI agents. 
 
 It comes with support for the [REAL benchmark](https://realevals.xyz) (Realistic Evaluations for Agents Leaderboard) to evaluate browser-based agents in real world settings.
