@@ -5,7 +5,7 @@ import io
 import logging
 
 from PIL import Image
-from typing import Literal
+from typing import Literal, Optional
 
 from agisdk.REAL.browsergym.experiments import Agent, AbstractAgentArgs
 from agisdk.REAL.browsergym.core.action.highlevel import HighLevelActionSet

@@ -13,6 +13,9 @@ import logging
 from PIL import Image
 from typing import Literal
 
+# Import str2bool function for boolean command line arguments
+from agisdk.REAL.demo_agent.run_demo import str2bool
+
 from agisdk.REAL.browsergym.experiments import Agent, AbstractAgentArgs
 from agisdk.REAL.browsergym.core.action.highlevel import HighLevelActionSet
 from agisdk.REAL.browsergym.core.action.python import PythonActionSet
@@ -371,13 +374,16 @@ class DemoAgentArgs(AbstractAgentArgs):
 
 
 # Example creating and using the DemoAgent
-def run_demo_agent(model_name="gpt-4o", task_name="webclones.omnizon-1"):
+def run_demo_agent(model_name="gpt-4o", task_name="webclones.omnizon-1", headless=False, leaderboard=False, run_id=None):
     """
     Run a test with the DemoAgent on a browsergym task.
     
     Args:
-        model_name: The model to use with the agent
+        model_name: The model to use with the agent (e.g., "deepseek/deepseek-r1:free")
         task_name: The browsergym task to run
+        headless: Whether to run in headless mode (no browser UI)
+        leaderboard: Whether to submit results to leaderboard
+        run_id: Unique identifier for leaderboard submission
     
     Returns:
         Results dictionary from the harness run
@@ -399,10 +405,12 @@ def run_demo_agent(model_name="gpt-4o", task_name="webclones.omnizon-1"):
     harness = REAL.harness(
         agentargs=agent_args,
         task_name=task_name,        # The specific task to run
-        headless=False,             # Show browser window
+        headless=headless,          # Configurable browser visibility
         max_steps=25,               # Maximum steps per task
         use_axtree=agent_args.use_axtree,         # Pass through from agent args
         use_screenshot=agent_args.use_screenshot,  # Pass through from agent args
+        leaderboard=leaderboard,    # Whether to submit to leaderboard
+        run_id=run_id,              # Run ID for leaderboard submission
     )
     
     # Run the task
@@ -427,7 +435,6 @@ if __name__ == "__main__":
                         help="Task to run (default: webclones.omnizon-1)")
     parser.add_argument("--headless", type=str2bool, default=False,
                         help="Run headless (default: False)")
-    
     #Leaderboard arguments
     parser.add_argument("--run_id", type=str, default=None,
                         help="Run ID for leaderboard submission (required for leaderboard)")
@@ -438,4 +445,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     # Run the agent with the specified parameters
-    results = run_demo_agent(model_name=args.model, task_name=args.task, headless=args.headless)
+    results = run_demo_agent(
+        model_name=args.model, 
+        task_name=args.task, 
+        headless=args.headless,
+        leaderboard=args.leaderboard,
+        run_id=args.run_id
+    )

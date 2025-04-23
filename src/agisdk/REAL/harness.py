@@ -100,6 +100,8 @@ class harness:
         self.use_cache = use_cache
         self.cache_only = cache_only
         self.force_refresh = force_refresh
+        self.leaderboard = leaderboard
+        self.run_id = run_id
         
         # Initialize agent arguments
         if agentargs is not None:
