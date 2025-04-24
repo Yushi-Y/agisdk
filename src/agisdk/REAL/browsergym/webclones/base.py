@@ -59,7 +59,7 @@ class AbstractWebCloneTask(AbstractBrowserTask):
     def setup(self, page: playwright.sync_api.Page) -> tuple[str, dict]:
         self.page = page
         self.background_page = page.context.new_page()
-        config_url = self.url + f"/config?run_id={self.run_id}&task_id={self.task_id}"
+        config_url = self.url + f"/config?run_id={self.run_id}&task_id={self.task_id}&latency=0"
         self.background_page.goto(config_url)
         self.background_page.wait_for_load_state("networkidle")
         finish_url = self.url + "/finish"

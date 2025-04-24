@@ -150,8 +150,9 @@ class ExpArgs:
     logging_level: int = logging.INFO
     exp_id: str = None
     depends_on: tuple[str] = ()
-    save_screenshot: bool = True
+    save_screenshot: bool = False
     save_som: bool = False
+    save_step_info_pkl: bool = False
 
     def prepare(self, exp_root):
         """Prepare the experiment directory and save the experiment arguments.
@@ -188,7 +189,8 @@ class ExpArgs:
                 raise ValueError("Could not find a unique name for the experiment directory.")
 
             tag = f"_{i}" if i > 0 else ""
-            self.exp_dir = Path(exp_root) / f"{date_str}_{self.exp_name}{tag}"
+            random_id = str(uuid.uuid4().hex)
+            self.exp_dir = Path(exp_root) / f"{date_str}_{self.exp_name}_{random_id}{tag}"
             if not self.exp_dir.exists():
                 break
 
@@ -255,7 +257,10 @@ class ExpArgs:
                     step_info.truncated = True
 
                 step_info.save_step_info(
-                    self.exp_dir, save_screenshot=self.save_screenshot, save_som=self.save_som
+                    self.exp_dir,
+                    save_screenshot=self.save_screenshot,
+                    save_som=self.save_som,
+                    save_pkl=self.save_step_info_pkl,
                 )
                 logger.debug(f"Step info saved.")
 
@@ -288,7 +293,10 @@ class ExpArgs:
             try:
                 if step_info is not None:
                     step_info.save_step_info(
-                        self.exp_dir, save_screenshot=self.save_screenshot, save_som=self.save_som
+                        self.exp_dir,
+                        save_screenshot=self.save_screenshot,
+                        save_som=self.save_som,
+                        save_pkl=self.save_step_info_pkl,
                     )
             except Exception as e:
                 logger.error(f"Error while saving step info in the finally block: {e}")
@@ -450,7 +458,7 @@ class StepInfo:
 
         self.stats = stats
 
-    def save_step_info(self, exp_dir, save_json=False, save_screenshot=True, save_som=False):
+    def save_step_info(self, exp_dir, save_json=False, save_screenshot=True, save_som=False, save_pkl=True):
 
         screenshot = self.obs.pop("screenshot", None)
         screenshot_som = self.obs.pop("screenshot_som", None)
@@ -475,9 +483,10 @@ class StepInfo:
             # set goal_object to a special placeholder value, which indicates it should be loaded from a separate file
             self.obs["goal_object"] = None
 
-        with gzip.open(exp_dir / f"step_{self.step}.pkl.gz", "wb") as f:
-            # TODO should we pop the screenshots too before this to save space ?
-            pickle.dump(self, f)
+        if save_pkl:
+            with gzip.open(exp_dir / f"step_{self.step}.pkl.gz", "wb") as f:
+                # TODO should we pop the screenshots too before this to save space ?
+                pickle.dump(self, f)
 
         if save_json:
             with open(exp_dir / "steps_info.json", "w") as f:

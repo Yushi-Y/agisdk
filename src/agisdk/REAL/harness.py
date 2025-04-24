@@ -66,6 +66,7 @@ class harness:
         use_cache: bool = True,
         cache_only: bool = False,
         force_refresh: bool = False,
+        sample_tasks: int = 1,
     ):
         """
         Initialize the harness with the provided configuration.
@@ -102,7 +103,9 @@ class harness:
         self.force_refresh = force_refresh
         self.leaderboard = leaderboard
         self.run_id = run_id
+        self.sample_tasks = sample_tasks
         
+        logger.info(f"Harness initialized with model={model or 'custom'}, task={task_name or task_type}, Sampling each task {sample_tasks} times")
         # Initialize agent arguments
         if agentargs is not None:
             self.agent_args = agentargs
@@ -184,6 +187,7 @@ class harness:
                     task_type=self.task_type,
                     task_id=self.task_id
                 )
+                logger.info(f"Running {len(tasks)} tasks")
         
         if not tasks:
             raise ValueError("No tasks found to run")
@@ -301,7 +305,7 @@ class harness:
         Returns:
             List of task names formatted as 'webclones.{task_type}-{task_id}'
         """
-        tasks_dir = Path(__file__).parent.parent.parent.parent / "src" / "agisdk" / "real" / "browsergym" / "webclones" / "tasks"
+        tasks_dir = Path(__file__).parent.parent.parent.parent / "src" / "agisdk" / "REAL" / "browsergym" / "webclones" / "tasks"
         
         # Get all JSON files in the main tasks directory (excluding the alt subdirectory)
         json_files = [f for f in glob.glob(f"{tasks_dir}/*.json") if "/alt/" not in f]
@@ -336,7 +340,7 @@ class harness:
         if task_type and task_id is not None:
             specific_task = f"{task_type}-{task_id}"
             if specific_task in task_names:
-                return [f"webclones.{specific_task}"]
+                return [f"webclones.{specific_task}" for _ in range(self.sample_tasks)]
             else:
                 raise ValueError(f"Task {specific_task} not found")
         
@@ -350,7 +354,7 @@ class harness:
                 task_names = random.sample(task_names, sample_size)
         
         # Format task names for browsergym
-        return [f"webclones.{name}" for name in sorted(task_names)]
+        return [f"webclones.{name}" for name in sorted(task_names) for _ in range(self.sample_tasks)]
     
     def _run_tasks(
         self,
