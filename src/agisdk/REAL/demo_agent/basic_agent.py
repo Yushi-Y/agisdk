@@ -135,7 +135,34 @@ class DemoAgent(Agent):
                 )
                 return response.choices[0].message.content
             self.query_model = query_model
+        
+        elif model_name.startswith("local"):
+            actual_model_name = model_name.replace("local/", "", 1)
             
+            # Modify OpenAI's API key and API base to use vLLM's load balancer server.
+            self.client = OpenAI(
+                base_url="http://localhost:7999/v1",
+                api_key="FEEL_THE_AGI",
+            )
+            self.model_name = actual_model_name
+            
+            # Define function to query OpenRouter models
+            def query_model(system_msgs, user_msgs):
+                completion = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": system_msgs},
+                        {"role": "user", "content": user_msgs}
+                    ],
+                    max_tokens=500,
+                    temperature=1.0,
+                    top_p=0.95,
+                    extra_body={"top_k": 64}
+                )
+                return completion.choices[0].message.content
+                
+            self.query_model = query_model
+    
         elif model_name.startswith("sonnet-3.7"):
             self.client = Anthropic(api_key=anthropic_api_key or os.getenv("ANTHROPIC_API_KEY"))
             self.model_name = "claude-3-7-sonnet-20250219"
