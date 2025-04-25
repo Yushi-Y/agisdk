@@ -27,7 +27,7 @@ export OPENAI_API_KEY="your-api-key"
 
 ## Quick Start
 
-After installing the package, you can run the example script in the `example/example.py` file. Just run:
+After installing the package, you can run the example script in the `example/starter.py` file. Just run:
 
 ```bash
 python example/starter.py
@@ -73,6 +73,25 @@ cd agisdk
 pip install -e .
 ```
 
+## Available Tasks
+
+The AGI SDK includes high-fidelity, fully-deterministic websites for agents to explore. These are modern web stack sites (React + Next.js) with rich functionality for core user flows, realistic mock data, and consistent behavior for testing and evaluation.
+
+The benchmark includes these environments:
+
+- **Omnizon** (`webclones.omnizon-*`): Similar to Amazon, for e-commerce shopping tasks
+- **DashDish** (`webclones.dashdish-*`): Similar to DoorDash, for food delivery tasks
+- **Fly Unified** (`webclones.fly-unified-*`): Similar to United Airlines, for flight booking
+- **Staynb** (`webclones.staynb-*`): Similar to Airbnb, for accommodation booking
+- **GoCalendar** (`webclones.gocalendar-*`): Similar to Google Calendar, for scheduling
+- **GoMail** (`webclones.gomail-*`): Similar to Gmail, for email tasks
+- **OpenDining** (`webclones.opendining-*`): Similar to OpenTable, for restaurant reservations
+- **NetworkIn** (`webclones.networkin-*`): Similar to LinkedIn, for professional networking
+- **Udriver** (`webclones.udriver-*`): Similar to Uber, for ride booking
+- **TopWork** (`webclones.topwork-*`): Similar to UpWork, for freelance job marketplace
+- **Zilloft** (`webclones.zilloft-*`): Similar to Zillow, for real estate browsing
+
+Each task comes with practical, human-written goals that test an agent's ability to navigate and complete realistic web tasks.
 
 ## Additional Environment Variables
 
@@ -128,26 +147,6 @@ Actions are specified as strings in the format of function calls. Here are some 
 # Reporting infeasible tasks
 "report_infeasible('The requested item is out of stock')"
 ```
-
-## Available Tasks
-
-The AGI SDK includes high-fidelity, fully-deterministic websites for agents to explore. These are modern web stack sites (React + Next.js) with rich functionality for core user flows, realistic mock data, and consistent behavior for testing and evaluation.
-
-The benchmark includes these environments:
-
-- **Omnizon** (`webclones.omnizon-*`): Similar to Amazon, for e-commerce shopping tasks
-- **DashDish** (`webclones.dashdish-*`): Similar to DoorDash, for food delivery tasks
-- **Fly Unified** (`webclones.fly-unified-*`): Similar to United Airlines, for flight booking
-- **Staynb** (`webclones.staynb-*`): Similar to Airbnb, for accommodation booking
-- **GoCalendar** (`webclones.gocalendar-*`): Similar to Google Calendar, for scheduling
-- **GoMail** (`webclones.gomail-*`): Similar to Gmail, for email tasks
-- **OpenDining** (`webclones.opendining-*`): Similar to OpenTable, for restaurant reservations
-- **NetworkIn** (`webclones.networkin-*`): Similar to LinkedIn, for professional networking
-- **Udriver** (`webclones.udriver-*`): Similar to Uber, for ride booking
-- **TopWork** (`webclones.topwork-*`): Similar to UpWork, for freelance job marketplace
-- **Zilloft** (`webclones.zilloft-*`): Similar to Zillow, for real estate browsing
-
-Each task comes with practical, human-written goals that test an agent's ability to navigate and complete realistic web tasks.
 
 ## Harness Configuration
 
