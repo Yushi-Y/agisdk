@@ -67,6 +67,9 @@ class harness:
         cache_only: bool = False,
         force_refresh: bool = False,
         sample_tasks: int = 1,
+        api_key: str = None,
+        run_name: str = None,
+        model_id_name: str = None,
     ):
         """
         Initialize the harness with the provided configuration.
@@ -137,6 +140,27 @@ class harness:
             "viewport": viewport,
         }
         
+        # Try to get run_id from API if api_key and run_name are provided but run_id is not
+        if not run_id and api_key and run_name:
+            # Use model_id_name if provided, otherwise use model
+            api_model_id_name = model_id_name if model_id_name else model
+            if api_model_id_name:
+                logger.info(f"Getting run ID from API using api_key, model_id_name={api_model_id_name}, and run_name={run_name}")
+                try:
+                    from agisdk.REAL.browsergym.webclones.base import get_run_id_from_api
+                    api_run_id = get_run_id_from_api(api_key, api_model_id_name, run_name)
+                    if api_run_id:
+                        logger.info(f"Retrieved run ID from API: {api_run_id}")
+                        run_id = api_run_id
+                        # Enable leaderboard if we got a run_id from the API
+                        leaderboard = True
+                    else:
+                        logger.warning("Failed to get run ID from API")
+                except Exception as e:
+                    logger.error(f"Error getting run ID from API: {e}")
+            else:
+                logger.warning("Cannot get run ID from API: model_id_name not provided and model is None")
+        
         # Handle run_id and leaderboard submission
         if run_id:
             # self.env_args["task_kwargs"] = {"run_id": run_id}
@@ -151,7 +175,7 @@ class harness:
                     logger.info("Unsetting RUNID environment variable (leaderboard disabled)")
                     del os.environ["RUNID"]
         elif leaderboard:
-            logger.warning("Leaderboard submission is enabled but run_id is not provided. Please provide a run_id.")
+            logger.warning("Leaderboard submission is enabled but run_id is not provided. Please provide a run_id or api_key, model_id_name and run_name.")
         
         # Store task selection parameters
         self.task_name = task_name

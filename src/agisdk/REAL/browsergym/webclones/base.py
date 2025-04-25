@@ -1,10 +1,53 @@
 import os
 import json
+import urllib.parse
+import requests
+import logging
 
 import playwright.sync_api
 from agisdk.REAL.browsergym.core.task import AbstractBrowserTask
 from agisdk.REAL.browsergym.webclones.task_config import TaskConfig
 from agisdk.REAL.browsergym.webclones.evaluate import WebCloneEvaluator
+
+logger = logging.getLogger(__name__)
+
+def get_run_id_from_api(api_key: str, model_id_name: str, run_name: str):
+    """
+    Get a run ID from the REAL evaluations API using an API key, model name, and run name.
+    
+    Args:
+        api_key: REAL API key
+        model_id_name: Name of the model being used
+        run_name: Human-readable name for this run
+        
+    Returns:
+        A run ID string if successful, None otherwise
+    """
+    try:
+        # URL encode parameters
+        encoded_model_id_name = urllib.parse.quote(model_id_name)
+        encoded_run_name = urllib.parse.quote(run_name)
+        
+        # Construct the API URL
+        url = f"https://www.realevals.xyz/api/runKey?api_key={api_key}&model_name={encoded_model_id_name}&run_name={encoded_run_name}"
+        
+        # Make the request
+        response = requests.get(url, timeout=10)
+        
+        # Check if request was successful
+        if response.status_code == 200:
+            data = response.json()
+            if "newRunId" in data:
+                return data["newRunId"]
+            else:
+                logger.error(f"API response did not contain newRunId: {data}")
+        else:
+            logger.error(f"API request failed with status code {response.status_code}: {response.text}")
+            
+    except Exception as e:
+        logger.error(f"Error getting run ID from API: {e}")
+        
+    return None
 
 class AbstractWebCloneTask(AbstractBrowserTask):
     """
@@ -15,13 +58,16 @@ class AbstractWebCloneTask(AbstractBrowserTask):
     def get_task_id(cls):
         return cls.task_id
 
-    def __init__(self, seed: int, task_id: str, run_id: str = None) -> None:
+    def __init__(self, seed: int, task_id: str, run_id: str = None, api_key: str = None, model_id_name: str = None, run_name: str = None) -> None:
         """
         Args:
             seed: Random seed for the task.
             task_id: ID of the task to load.
             run_id: Optional run ID for the task. If provided, overrides the run_id in the task config.
                    This is used for leaderboard submissions.
+            api_key: Optional REAL API key for automatic run_id generation.
+            model_id_name: Optional model name for automatic run_id generation.
+            run_name: Optional run name for automatic run_id generation.
             base_url: str (optional), the base URL where the task's HTML file is to be found.
                      If not provided, the WEBCLONES_URL environment variable will be used.
         """
@@ -34,17 +80,50 @@ class AbstractWebCloneTask(AbstractBrowserTask):
             raise ValueError(f"Invalid task configuration for task ID: {self.task_id}")
             
         # Set run_id: prioritize RUNID environment variable,
-        # then the explicitly provided run_id parameter, 
+        # then the explicitly provided run_id parameter,
+        # then try to generate from API if api_key, model_id_name, and run_name are provided,
         # then check task config, finally default to '0'
         env_run_id = os.environ.get("RUNID")
         if env_run_id:
             self.run_id = env_run_id
+            logger.info(f"Using run_id from environment variable: {self.run_id}")
         elif run_id is not None:
             self.run_id = run_id
+            logger.info(f"Using explicitly provided run_id: {self.run_id}")
+        elif api_key is not None and model_id_name is not None and run_name is not None:
+            # Try to get run_id from API
+            logger.info(f"Attempting to get run_id from API for model '{model_id_name}' and run '{run_name}'")
+            api_run_id = get_run_id_from_api(api_key, model_id_name, run_name)
+            if api_run_id:
+                self.run_id = api_run_id
+                # Also set the environment variable for other components
+                os.environ["RUNID"] = api_run_id
+                logger.info(f"Successfully obtained run_id from API: {self.run_id}")
+            else:
+                # Fall back to task config or default
+                if 'run_id' in self.task_config.task.config:
+                    self.run_id = self.task_config.task.config['run_id']
+                    logger.info(f"Using run_id from task config: {self.run_id}")
+                else:
+                    self.run_id = '0'
+                    logger.info(f"Using default run_id: {self.run_id}")
         elif 'run_id' in self.task_config.task.config:
             self.run_id = self.task_config.task.config['run_id']
+            logger.info(f"Using run_id from task config: {self.run_id}")
         else:
             self.run_id = '0'
+            logger.info(f"Using default run_id: {self.run_id}")
+            
+        # Check if REAL_API_KEY environment variable is set and no run_id was found yet
+        if self.run_id == '0' and os.environ.get("REAL_API_KEY") and model_id_name is not None and run_name is not None:
+            env_api_key = os.environ.get("REAL_API_KEY")
+            logger.info(f"Attempting to get run_id from API using REAL_API_KEY for model '{model_id_name}' and run '{run_name}'")
+            api_run_id = get_run_id_from_api(env_api_key, model_id_name, run_name)
+            if api_run_id:
+                self.run_id = api_run_id
+                # Also set the environment variable for other components
+                os.environ["RUNID"] = api_run_id
+                logger.info(f"Successfully obtained run_id from API: {self.run_id}")
         self.evaluator = WebCloneEvaluator(task_config=self.task_config)
         self.goal = self.task_config.get_goal()
         self.url = self.task_config.get_start_url()
@@ -124,12 +203,12 @@ class AbstractWebCloneTask(AbstractBrowserTask):
             # This sends the agent's answer to the leaderboard server
             if getattr(self, 'run_id', '0') != '0':
                 try:
-                    # URL encode the response for safety
+                    # URL encode the response for safety 
                     import urllib.parse
                     encoded_response = urllib.parse.quote(model_response)
                     self.background_page.goto(self.url + "/submit?retrieved_answer=" + encoded_response)
                 except Exception as e:
                     print(f"Warning: Failed to submit response to server: {e}")
-        print(f"reward: {reward}, done: {done}, user message: '{message}', model response: {response}")
+                    
         return reward, done, message, info
 

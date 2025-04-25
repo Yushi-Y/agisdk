@@ -178,14 +178,14 @@ class DemoAgent(Agent):
                             """,
                 }
             )
-            # append goal
+            # append goal header
             user_msgs.append(
                 {
                     "type": "text",
                     "text": f"""\
                             # Goal
-
-                            {obs["goal"]}
+                            
+                            {obs["goal_object"]}
                             """,
                 }
             )
