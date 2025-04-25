@@ -77,11 +77,11 @@ class DemoAgent(Agent):
         from openai import OpenAI
         import os
 
-        # Initialize OpenAI client with OpenRouter API for Deepseek R1
-        self.client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ.get("OPENROUTER_API_KEY"))
-        self.model_name = "deepseek/deepseek-r1:free"  # Use Deepseek R1 model
+        # Initialize OpenAI client for GPT-4o
+        self.client = OpenAI()
+        self.model_name = "gpt-4o"  # Always use GPT-4o regardless of input model_name
         
-        # Define function to query models through OpenRouter
+        # Define function to query OpenAI models
         def query_model(system_msgs, user_msgs):
             if self.system_message_handling == "combined":
                 # Combine system and user messages into a single user message
@@ -107,11 +107,14 @@ class DemoAgent(Agent):
         self.query_model = query_model
 
         self.action_set = HighLevelActionSet(
-            subsets=["chat", "bid", "infeas"],
-            strict=False,
-            multiaction=False,
-            demo_mode=demo_mode,
+            subsets=["chat", "bid", "infeas"],  # define a subset of the action space
+            # subsets=["chat", "bid", "coord", "infeas"] # allow the agent to also use x,y coordinates
+            strict=False,  # less strict on the parsing of the actions
+            multiaction=False,  # does not enable the agent to take multiple actions at once
+            demo_mode=demo_mode,  # add visual effects
         )
+        # use this instead to allow the agent to directly use Python code
+        # self.action_set = PythonActionSet())
 
         self.action_history = []
 
@@ -338,7 +341,7 @@ class DemoAgent(Agent):
 class DemoAgentArgs(AbstractAgentArgs):
 
     agent_name: str = "DemoAgent"  # Agent name for the SDK to recognize
-    model_name: str = "deepseek/deepseek-r1:free"  # Default model, can be changed at runtime
+    model_name: str = "gpt-4o"     # Default model, can be changed at runtime
     chat_mode: bool = False        # Whether to enable chat mode
     demo_mode: str = "off"         # Visual effects mode (off, minimal, full)
     use_html: bool = False         # Whether to include HTML in observations
@@ -361,7 +364,7 @@ class DemoAgentArgs(AbstractAgentArgs):
 
 
 # Example creating and using the DemoAgent
-def run_demo_agent(model_name="deepseek/deepseek-r1:free", task_name="webclones.omnizon-1", headless=False, leaderboard=False, run_id=None):
+def run_demo_agent(model_name="gpt-4o", task_name="webclones.omnizon-1", headless=False, leaderboard=False, run_id=None):
     logger.info(f"Starting DemoAgent test with model: {model_name} on task: {task_name}")
     
     # Create the agent arguments with the specified parameters

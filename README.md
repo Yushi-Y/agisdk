@@ -41,7 +41,7 @@ pip install -e .
 After installing the package, you can run the example script in the `example/example.py` file. Just run:
 
 ```bash
-python example/example.py
+python example/starter.py
 ```
 
 Here's a simple example to get you started for benchmarking an AI agent on the REAL Bench environment:
