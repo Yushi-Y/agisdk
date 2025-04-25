@@ -25,17 +25,6 @@ playwright install --force
 export OPENAI_API_KEY="your-api-key"
 ```
 
-For local development, you can install from source:
-
-```bash
-# Clone the repository
-git clone https://github.com/agi-inc/agisdk.git
-cd agisdk
-
-# Install in development mode
-pip install -e .
-```
-
 ## Quick Start
 
 After installing the package, you can run the example script in the `example/example.py` file. Just run:
@@ -58,83 +47,32 @@ harness = REAL.harness(
 
 # Run the experiment
 results = harness.run()
+
 ```
 
-## Creating Custom Agents
+## Running Custom Agents
 
-You can create your own custom agent by extending the Agent class:
+Checkout the README.md in the `example` folder. There are three examples of custom agents in the `example` directory:
 
-```python
-import dataclasses
-from typing import Dict, Tuple, Optional
+- `example/starter.py`: A simple example to get you started
+- `example/custom.py`: A more complex example with a custom agent
+- `example/nova.py`: For running custom agents which already have browsers running (in this case, Amazon NovaAct)
 
-from agisdk import REAL
+Additionally, there is a hackable example in `example/hackable.py` which is a can be configured for better performance and starting of.
 
-# Define custom agent at module level for pickle support
-class MyCustomAgent(REAL.Agent):
-    def __init__(self) -> None:
-        super().__init__()
-        self.steps = 0
+## Local Development
 
-    def get_agent_action(self, obs) -> Tuple[Optional[str], Optional[str]]:
-        """
-        Core agent logic - analyze observation and decide on action.
+Only if you want to develop locally, you can install from source:
 
-        Returns:
-            Tuple of (action, final_message)
-            - If action is None, episode ends with final_message
-            - If action is not None, the agent takes the action and continues
-        """
-        self.steps += 1
+```bash
+# Clone the repository
+git clone https://github.com/agi-inc/agisdk.git
+cd agisdk
 
-        # Example of simple decision making based on URL
-        current_url = obs.get("url", "")
-
-        # Example logic: Search for a product
-        if "google.com" in current_url:
-            return "goto('https://www.amazon.com')", None
-        elif "amazon.com" in current_url and self.steps == 1:
-            return "type('input[name=\"field-keywords\"]', 'wireless headphones')", None
-        elif "amazon.com" in current_url and self.steps == 2:
-            return "click('input[type=\"submit\"]')", None
-        elif "amazon.com" in current_url and self.steps >= 3:
-            # Complete the task with a message
-            return None, "Found wireless headphones on Amazon!"
-        else:
-            return "goto('https://www.google.com')", None
-
-    def get_action(self, obs: dict) -> Tuple[str, Dict]:
-        """
-        Convert agent's high-level action to browsergym action.
-        This method is required by the browsergym interface.
-        """
-        agent_action, final_message = self.get_agent_action(obs)
-
-        if final_message:
-            # End the episode with a message
-            return f"send_msg_to_user(\"{final_message}\")", {}
-        else:
-            # Continue with the specified action
-            return agent_action, {}
-
-# Create agent arguments class at module level
-@dataclasses.dataclass
-class MyCustomAgentArgs(REAL.AbstractAgentArgs):
-    agent_name: str = "MyCustomAgent"
-
-    def make_agent(self):
-        return MyCustomAgent()
-
-# Create harness with custom agent
-harness = REAL.harness(
-    agentargs=MyCustomAgentArgs(),
-    task_name="webclones.omnizon-1",
-    headless=False,
-)
-
-# Run the task
-results = harness.run()
+# Install in development mode
+pip install -e .
 ```
+
 
 ## Additional Environment Variables
 

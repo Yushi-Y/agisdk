@@ -1,54 +1,87 @@
 # AGI SDK Examples
 
-This directory contains example implementations demonstrating how to use the AGI SDK for building and testing web agents.
+This directory contains example implementations demonstrating how to use the AGI SDK for building and testing web agents. Each example showcases different approaches to agent implementation and configuration.
 
 ## Available Examples
 
-### 1. `example.py`
+### 1. `starter.py`
 
-A basic example demonstrating the core functionality of the AGI SDK harness with both built-in and custom agents.
+The simplest agent implementation that works with any model. This is the best starting point for beginners.
 
 **Features:**
-- Using a built-in agent with a specified model
-- Creating and using a custom agent
-- Running multiple tasks with leaderboard submission
+- Minimal implementation that works with any supported model
+- Multiple configuration options for flexibility
+- Easy to understand and modify
 
 **How to run:**
 ```bash
-# Run the default example (built-in agent)
-python example.py
+# Run with default settings
+python starter.py
 
-# To run the custom agent example, modify the main block to call run_custom_agent()
+# Run with custom model or configuration
+python starter.py --model gpt-4o --task webclones.omnizon-1 --headless False
 ```
 
-### 2. `hackable_agent.py`
+### 2. `custom.py`
 
-A more advanced example with a customizable agent that can be modified for different use cases.
+Boilerplate code for creating your own custom agent. Use this as a template when implementing your own agent logic.
+
+**Features:**
+- Basic structure for a custom agent implementation
+- Minimal code needed to get started
+- Clear instructions for extending functionality
+
+**How to run:**
+```bash
+# Run the custom agent example
+python custom.py
+```
+
+### 3. `hackable.py`
+
+A more advanced, feature-rich agent implementation designed for others to use and improve. This is our recommended agent for most use cases.
 
 **Features:**
 - Detailed agent implementation with observation preprocessing
 - Support for different model backends (OpenAI, Anthropic, OpenRouter)
-- Configurable agent parameters
+- Configurable agent parameters via command-line arguments
+- Extensive documentation and examples
 
 **How to run:**
 ```bash
-# Run with the default configuration
-python hackable_agent.py
+# Run with default configuration
+python hackable.py
 
-# To run with custom agent or leaderboard submission, modify the main block
-# to call run_custom_agent() or run_leaderboard_submission()
+# Run with custom parameters
+python hackable.py --model gpt-4o --task webclones.omnizon-1 --headless False --leaderboard True --run_id your-run-id
+```
+
+### 4. `nova.py`
+
+Designed for cases where the agent needs to own its own browser. This example demonstrates integration with Nova-Act by Amazon.
+
+**Features:**
+- Direct Playwright browser control
+- Configurable routes and task IDs
+- Automatic submission of results
+
+**How to run:**
+```bash
+# Before running, update the run_id in the script
+# Edit line 6: run_id = "YOUR-UUID-HERE" with your actual run ID
+python nova.py
 ```
 
 ## Harness Configuration
 
-Both examples use the REAL harness, which accepts various configuration parameters:
+Most examples use the REAL harness, which accepts various configuration parameters:
 
 ```python
 REAL.harness(
     # Agent configuration (provide one of these)
     model="gpt-4o",                                # OpenAI models
     model="sonnet-3.7",                            # Anthropic models
-    model="openrouter/deepseek/deepseek-chat-v3-0324", # OpenRouter models
+    model="openrouter/deepseek/deepseek-r1:free",    # OpenRouter models (Deepseek R1)
     agentargs=MyAgentArgs(),                       # Or custom agent arguments
 
     # Task selection (provide one of these)
@@ -93,4 +126,25 @@ To create your own agent:
    )
    ```
 
-See the `MyCustomAgent` class in `example.py` or the `DemoAgent` class in `hackable_agent.py` for implementation examples.
+See the `MyCustomAgent` class in `custom.py` or the `DemoAgent` class in `hackable.py` for implementation examples.
+
+## Using Different Models
+
+The AGI SDK supports various model providers:
+
+- **OpenAI**: Set `model="gpt-4o"` or other OpenAI models
+- **Anthropic**: Set `model="sonnet-3.7"` or other Anthropic models
+- **OpenRouter**: Set `model="openrouter/deepseek/deepseek-r1:free"` for Deepseek R1 or other models
+
+Make sure you have the appropriate API keys set in your environment variables:
+
+```bash
+# For OpenAI models
+export OPENAI_API_KEY="your-openai-api-key"
+
+# For Anthropic models
+export ANTHROPIC_API_KEY="your-anthropic-api-key"
+
+# For OpenRouter models
+export OPENROUTER_API_KEY="your-openrouter-api-key"
+```
