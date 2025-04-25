@@ -77,11 +77,11 @@ class DemoAgent(Agent):
         from openai import OpenAI
         import os
 
-        # Initialize OpenAI client for GPT-4o
-        self.client = OpenAI()
-        self.model_name = "gpt-4o"  # Always use GPT-4o regardless of input model_name
+        # Initialize OpenAI client with OpenRouter API for Deepseek R1
+        self.client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ.get("OPENROUTER_API_KEY"))
+        self.model_name = "deepseek/deepseek-r1:free"  # Use Deepseek R1 model
         
-        # Define function to query OpenAI models
+        # Define function to query models through OpenRouter
         def query_model(system_msgs, user_msgs):
             if self.system_message_handling == "combined":
                 # Combine system and user messages into a single user message
@@ -93,9 +93,7 @@ class DemoAgent(Agent):
                         combined_content += msg["text"] + "\n"
                 response = self.client.chat.completions.create(
                     model=self.model_name,
-                    messages=[
-                        {"role": "user", "content": combined_content},
-                    ],
+                    messages=[{"role": "user", "content": combined_content}],
                 )
             else:
                 response = self.client.chat.completions.create(
@@ -109,14 +107,11 @@ class DemoAgent(Agent):
         self.query_model = query_model
 
         self.action_set = HighLevelActionSet(
-            subsets=["chat", "bid", "infeas"],  # define a subset of the action space
-            # subsets=["chat", "bid", "coord", "infeas"] # allow the agent to also use x,y coordinates
-            strict=False,  # less strict on the parsing of the actions
-            multiaction=False,  # does not enable the agent to take multiple actions at once
-            demo_mode=demo_mode,  # add visual effects
+            subsets=["chat", "bid", "infeas"],
+            strict=False,
+            multiaction=False,
+            demo_mode=demo_mode,
         )
-        # use this instead to allow the agent to directly use Python code
-        # self.action_set = PythonActionSet())
 
         self.action_history = []
 
@@ -129,17 +124,17 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": f"""\
-# Instructions
+                            # Instructions
 
-You are a UI Assistant, your goal is to help the user perform tasks using a web browser. You can
-communicate with the user via a chat, to which the user gives you instructions and to which you
-can send back messages. You have access to a web browser that both you and the user can see,
-and with which only you can interact via specific commands.
+                            You are a UI Assistant, your goal is to help the user perform tasks using a web browser. You can
+                            communicate with the user via a chat, to which the user gives you instructions and to which you
+                            can send back messages. You have access to a web browser that both you and the user can see,
+                            and with which only you can interact via specific commands.
 
-Review the instructions from the user, the current state of the page and all other information
-to find the best possible next action to accomplish your goal. Your answer will be interpreted
-and executed by a program, make sure to follow the formatting instructions.
-""",
+                            Review the instructions from the user, the current state of the page and all other information
+                            to find the best possible next action to accomplish your goal. Your answer will be interpreted
+                            and executed by a program, make sure to follow the formatting instructions.
+                            """,
                 }
             )
             # append chat messages
@@ -147,8 +142,8 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Chat Messages
-""",
+                            # Chat Messages
+                            """,
                 }
             )
             for msg in obs["chat_messages"]:
@@ -157,8 +152,8 @@ and executed by a program, make sure to follow the formatting instructions.
                         {
                             "type": "text",
                             "text": f"""\
-- [{msg['role']}] {msg['message']}
-""",
+                                    - [{msg['role']}] {msg['message']}
+                                    """,
                         }
                     )
                 elif msg["role"] == "user_image":
@@ -172,12 +167,12 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Instructions
+                            # Instructions
 
-Review the current state of the page and all other information to find the best
-possible next action to accomplish your goal. Your answer will be interpreted
-and executed by a program, make sure to follow the formatting instructions.
-""",
+                            Review the current state of the page and all other information to find the best
+                            possible next action to accomplish your goal. Your answer will be interpreted
+                            and executed by a program, make sure to follow the formatting instructions.
+                            """,
                 }
             )
             # append goal
@@ -185,8 +180,10 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Goal
-""",
+                            # Goal
+
+                            {obs["goal"]}
+                            """,
                 }
             )
             # goal_object is directly presented as a list of openai-style messages
@@ -198,11 +195,11 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Current page Accessibility Tree
+                            # Current page Accessibility Tree
 
-{obs["axtree_txt"]}
+                            {obs["axtree_txt"]}
 
-""",
+                            """,
                 }
             )
         # append page HTML (if asked)
@@ -211,11 +208,11 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Current page DOM
+                            # Current page DOM
 
-{obs["pruned_html"]}
+                            {obs["pruned_html"]}
 
-""",
+                            """,
                 }
             )
 
@@ -225,8 +222,9 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": """\
-# Current page Screenshot
-""",
+                            # Current page Screenshot
+
+                            """,
                 }
             )
             user_msgs.append(
@@ -244,18 +242,17 @@ and executed by a program, make sure to follow the formatting instructions.
             {
                 "type": "text",
                 "text": f"""\
-# Action Space
+                            # Action Space
 
-{self.action_set.describe(with_long_description=False, with_examples=True)}
+                            {self.action_set.describe(with_long_description=False, with_examples=True)}
 
-Here are examples of actions with chain-of-thought reasoning:
+                            Here are examples of actions with chain-of-thought reasoning:
 
-I now need to click on the Submit button to send the form. I will use the click action on the button, which has bid 12.
-```click("12")```
+                            I now need to click on the Submit button to send the form. I will use the click action on the button, which has bid 12.
+                            ```click("12")```
 
-I found the information requested by the user, I will send it to the chat.
-```send_msg_to_user("The price for a 15\\" laptop is 1499 USD.")```
-
+                            I found the information requested by the user, I will send it to the chat.
+                            ```send_msg_to_user("The price for a 15\\" laptop is 1499 USD.")```
 """,
             }
         )
@@ -266,8 +263,8 @@ I found the information requested by the user, I will send it to the chat.
                 {
                     "type": "text",
                     "text": f"""\
-# History of past actions
-""",
+                            # History of past actions
+                            """,
                 }
             )
             user_msgs.extend(
@@ -275,8 +272,8 @@ I found the information requested by the user, I will send it to the chat.
                     {
                         "type": "text",
                         "text": f"""\
-{action}
-""",
+                                {action}
+                                """,
                     }
                     for action in self.action_history
                 ]
@@ -287,11 +284,11 @@ I found the information requested by the user, I will send it to the chat.
                     {
                         "type": "text",
                         "text": f"""\
-# Error message from last action
+                            # Error message from last action
 
-{obs["last_action_error"]}
+                            {obs["last_action_error"]}
 
-""",
+                            """,
                     }
                 )
 
@@ -300,10 +297,10 @@ I found the information requested by the user, I will send it to the chat.
             {
                 "type": "text",
                 "text": f"""\
-# Next action
+                            # Next action
 
-You will now think step by step and produce your next best action. Reflect on your past actions, any resulting error message, the current state of the page before deciding on your next action.
-""",
+                            You will now think step by step and produce your next best action. Reflect on your past actions, any resulting error message, the current state of the page before deciding on your next action.
+                            """,
             }
         )
 
@@ -339,18 +336,9 @@ You will now think step by step and produce your next best action. Reflect on yo
 
 @dataclasses.dataclass
 class DemoAgentArgs(AbstractAgentArgs):
-    """
-    Arguments for the DemoAgent.
-    
-    By isolating them in a dataclass, this ensures serialization without storing
-    internal states of the agent.
-    
-    This implementation uses the agisdk module for creating agents and passing parameters.
-    By default, it uses OpenAI's GPT-4o model, but can be configured for other models.
-    """
 
     agent_name: str = "DemoAgent"  # Agent name for the SDK to recognize
-    model_name: str = "gpt-4o"     # Default model, can be changed at runtime
+    model_name: str = "deepseek/deepseek-r1:free"  # Default model, can be changed at runtime
     chat_mode: bool = False        # Whether to enable chat mode
     demo_mode: str = "off"         # Visual effects mode (off, minimal, full)
     use_html: bool = False         # Whether to include HTML in observations
@@ -372,22 +360,8 @@ class DemoAgentArgs(AbstractAgentArgs):
         )
 
 
-
 # Example creating and using the DemoAgent
-def run_demo_agent(model_name="gpt-4o", task_name="webclones.omnizon-1", headless=False, leaderboard=False, run_id=None):
-    """
-    Run a test with the DemoAgent on a browsergym task.
-    
-    Args:
-        model_name: The model to use with the agent (e.g., "deepseek/deepseek-r1:free")
-        task_name: The browsergym task to run
-        headless: Whether to run in headless mode (no browser UI)
-        leaderboard: Whether to submit results to leaderboard
-        run_id: Unique identifier for leaderboard submission
-    
-    Returns:
-        Results dictionary from the harness run
-    """
+def run_demo_agent(model_name="deepseek/deepseek-r1:free", task_name="webclones.omnizon-1", headless=False, leaderboard=False, run_id=None):
     logger.info(f"Starting DemoAgent test with model: {model_name} on task: {task_name}")
     
     # Create the agent arguments with the specified parameters
@@ -440,7 +414,6 @@ if __name__ == "__main__":
                         help="Run ID for leaderboard submission (required for leaderboard)")
     parser.add_argument("--leaderboard", type=str2bool, default=False,
                         help="Submit results to leaderboard (default: False)")
-    
     
     args = parser.parse_args()
     
