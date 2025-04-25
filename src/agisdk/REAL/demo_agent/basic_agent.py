@@ -281,17 +281,17 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": f"""\
-# Instructions
+                            # Instructions
 
-You are a UI Assistant, your goal is to help the user perform tasks using a web browser. You can
-communicate with the user via a chat, to which the user gives you instructions and to which you
-can send back messages. You have access to a web browser that both you and the user can see,
-and with which only you can interact via specific commands.
+                            You are a UI Assistant, your goal is to help the user perform tasks using a web browser. You can
+                            communicate with the user via a chat, to which the user gives you instructions and to which you
+                            can send back messages. You have access to a web browser that both you and the user can see,
+                            and with which only you can interact via specific commands.
 
-Review the instructions from the user, the current state of the page and all other information
-to find the best possible next action to accomplish your goal. Your answer will be interpreted
-and executed by a program, make sure to follow the formatting instructions.
-""",
+                            Review the instructions from the user, the current state of the page and all other information
+                            to find the best possible next action to accomplish your goal. Your answer will be interpreted
+                            and executed by a program, make sure to follow the formatting instructions.
+                            """,
                 }
             )
             # append chat messages
@@ -299,8 +299,8 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Chat Messages
-""",
+                            # Chat Messages
+                            """,
                 }
             )
             for msg in obs["chat_messages"]:
@@ -309,8 +309,8 @@ and executed by a program, make sure to follow the formatting instructions.
                         {
                             "type": "text",
                             "text": f"""\
-- [{msg['role']}] {msg['message']}
-""",
+                                    - [{msg['role']}] {msg['message']}
+                                    """,
                         }
                     )
                 elif msg["role"] == "user_image":
@@ -324,12 +324,12 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Instructions
+                            # Instructions
 
-Review the current state of the page and all other information to find the best
-possible next action to accomplish your goal. Your answer will be interpreted
-and executed by a program, make sure to follow the formatting instructions.
-""",
+                            Review the current state of the page and all other information to find the best
+                            possible next action to accomplish your goal. Your answer will be interpreted
+                            and executed by a program, make sure to follow the formatting instructions.
+                            """,
                 }
             )
             # append goal
@@ -337,8 +337,8 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Goal
-""",
+                            # Goal
+                            """,
                 }
             )
             # goal_object is directly presented as a list of openai-style messages
@@ -350,11 +350,11 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Current page Accessibility Tree
-
-{obs["axtree_txt"]}
-
-""",
+                            # Current page Accessibility Tree
+                            
+                            {obs["axtree_txt"]}
+                            
+                            """,
                 }
             )
         # append page HTML (if asked)
@@ -363,11 +363,11 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": f"""\
-# Current page DOM
-
-{obs["pruned_html"]}
-
-""",
+                            # Current page DOM
+                            
+                            {obs["pruned_html"]}
+                            
+                            """,
                 }
             )
 
@@ -377,8 +377,8 @@ and executed by a program, make sure to follow the formatting instructions.
                 {
                     "type": "text",
                     "text": """\
-# Current page Screenshot
-""",
+                            # Current page Screenshot
+                            """,
                 }
             )
             user_msgs.append(
@@ -396,21 +396,21 @@ and executed by a program, make sure to follow the formatting instructions.
             {
                 "type": "text",
                 "text": f"""\
-# Action Space
+                        # Action Space
 
-{self.action_set.describe(with_long_description=False, with_examples=True)}
+                        {self.action_set.describe(with_long_description=False, with_examples=True)}
 
-Here are examples of actions with chain-of-thought reasoning:
+                        Here are examples of actions with chain-of-thought reasoning:
 
-I now need to click on the Submit button to send the form. I will use the click action on the button, which has bid 12.
-```click("12")```
+                        I now need to click on the Submit button to send the form. I will use the click action on the button, which has bid 12.
+                        ```click("12")```
 
-I found the information requested by the user, I will send it to the chat.
-```send_msg_to_user("The price for a 15\\" laptop is 1499 USD.")```
+                        I found the information requested by the user, I will send it to the chat.
+                        ```send_msg_to_user("The price for a 15\\" laptop is 1499 USD.")```
 
-""",
-            }
-        )
+                        """,
+                }
+            )
 
         # append past actions (and last error message) if any
         if self.action_history:
@@ -418,8 +418,8 @@ I found the information requested by the user, I will send it to the chat.
                 {
                     "type": "text",
                     "text": f"""\
-# History of past actions
-""",
+                            # History of past actions
+                            """,
                 }
             )
             user_msgs.extend(
@@ -439,11 +439,11 @@ I found the information requested by the user, I will send it to the chat.
                     {
                         "type": "text",
                         "text": f"""\
-# Error message from last action
+                                # Error message from last action
 
-{obs["last_action_error"]}
+                                {obs["last_action_error"]}
 
-""",
+                                """,
                     }
                 )
 
@@ -452,10 +452,10 @@ I found the information requested by the user, I will send it to the chat.
             {
                 "type": "text",
                 "text": f"""\
-# Next action
+                        # Next action
 
-You will now think step by step and produce your next best action. Reflect on your past actions, any resulting error message, the current state of the page before deciding on your next action.
-""",
+                        You will now think step by step and produce your next best action. Reflect on your past actions, any resulting error message, the current state of the page before deciding on your next action.
+                        """,
             }
         )
 
