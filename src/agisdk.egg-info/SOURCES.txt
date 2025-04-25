@@ -3,6 +3,7 @@ README.md
 pyproject.toml
 src/__init__.py
 src/agisdk/__init__.py
+src/agisdk/tasks.py
 src/agisdk.egg-info/PKG-INFO
 src/agisdk.egg-info/SOURCES.txt
 src/agisdk.egg-info/dependency_links.txt

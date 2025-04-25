@@ -1,26 +1,12 @@
 # Example of using Amazon NovaAct to perform a task on a website
 from nova_act import NovaAct
+from agisdk.tasks import all as tasks
 import urllib.parse
 
 
-
-import os
-import json
-
-task_dir = "../src/agisdk/REAL/browsergym/webclones/tasks"
-tasks = []
-
-for filename in os.listdir(task_dir):
-    if filename.endswith(".json"):
-        filepath = os.path.join(task_dir, filename)
-        with open(filepath, "r") as f:
-            tasks.append(json.load(f))
-
-run_id = "9445b200-1656-4899-bdf4-217950afaa82"
+run_id = "YOUR-UUID-HERE" # creat a run id on realevals.xyz
 
 for task in tasks:
-    if not task["id"] == "dashdish-1":
-        continue
     goal = task["goal"]
     url = task["website"]["url"]
     task_id = task["id"]
