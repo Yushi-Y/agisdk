@@ -3,5 +3,3 @@ def hello_agi(name="World"):
     message = f"Hello {name}, welcome to AGI SDK!"
     print(message)
     return message
-
-from . import tasks

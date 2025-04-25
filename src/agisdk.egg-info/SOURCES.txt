@@ -11,6 +11,7 @@ src/agisdk.egg-info/requires.txt
 src/agisdk.egg-info/top_level.txt
 src/agisdk/REAL/__init__.py
 src/agisdk/REAL/harness.py
+src/agisdk/REAL/tasks.py
 src/agisdk/REAL/browsergym/__init__.py
 src/agisdk/REAL/browsergym/core/__init__.py
 src/agisdk/REAL/browsergym/core/chat.py

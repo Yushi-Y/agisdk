@@ -1,10 +1,13 @@
 # Example of using Amazon NovaAct to perform a task on a website
 from nova_act import NovaAct
-from agisdk.tasks import all as tasks
+from agisdk.REAL.tasks import all_tasks as tasks
 import urllib.parse
 
+# let's just run on dashdish-1
+tasks = [task for task in tasks if task["id"] == "omnizon-2"]
 
-run_id = "YOUR-UUID-HERE" # creat a run id on realevals.xyz
+
+run_id = "YOUR_RUN_ID_HERE" # creat a run id on realevals.xyz
 
 for task in tasks:
     goal = task["goal"]
@@ -20,3 +23,4 @@ for task in tasks:
         encoded_response = urllib.parse.quote(response)
         nova.go_to_url(url + "/submit?retrieved_answer=" + encoded_response)
         print(f"Submitted response to {url + '/submit?retrieved_answer=' + encoded_response}")
+        print("go to your profile in realevals.xyz to see the result")

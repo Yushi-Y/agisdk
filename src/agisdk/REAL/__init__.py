@@ -1,4 +1,5 @@
 from . import browsergym
+from . import tasks
 from .harness import harness, Agent, AbstractAgentArgs
 
 def hello(name="World"):
