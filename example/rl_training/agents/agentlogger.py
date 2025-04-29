@@ -4,10 +4,15 @@ import time
 from datetime import datetime
 import os
 import uuid
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+load_dotenv(dotenv_path)
 
 getnow = lambda: datetime.utcnow().isoformat() + 'Z'
 
-def log_agent_trajectory(prompt, steps, api_key=None, email="diego@theagi.company"):
+def log_agent_trajectory(prompt, steps, api_key=None, email="prannay@theagi.company"):
     """
     Log an agent trajectory to Multion API
     

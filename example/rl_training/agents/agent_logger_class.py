@@ -12,7 +12,7 @@ class AgentLogger:
     Class for logging agent trajectories to Multion API
     """
     
-    def __init__(self, prompt, api_key=None, email="diego@theagi.company"):
+    def __init__(self, prompt, api_key=None, email="prannay@theagi.company"):
         """
         Initialize an agent logger session
         
