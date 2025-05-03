@@ -1,0 +1,23 @@
+{
+  "id": "omnizon-29",
+  "goal": "Navigate to 'Wireless Tech', click on 'Headphones', filter by 'Discount' (high to low), and find the headphone product with the biggest discount percentage. Report the original price, current price, and discount percentage.",
+  "website": {
+    "id": "omnizon",
+    "name": "Omnizon",
+    "similarTo": "Amazon",
+    "previewImage": "/websitePreviews/omnizon_preview.jpg",
+    "url": "https://evals-omnizon.vercel.app/"
+  },
+  "difficulty": "hard",
+  "challengeType": "information",
+  "possible": true,
+  "evals": [
+    {
+      "type": "llm_boolean",
+      "expected_value": true,
+      "rubric": "Does the answer correctly identify the headphone product with the highest discount and accurately report its original price, and current price?"
+    }
+  ],
+  "points": 3,
+  "config": {}
+}

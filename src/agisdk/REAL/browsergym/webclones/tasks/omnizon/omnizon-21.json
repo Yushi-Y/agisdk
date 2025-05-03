@@ -1,0 +1,23 @@
+{
+  "id": "omnizon-31",
+  "goal": "Navigate to 'Fantastic Finds for Home' and find a mop. Report the product name, price, and features.",
+  "website": {
+    "id": "omnizon",
+    "name": "Omnizon",
+    "similarTo": "Amazon",
+    "previewImage": "/websitePreviews/omnizon_preview.jpg",
+    "url": "https://evals-omnizon.vercel.app/"
+  },
+  "difficulty": "medium",
+  "challengeType": "information",
+  "possible": true,
+  "evals": [
+    {
+      "type": "llm_boolean",
+      "expected_value": true,
+      "rubric": "Does the answer correctly identify a mop and report its name, price, and features?"
+    }
+  ],
+  "points": 2,
+  "config": {}
+}

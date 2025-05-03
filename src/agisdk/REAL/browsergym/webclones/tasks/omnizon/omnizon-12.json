@@ -1,0 +1,23 @@
+{
+  "id": "omnizon-22",
+  "goal": "Find the section about '$5 flat delivery fee on international orders' and click 'Learn more' to report the delivery timeframe for international orders.",
+  "website": {
+    "id": "omnizon",
+    "name": "Omnizon",
+    "similarTo": "Amazon",
+    "previewImage": "/websitePreviews/omnizon_preview.jpg",
+    "url": "https://evals-omnizon.vercel.app/"
+  },
+  "difficulty": "medium",
+  "challengeType": "information",
+  "possible": true,
+  "evals": [
+    {
+      "type": "llm_boolean",
+      "expected_value": true,
+      "rubric": "Does the answer correctly report the delivery timeframe for international orders found on the 'Learn more' page?"
+    }
+  ],
+  "points": 2,
+  "config": {}
+}

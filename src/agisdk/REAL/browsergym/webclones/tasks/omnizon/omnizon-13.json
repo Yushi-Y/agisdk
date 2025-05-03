@@ -1,0 +1,23 @@
+{
+  "id": "omnizon-23",
+  "goal": "In the 'Shop for your home essentials' section, navigate to 'Bedding' and find a bedding set with at least 4-star rating. Report the price.",
+  "website": {
+    "id": "omnizon",
+    "name": "Omnizon",
+    "similarTo": "Amazon",
+    "previewImage": "/websitePreviews/omnizon_preview.jpg",
+    "url": "https://evals-omnizon.vercel.app/"
+  },
+  "difficulty": "medium",
+  "challengeType": "information",
+  "possible": true,
+  "evals": [
+    {
+      "type": "llm_boolean",
+      "expected_value": true,
+      "rubric": "Does the answer identify a bedding set with 4+ star rating and correctly report its price and review count?"
+    }
+  ],
+  "points": 2,
+  "config": {}
+}

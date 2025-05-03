@@ -1,0 +1,23 @@
+{
+  "id": "omnizon-28",
+  "goal": "Click on 'Level up your beauty routine', navigate to 'Brushes', and find a makeup brush set with Prime delivery. Add it to your cart and report the expected delivery date.",
+  "website": {
+    "id": "omnizon",
+    "name": "Omnizon",
+    "similarTo": "Amazon",
+    "previewImage": "/websitePreviews/omnizon_preview.jpg",
+    "url": "https://evals-omnizon.vercel.app/"
+  },
+  "difficulty": "medium",
+  "challengeType": "action",
+  "possible": true,
+  "evals": [
+    {
+      "type": "llm_boolean",
+      "expected_value": true,
+      "rubric": "Does the answer identify a makeup brush set with Prime delivery, confirm adding it to the cart, and report the expected delivery date?"
+    }
+  ],
+  "points": 2,
+  "config": {}
+}

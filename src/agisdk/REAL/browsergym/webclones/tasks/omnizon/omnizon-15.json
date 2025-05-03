@@ -1,0 +1,23 @@
+{
+  "id": "omnizon-25",
+  "goal": "Click on 'Get your game on' section, then 'Shop gaming' and find a gaming PC or console that offers free shipping. Report the product name, price, and estimated delivery date.",
+  "website": {
+    "id": "omnizon",
+    "name": "Omnizon",
+    "similarTo": "Amazon",
+    "previewImage": "/websitePreviews/omnizon_preview.jpg",
+    "url": "https://evals-omnizon.vercel.app/"
+  },
+  "difficulty": "medium",
+  "challengeType": "information",
+  "possible": true,
+  "evals": [
+    {
+      "type": "llm_boolean",
+      "expected_value": true,
+      "rubric": "Does the answer identify a gaming PC or console with free shipping and correctly report its name, price, and delivery estimate?"
+    }
+  ],
+  "points": 2,
+  "config": {}
+}

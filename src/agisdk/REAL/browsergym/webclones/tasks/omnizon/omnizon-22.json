@@ -1,0 +1,23 @@
+{
+  "id": "omnizon-32",
+  "goal": "Click on 'Home décor', find items that qualify for a bundle discount (e.g., 'Buy 2, get 1 free'), and add three compatible items to your cart. Report the total before and after the discount.",
+  "website": {
+    "id": "omnizon",
+    "name": "Omnizon",
+    "similarTo": "Amazon",
+    "previewImage": "/websitePreviews/omnizon_preview.jpg",
+    "url": "https://evals-omnizon.vercel.app/"
+  },
+  "difficulty": "hard",
+  "challengeType": "action",
+  "possible": true,
+  "evals": [
+    {
+      "type": "llm_boolean",
+      "expected_value": true,
+      "rubric": "Does the answer identify three home décor items eligible for a bundle discount, confirm adding them to the cart, and correctly report the total price before and after the discount?"
+    }
+  ],
+  "points": 3,
+  "config": {}
+}
