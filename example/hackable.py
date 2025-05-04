@@ -9,14 +9,6 @@ import dataclasses
 import numpy as np
 import io
 import logging
-import os
-import uuid
-import time
-from datetime import datetime
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 from PIL import Image
 from typing import Literal
@@ -29,18 +21,6 @@ from agisdk.REAL.browsergym.core.action.highlevel import HighLevelActionSet
 from agisdk.REAL.browsergym.core.action.python import PythonActionSet
 from agisdk.REAL.browsergym.utils.obs import flatten_axtree_to_str, flatten_dom_to_str, prune_html
 
-# Import the AgentLogger class
-import sys
-import os
-# Add the project root to the path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from rl_training.agents.agent_logger_class import AgentLogger
-
-# Configure logging with more detailed output
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
 logger = logging.getLogger(__name__)
 
 # Handling Screenshots
@@ -73,24 +53,6 @@ class DemoAgent(Agent):
             "axtree_txt": flatten_axtree_to_str(obs["axtree_object"]),
             "pruned_html": prune_html(flatten_dom_to_str(obs["dom_object"])),
         }
-        
-    def reset(self):
-        """Called when the environment is reset"""
-        super().reset()
-        # Reset action history
-        self.action_history = []
-        
-    def close(self):
-        """Called when the agent is being closed"""
-        # Complete the agent logger session if available
-        if hasattr(self, 'agent_logger') and self.agent_logger is not None:
-            try:
-                session_id = self.agent_logger.complete()
-                print(f"Agent logger session completed with ID: {session_id}")
-            except Exception as e:
-                logger.error(f"Failed to complete agent logger session: {e}")
-                
-        super().close()
 
     def __init__(
         self,
@@ -115,73 +77,35 @@ class DemoAgent(Agent):
         from openai import OpenAI
         import os
 
-        # Initialize OpenAI client for GPT-4o with API key
-        openai_api_key = os.getenv("OPENAI_API_KEY")
-        if not openai_api_key:
-            logger.warning("OPENAI_API_KEY not found in environment, using a dummy key")
-            openai_api_key = "sk-dummy-key-for-testing"
-            
-        self.client = OpenAI(api_key=openai_api_key)
+        # Initialize OpenAI client for GPT-4o
+        self.client = OpenAI()
         self.model_name = "gpt-4o"  # Always use GPT-4o regardless of input model_name
         
-        # Initialize the agent logger for Multion API logging
-        try:
-            # Get API key from environment variables
-            api_key = os.getenv("MULTION_API_KEY")
-            if not api_key:
-                logger.warning("MULTION_API_KEY not found in environment variables")
-                self.agent_logger = None
-            else:
-                # Initialize the agent logger with a descriptive prompt
-                initial_prompt = f"Agent using {self.model_name} for browsergym interaction"
-                self.agent_logger = AgentLogger(prompt=initial_prompt, api_key=api_key)
-                print(f"Agent logger initialized with session ID: {self.agent_logger.SESSION_ID}")
-                
-                # Log an initial event
-                self.agent_logger.log_step(
-                    {"initialization": "Agent initialized", "model": self.model_name},
-                    {"status": "ready", "chat_mode": self.chat_mode, "screenshot_enabled": self.use_screenshot}
-                )
-        except Exception as e:
-            logger.error(f"Failed to initialize agent logger: {str(e)}")
-            import traceback
-            logger.error(traceback.format_exc())
-            self.agent_logger = None
-        
-        # Define function to query OpenAI models (with simulation for testing)
+        # Define function to query OpenAI models
         def query_model(system_msgs, user_msgs):
-            if openai_api_key.startswith("sk-dummy"):
-                # Simulate a model response for testing
-                # Silently use simulated response without logging
-                return "```click(\"1\")```"
-            
-            try:
-                if self.system_message_handling == "combined":
-                    # Combine system and user messages into a single user message
-                    combined_content = ""
-                    if system_msgs:
-                        combined_content += system_msgs[0]["text"] + "\n\n"
-                    for msg in user_msgs:
-                        if msg["type"] == "text":
-                            combined_content += msg["text"] + "\n"
-                    response = self.client.chat.completions.create(
-                        model=self.model_name,
-                        messages=[{"role": "user", "content": combined_content}],
-                    )
-                else:
-                    response = self.client.chat.completions.create(
-                        model=self.model_name,
-                        messages=[
-                            {"role": "system", "content": system_msgs},
-                            {"role": "user", "content": user_msgs},
-                        ],
-                    )
-                return response.choices[0].message.content
-            except Exception as e:
-                logger.error(f"Error querying OpenAI model: {str(e)}")
-                # Return a fallback action for testing
-                return "```send_msg_to_user(\"I encountered an error.\")```"
-                
+            if self.system_message_handling == "combined":
+                # Combine system and user messages into a single user message
+                combined_content = ""
+                if system_msgs:
+                    combined_content += system_msgs[0]["text"] + "\n\n"
+                for msg in user_msgs:
+                    if msg["type"] == "text":
+                        combined_content += msg["text"] + "\n"
+                response = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "user", "content": combined_content},
+                    ],
+                )
+            else:
+                response = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": system_msgs},
+                        {"role": "user", "content": user_msgs},
+                    ],
+                )
+            return response.choices[0].message.content
         self.query_model = query_model
 
         self.action_set = HighLevelActionSet(
@@ -205,17 +129,17 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": f"""\
-                            # Instructions
+# Instructions
 
-                            You are a UI Assistant, your goal is to help the user perform tasks using a web browser. You can
-                            communicate with the user via a chat, to which the user gives you instructions and to which you
-                            can send back messages. You have access to a web browser that both you and the user can see,
-                            and with which only you can interact via specific commands.
+You are a UI Assistant, your goal is to help the user perform tasks using a web browser. You can
+communicate with the user via a chat, to which the user gives you instructions and to which you
+can send back messages. You have access to a web browser that both you and the user can see,
+and with which only you can interact via specific commands.
 
-                            Review the instructions from the user, the current state of the page and all other information
-                            to find the best possible next action to accomplish your goal. Your answer will be interpreted
-                            and executed by a program, make sure to follow the formatting instructions.
-                            """,
+Review the instructions from the user, the current state of the page and all other information
+to find the best possible next action to accomplish your goal. Your answer will be interpreted
+and executed by a program, make sure to follow the formatting instructions.
+""",
                 }
             )
             # append chat messages
@@ -223,8 +147,8 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": f"""\
-                            # Chat Messages
-                            """,
+# Chat Messages
+""",
                 }
             )
             for msg in obs["chat_messages"]:
@@ -233,8 +157,8 @@ class DemoAgent(Agent):
                         {
                             "type": "text",
                             "text": f"""\
-                                    - [{msg['role']}] {msg['message']}
-                                    """,
+- [{msg['role']}] {msg['message']}
+""",
                         }
                     )
                 elif msg["role"] == "user_image":
@@ -248,23 +172,21 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": f"""\
-                            # Instructions
+# Instructions
 
-                            Review the current state of the page and all other information to find the best
-                            possible next action to accomplish your goal. Your answer will be interpreted
-                            and executed by a program, make sure to follow the formatting instructions.
-                            """,
+Review the current state of the page and all other information to find the best
+possible next action to accomplish your goal. Your answer will be interpreted
+and executed by a program, make sure to follow the formatting instructions.
+""",
                 }
             )
-            # append goal header
+            # append goal
             user_msgs.append(
                 {
                     "type": "text",
                     "text": f"""\
-                            # Goal
-                            
-                            {obs["goal_object"]}
-                            """,
+# Goal
+""",
                 }
             )
             # goal_object is directly presented as a list of openai-style messages
@@ -276,11 +198,11 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": f"""\
-                            # Current page Accessibility Tree
+# Current page Accessibility Tree
 
-                            {obs["axtree_txt"]}
+{obs["axtree_txt"]}
 
-                            """,
+""",
                 }
             )
         # append page HTML (if asked)
@@ -289,11 +211,11 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": f"""\
-                            # Current page DOM
+# Current page DOM
 
-                            {obs["pruned_html"]}
+{obs["pruned_html"]}
 
-                            """,
+""",
                 }
             )
 
@@ -303,9 +225,8 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": """\
-                            # Current page Screenshot
-
-                            """,
+# Current page Screenshot
+""",
                 }
             )
             user_msgs.append(
@@ -323,17 +244,18 @@ class DemoAgent(Agent):
             {
                 "type": "text",
                 "text": f"""\
-                            # Action Space
+# Action Space
 
-                            {self.action_set.describe(with_long_description=False, with_examples=True)}
+{self.action_set.describe(with_long_description=False, with_examples=True)}
 
-                            Here are examples of actions with chain-of-thought reasoning:
+Here are examples of actions with chain-of-thought reasoning:
 
-                            I now need to click on the Submit button to send the form. I will use the click action on the button, which has bid 12.
-                            ```click("12")```
+I now need to click on the Submit button to send the form. I will use the click action on the button, which has bid 12.
+```click("12")```
 
-                            I found the information requested by the user, I will send it to the chat.
-                            ```send_msg_to_user("The price for a 15\\" laptop is 1499 USD.")```
+I found the information requested by the user, I will send it to the chat.
+```send_msg_to_user("The price for a 15\\" laptop is 1499 USD.")```
+
 """,
             }
         )
@@ -344,8 +266,8 @@ class DemoAgent(Agent):
                 {
                     "type": "text",
                     "text": f"""\
-                            # History of past actions
-                            """,
+# History of past actions
+""",
                 }
             )
             user_msgs.extend(
@@ -353,8 +275,8 @@ class DemoAgent(Agent):
                     {
                         "type": "text",
                         "text": f"""\
-                                {action}
-                                """,
+{action}
+""",
                     }
                     for action in self.action_history
                 ]
@@ -365,11 +287,11 @@ class DemoAgent(Agent):
                     {
                         "type": "text",
                         "text": f"""\
-                            # Error message from last action
+# Error message from last action
 
-                            {obs["last_action_error"]}
+{obs["last_action_error"]}
 
-                            """,
+""",
                     }
                 )
 
@@ -378,10 +300,10 @@ class DemoAgent(Agent):
             {
                 "type": "text",
                 "text": f"""\
-                            # Next action
+# Next action
 
-                            You will now think step by step and produce your next best action. Reflect on your past actions, any resulting error message, the current state of the page before deciding on your next action.
-                            """,
+You will now think step by step and produce your next best action. Reflect on your past actions, any resulting error message, the current state of the page before deciding on your next action.
+""",
             }
         )
 
@@ -405,54 +327,27 @@ class DemoAgent(Agent):
                         f"Unknown message type {repr(message['type'])} in the task goal."
                     )
         full_prompt_txt = "\n".join(prompt_text_strings)
-        # Don't log the full prompt text to keep console output clean
-        # logger.info(full_prompt_txt)
+        logger.info(full_prompt_txt)
 
         # query model using the abstraction function
         action = self.query_model(system_msgs, user_msgs)
 
         self.action_history.append(action)
-        
-        # Log this step through the Multion API
-        if hasattr(self, 'agent_logger') and self.agent_logger is not None:
-            try:
-                # Create a structured representation of inputs
-                inputs = {
-                    "prompt": full_prompt_txt[:500] + "..." if len(full_prompt_txt) > 500 else full_prompt_txt,
-                    "observation": {
-                        "num_chat_messages": len(obs.get("chat_messages", [])),
-                        "has_screenshot": "screenshot" in obs and obs["screenshot"] is not None,
-                        "has_axtree": "axtree_object" in obs and obs["axtree_object"] is not None,
-                        "has_html": "dom_object" in obs and obs["dom_object"] is not None,
-                        "goal": str(obs.get("goal_object", ""))[:100] + "..." if obs.get("goal_object") and len(str(obs["goal_object"])) > 100 else str(obs.get("goal_object", "")),
-                        "last_action": obs.get("last_action", ""),
-                        "last_action_error": obs.get("last_action_error", ""),
-                    }
-                }
-                
-                # Create a structured representation of outputs
-                outputs = {
-                    "action": action,
-                    "action_type": action.split("(")[0] if "(" in action else "unknown"
-                }
-                
-                # Extract action type for a cleaner summary
-                action_type = action.split("(")[0] if "(" in action else "unknown"
-                action_args = action.split("(", 1)[1].rstrip(")") if "(" in action else ""
-                
-                # Log the step with Multion API
-                self.agent_logger.log_step(inputs, outputs)
-                
-                # Only log a summary of the action to the console
-                print(f"Step {self.agent_logger.step_count}: {action_type} {action_args[:30]}{'...' if len(action_args) > 30 else ''}")
-            except Exception as e:
-                logger.error(f"Failed to log step to Multion API: {e}")
 
         return action, {}
 
 
 @dataclasses.dataclass
 class DemoAgentArgs(AbstractAgentArgs):
+    """
+    Arguments for the DemoAgent.
+    
+    By isolating them in a dataclass, this ensures serialization without storing
+    internal states of the agent.
+    
+    This implementation uses the agisdk module for creating agents and passing parameters.
+    By default, it uses OpenAI's GPT-4o model, but can be configured for other models.
+    """
 
     agent_name: str = "DemoAgent"  # Agent name for the SDK to recognize
     model_name: str = "gpt-4o"     # Default model, can be changed at runtime
@@ -477,8 +372,24 @@ class DemoAgentArgs(AbstractAgentArgs):
         )
 
 
+
 # Example creating and using the DemoAgent
-def run_demo_agent(model_name="gpt-4o", headless=False, leaderboard=False, run_id=None, task_name="webclones.omnizon-1"):    
+def run_demo_agent(model_name="gpt-4o", task_name="webclones.omnizon-1", headless=False, leaderboard=False, run_id=None):
+    """
+    Run a test with the DemoAgent on a browsergym task.
+    
+    Args:
+        model_name: The model to use with the agent (e.g., "deepseek/deepseek-r1:free")
+        task_name: The browsergym task to run
+        headless: Whether to run in headless mode (no browser UI)
+        leaderboard: Whether to submit results to leaderboard
+        run_id: Unique identifier for leaderboard submission
+    
+    Returns:
+        Results dictionary from the harness run
+    """
+    logger.info(f"Starting DemoAgent test with model: {model_name} on task: {task_name}")
+    
     # Create the agent arguments with the specified parameters
     agent_args = DemoAgentArgs(
         model_name=model_name,
@@ -503,7 +414,7 @@ def run_demo_agent(model_name="gpt-4o", headless=False, leaderboard=False, run_i
     )
     
     # Run the task
-    logger.info("Running tasks...")
+    logger.info("Running task...")
     results = harness.run()
     
     # Print results summary
@@ -514,5 +425,30 @@ def run_demo_agent(model_name="gpt-4o", headless=False, leaderboard=False, run_i
 
 
 if __name__ == "__main__":
+    import argparse
+    
+    # Set up command-line argument parsing
+    parser = argparse.ArgumentParser(description="Run DemoAgent on browsergym tasks")
+    parser.add_argument("--model", type=str, default="gpt-4o",
+                        help="Model to use with the agent (default: gpt-4o)")
+    parser.add_argument("--task", type=str, default="webclones.omnizon-1",
+                        help="Task to run (default: webclones.omnizon-1)")
+    parser.add_argument("--headless", type=str2bool, default=False,
+                        help="Run headless (default: False)")
+    #Leaderboard arguments
+    parser.add_argument("--run_id", type=str, default=None,
+                        help="Run ID for leaderboard submission (required for leaderboard)")
+    parser.add_argument("--leaderboard", type=str2bool, default=False,
+                        help="Submit results to leaderboard (default: False)")
+    
+    
+    args = parser.parse_args()
+    
     # Run the agent with the specified parameters
-    results = run_demo_agent()
+    results = run_demo_agent(
+        model_name=args.model, 
+        task_name=args.task, 
+        headless=args.headless,
+        leaderboard=args.leaderboard,
+        run_id=args.run_id
+    )
