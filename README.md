@@ -244,7 +244,8 @@ Let's build the future of agents together. 🔥
 - [Join our Discord](https://discord.gg/c95EJDfXzx) (_coming soon!_)
 - [Follow AGI Inc. on LinkedIn](https://www.linkedin.com/company/the-agi-company/)
 
-# ⭐️ Why AGI SDK?
+## ⭐️ Why AGI SDK?
+
 Because **your agents deserve better** than toy environments. <br>
 Because **the real web is messy** — and that's where the magic happens. <br>
 Because **the future is agentic** — and it starts here.
