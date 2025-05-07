@@ -41,7 +41,7 @@ It powers [REAL Bench](https://realevals.xyz) — the first high-fidelity benchm
 
 > **TL;DR**: Go from “idea” to “benchmarked agent” in <60 seconds
 
-# 🛠️ Installation (30 s)
+## 🛠️ Installation (30 s)
 
 ```bash
 # Install the SDK
@@ -58,7 +58,7 @@ export OPENAI_API_KEY="your-api-key" # any supported provider key works
 On Apple Silicon run `brew install --cask playwright` first.
 
 
-# ⏱️ 60-second Quick-Start
+## ⏱️ 60-second Quick-Start
 
 Here's a minimql example to get you started for benchmarking an AI agent on the REAL Bench environment:
 
@@ -75,7 +75,7 @@ print(harness.run())      # 🎉
 ```
 Need more control? [See full examples ›](/example)
 
-# 🔥 Features
+## 🔥 Features
 
 - Full-stack **web replicas** of top real-world apps (Amazon, Uber, Gmail, Airbnb, etc.)
 - **Robust agent API**: Observations, Actions, Memory, Errors
@@ -109,7 +109,7 @@ cd agisdk
 pip install -e .
 ```
 
-# 🌐 Available Tasks
+## 🌐 Available Tasks
 
 The AGI SDK includes high-fidelity, fully-deterministic websites for agents to explore. These are modern web stack sites (React + Next.js) with rich functionality for core user flows, realistic mock data, and consistent behavior for testing and evaluation.
 
@@ -131,7 +131,7 @@ The benchmark includes these environments:
 
 Each task comes with **human-written goals** designed to stress-test agent capabilities.
 
-# 🔑 API Keys
+## 🔑 API Keys
 
 To use models from other providers, set their respective API keys:
 
@@ -140,7 +140,7 @@ To use models from other providers, set their respective API keys:
 export ANTHROPIC_API_KEY="your-anthropic-api-key"
 ```
 
-# 👁️ Observation Structure
+## 👁️ Observation Structure
 
 Your agent gets access to the following observation structure:
 
@@ -164,7 +164,7 @@ Your agent gets access to the following observation structure:
 }
 ```
 
-# 🎯 Actions
+## 🎯 Actions
 
 Actions are specified as strings in the format of function calls. Here are some commonly used actions:
 
@@ -186,7 +186,7 @@ Actions are specified as strings in the format of function calls. Here are some 
 "report_infeasible('The requested item is out of stock')"
 ```
 
-# ⚙️ Harness Configuration
+## ⚙️ Harness Configuration
 
 The harness function accepts the following parameters:
 
@@ -230,7 +230,7 @@ REAL.harness(
 ```
 
 
-# 🤝 Contributing
+## 🤝 Contributing
 
 We welcome contributions of all kinds:
 - 📢 Feature requests? [Open an Issue](https://github.com/agi-inc/agisdk/issues)
@@ -240,7 +240,7 @@ We welcome contributions of all kinds:
 
 Let's build the future of agents together. 🔥
 
-# 💬 Community
+## 💬 Community
 - [Join our Discord](https://discord.gg/c95EJDfXzx) (_coming soon!_)
 - [Follow AGI Inc. on LinkedIn](https://www.linkedin.com/company/the-agi-company/)
 
