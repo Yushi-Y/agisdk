@@ -198,7 +198,7 @@ REAL.harness(
     model="openrouter/deepseek/deepseek-chat-v3-0324", # OpenRouter models (with openrouter/ prefix)
     agentargs=MyAgentArgs(),                       # Or provide your own agent arguments
 
-    # Task selection (provide one of these)
+    # Task selection (provide one of these or don't provide any to run all tasks)
     task_name="webclones.omnizon-1",  # Specific task to run
     task_type="omnizon",              # Run all tasks of this type
     task_id=1,                        # Run specific task ID within a type

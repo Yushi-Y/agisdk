@@ -8,8 +8,6 @@ def run_agent(api_key=None, run_name=None):
         max_steps=25,
         use_screenshot=True,
         use_axtree=True,
-        api_key=api_key,
-        run_name=run_name
     )
     return harness.run()
 
