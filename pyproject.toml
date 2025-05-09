@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agisdk"
-version = "0.1.17"
+version = "0.1.18"
 authors = [
     {name = "Diego Caples", email = "diego@theagi.company"},
     {name = "Prannay Hebbar", email = "prannay@theagi.company"}
@@ -52,5 +52,5 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-"agisdk.REAL.browsergym.webclones" = ["tasks/*.json"]
+"agisdk.REAL.browsergym.webclones" = ["tasks/*.json", "tasks/experimental/*.json"]
 "agisdk.REAL.browsergym.core" = ["chat_files/*.html", "chat_files/img/*.svg", "chat_files/*.png", "javascript/*.js"]

@@ -1,0 +1,2402 @@
+[
+    {
+        "id": "udriver-learned-evals-1",
+        "goal": "What is the main slogan of Udriver displayed on the home page?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user correctly identifies \"Go anywhere with Udriver\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-1.json"
+    },
+    {
+        "id": "udriver-learned-evals-2",
+        "goal": "Find the secondary slogan about requesting a ride.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user correctly identifies \"Request a ride, hop in, and go.\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-2.json"
+    },
+    {
+        "id": "udriver-learned-evals-3",
+        "goal": "Enter \"Waterbar Restaurant\" as your pickup location on the home page.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user types \"Waterbar Restaurant\" into the \"Enter Location\" field, and \"Waterbar Restaurant - 399 The Embarcadero, San Francisco, CA 94105, USA\" is selected."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-3.json"
+    },
+    {
+        "id": "udriver-learned-evals-4",
+        "goal": "Enter \"Coit Tower\" as your destination on the home page.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user types \"Coit Tower\" into the \"Enter Destination\" field, and \"Coit Tower - 1 Telegraph Hill Blvd, San Francisco, CA 94133, USA\" is selected."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-4.json"
+    },
+    {
+        "id": "udriver-learned-evals-5",
+        "goal": "After selecting \"Pacific Catch\" as a pickup location, clear the pickup location field.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user first selects \"Pacific Catch - 2027 Chestnut St, San Francisco, CA 94123, USA\" as pickup, then clicks the clear icon ('x' in a circle) so the pickup field is empty or shows the \"Enter Location\" placeholder."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-5.json"
+    },
+    {
+        "id": "udriver-learned-evals-6",
+        "goal": "Check if the \"See prices\" button is active if only a pickup location \"de Young Museum\" is entered.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user enters \"de Young Museum\" as pickup, leaves destination empty, and correctly states the \"See prices\" button is disabled/inactive."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-6.json"
+    },
+    {
+        "id": "udriver-learned-evals-7",
+        "goal": "What is the displayed name of the current user in the header?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user clicks the user menu (\"Federico\") in the top right and correctly identifies \"Federico Lopez\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-7.json"
+    },
+    {
+        "id": "udriver-learned-evals-8",
+        "goal": "From the home page, navigate to the \"Ride\" section using the main navigation bar.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user clicks \"Ride\" in the top navigation bar and lands on the /ride/trip page."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-8.json"
+    },
+    {
+        "id": "udriver-learned-evals-9",
+        "goal": "From the home page user menu, navigate to the \"Activity\" section.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The user clicks the user menu (\"Federico\"), then clicks \"Activity\", and lands on the /trips page."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-9.json"
+    },
+    {
+        "id": "udriver-learned-evals-10",
+        "goal": "What is the star rating displayed for the user \"Federico Lopez\" in the home page header menu?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Trivially Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User clicks the \"Federico\" dropdown in the header and correctly states the rating is \"4.89\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-10.json"
+    },
+    {
+        "id": "udriver-learned-evals-11",
+        "goal": "On the home page, set your pickup to \"333 Fremont Apartments\" and your destination to \"X Corp. HQ\". Is the \"See prices\" button active?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User correctly enters both locations and confirms the \"See prices\" button is active."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-11.json"
+    },
+    {
+        "id": "udriver-learned-evals-12",
+        "goal": "Navigate to the ride planning page. What are the default placeholder texts for the pickup and dropoff location fields?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /ride/trip (e.g. by clicking \"See prices\" or header \"Ride\" link) and correctly identifies \"Pickup location\" and \"Dropoff location\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-12.json"
+    },
+    {
+        "id": "udriver-learned-evals-13",
+        "goal": "From the home page, find out what options are available under the \"Ride\" tab in the top header.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User clicks \"Ride\" in the top navigation, lands on the ride page, and notes the sub-navigation tabs \"Ride\" and \"Package\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-13.json"
+    },
+    {
+        "id": "udriver-learned-evals-14",
+        "goal": "Go to the \"My trips\" page. What is the title of the upcoming trips section?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips page and correctly identifies the \"Upcoming\" title."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-14.json"
+    },
+    {
+        "id": "udriver-learned-evals-15",
+        "goal": "On the \"My trips\" page, what is the title of the past trips section?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips page and correctly identifies the \"Past\" title."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-15.json"
+    },
+    {
+        "id": "udriver-learned-evals-16",
+        "goal": "Find the price for a UdriverX ride from \"Pier Market Seafood Restaurant\" to \"Coit Tower\".",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User enters locations, navigates to car selection, selects UdriverX (if not already selected), and correctly states the price (e.g., \"$18.05\")."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-16.json"
+    },
+    {
+        "id": "udriver-learned-evals-17",
+        "goal": "What is the estimated arrival time text shown for the \"Comfort\" car option if you search for a ride now? (The exact time in the text doesn't matter, just the format).",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User searches for a ride, looks at the \"Comfort\" option, and notes text like \"2 min away - [some time]\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-17.json"
+    },
+    {
+        "id": "udriver-learned-evals-18",
+        "goal": "How many seats does a UdriverXL vehicle offer?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User searches for a ride, views the UdriverXL option, and correctly states 6 seats."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-18.json"
+    },
+    {
+        "id": "udriver-learned-evals-19",
+        "goal": "On the \"My trips\" page, what is the destination of the most recent past trip shown in the large card format?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips and correctly identifies \"Pacific Catch\" (2027 Chestnut St)."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-19.json"
+    },
+    {
+        "id": "udriver-learned-evals-20",
+        "goal": "What is the date and time of the last trip taken from \"Phat Thai\"?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, finds the trip from \"Phat Thai\" (ID 63), and states \"6/12/2024 \u2022 9:04:31 PM\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-20.json"
+    },
+    {
+        "id": "udriver-learned-evals-21",
+        "goal": "On the home page, try to set \"Waterbar Restaurant\" as both pickup and destination. What options for \"Waterbar Restaurant\" appear in the destination dropdown after selecting it as pickup?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User selects \"Waterbar Restaurant\" as pickup. Then, when typing \"Waterbar Restaurant\" for destination, they observe it's not listed or that the list is filtered to exclude the already selected pickup. The user states that \"Waterbar Restaurant\" is not an option for the destination."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-21.json"
+    },
+    {
+        "id": "udriver-learned-evals-22",
+        "goal": "Navigate to the \"Ride\" page, then click the \"Udriver\" logo in the header. Where do you land?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User goes to /ride/trip, clicks the \"Udriver\" logo, and confirms they land on the home page."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-22.json"
+    },
+    {
+        "id": "udriver-learned-evals-23",
+        "goal": "On the ride scheduling page (/ride/trip/pickupnow), what is the default selected date?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to the scheduling page and correctly identifies \"July 18, 2024\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-23.json"
+    },
+    {
+        "id": "udriver-learned-evals-24",
+        "goal": "On the ride scheduling page, what is the default selected time?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to the scheduling page and correctly identifies \"01:00 PM\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-24.json"
+    },
+    {
+        "id": "udriver-learned-evals-25",
+        "goal": "How many past trips are initially displayed below the main large past trip card on the \"My Trips\" page before clicking \"More\"?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Easy",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips and correctly counts 4 smaller past trip cards."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-25.json"
+    },
+    {
+        "id": "udriver-learned-evals-26",
+        "goal": "Find the price for the \"Comfort\" option for a ride from \"Fitness Urbano\" to \"Pacific Cafe\".",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User enters \"Fitness Urbano\" (ID 522, base 5) as pickup and \"Pacific Cafe\" (ID 12, base 9) as destination. Clicks \"Search\". Selects \"Comfort\". Base total = 14. Comfort price = 14 * 1.25 * (1-0.10) = $15.75. User states $15.75."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-26.json"
+    },
+    {
+        "id": "udriver-learned-evals-27",
+        "goal": "Book a UdriverX ride from \"333 Fremont Apartments\" to \"FITNESS SF - Castro\" for now. What is the license plate of the assigned driver?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the ride. On the driver details screen, correctly identifies the license plate (Pickup ID 733 = DLO, Dest ID 528 = D90, Plate = DLOD90)."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-27.json"
+    },
+    {
+        "id": "udriver-learned-evals-28",
+        "goal": "I want to go from \"X Corp. HQ\" to \"Waterbar Restaurant\". What is the price difference between UdriverX and UdriverXL?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User finds prices for both. X Corp HQ (ID 262, base 5) to Waterbar (ID 0, base 15). Total base = 20. UdriverX: 20 * 1 * 0.95 = $19.00. UdriverXL: 20 * 1.15 * 0.85 = $19.55. Difference is $0.55. User states $0.55."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-28.json"
+    },
+    {
+        "id": "udriver-learned-evals-29",
+        "goal": "Schedule a ride from \"de Young Museum\" to \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" for 3:30 PM today (July 18th). Choose the UdriverX option.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User successfully navigates to scheduling, sets time to 3:30 PM, date to July 18, selects locations, proceeds to car selection, chooses UdriverX, and clicks \"Reserve ride\". User sees the \"Thank you for reserving your ride\" screen."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-29.json"
+    },
+    {
+        "id": "udriver-learned-evals-30",
+        "goal": "After scheduling the ride in the previous task, go to \"My trips\". Verify that the scheduled trip to \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" is listed in the upcoming trips.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips and confirms the trip to \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" for July 18th, 3:30 PM with a UdriverX is visible."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-30.json"
+    },
+    {
+        "id": "udriver-learned-evals-31",
+        "goal": "Find your upcoming trip to \"Palace Hotel, a Luxury Collection Hotel, San Francisco\", view its details, and then cancel it.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, clicks the upcoming trip to \"Palace Hotel...\", is taken to the detail page, clicks \"Cancel this trip\", confirms cancellation in the modal. The trip should no longer be in upcoming trips."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-31.json"
+    },
+    {
+        "id": "udriver-learned-evals-32",
+        "goal": "Request a ride now from \"Sotto Mare\" to \"333 Fremont Apartments\" using the Comfort option. What is the driver's name shown on the \"driver found\" screen?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User successfully requests the ride. On the driver details screen, correctly identifies the driver's name as \"Alvaro\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-32.json"
+    },
+    {
+        "id": "udriver-learned-evals-33",
+        "goal": "On the \"My trips\" page, how many trips in total are listed in the \"Past\" section if you click the \"More\" button?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, clicks \"More\" under past trips, and counts 5 trips (excluding the large top one, so 5 smaller cards are shown in total, or states 6 total past trips including the large one). The total past trips are 6. So after clicking more, 1 large and 5 small cards."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-33.json"
+    },
+    {
+        "id": "udriver-learned-evals-34",
+        "goal": "Find the details of the first past trip listed (the one with the large map image). What is the pickup location address?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, inspects the largest past trip card (The Landing SF to Pacific Catch), and correctly identifies the pickup address as \"1395 22nd St, San Francisco, CA 94107, USA\". (Note: the card doesn't show addresses, only names. This task might be impossible as written from the card. User must click 'Details' which is non-functional. Rephrase: \"What is the pickup location NAME for the first past trip shown with a large map image?\") Criteria: \"...pickup location name as 'The Landing San Francisco Apartments'\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-34.json"
+    },
+    {
+        "id": "udriver-learned-evals-35",
+        "goal": "What is the total price of your earliest past trip listed on the \"My Trips\" page?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, clicks \"More\", identifies the earliest trip (The Landing SF to Pacific Catch on 6/10/2024 6:15 PM), and states its price. The Landing (ID 743, base 8) to Pacific Catch (ID 1, base 15). Total base 23. UdriverX: 23 * 1 * 0.95 = $21.85. User states $21.85."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-35.json"
+    },
+    {
+        "id": "udriver-learned-evals-36",
+        "goal": "Plan a ride from \"Pier Market Seafood Restaurant\" to \"Osha Thai BBQ San Francisco\". What are the three available car types and their listed prices?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User enters locations, clicks \"Search\". Correctly lists: UdriverX and its price (Pier Market ID 4 base 8, Osha Thai ID 60 base 9. Total base 17. 17*1*0.95 = $16.15). Comfort and its price (17*1.25*0.9 = $19.13). UdriverXL and its price (17*1.15*0.85 = $16.62)."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-36.json"
+    },
+    {
+        "id": "udriver-learned-evals-37",
+        "goal": "Start to book a ride from \"Burger King\" (35 Powell St) to \"Taco Bell\" (691 Eddy St). On the car selection screen, what is the description for the UdriverXL option?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User enters locations, gets to car selection. Correctly states \"Affordable rides for groups up to 6\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-37.json"
+    },
+    {
+        "id": "udriver-learned-evals-38",
+        "goal": "Go to the ride scheduling page. Select July 18th, 4:00 PM. Then, click the \"Remove\" button at the top right. What happens to the selected date and time?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User selects date/time, clicks \"Remove\". Observes that the date and time are cleared (or reset to default/empty), and the \"Pickup now\" button on the /ride/trip page reverts to \"Pickup now\" instead of showing a specific time."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-38.json"
+    },
+    {
+        "id": "udriver-learned-evals-39",
+        "goal": "Request a ride from \"333 Fremont Apartments\" to \"de Young Museum\" using the UdriverX option. Once the trip is \"in progress\" (map overlay appears), wait for the completion modal. What is the title of the completion modal?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the ride, waits through the \"searching\" and \"in progress\" phases, and correctly identifies the modal title as \"Trip Completed\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-39.json"
+    },
+    {
+        "id": "udriver-learned-evals-40",
+        "goal": "Find the cost of a UdriverX ride from \"The Landing San Francisco Apartments\" to \"Phat Thai\".",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User enters locations, gets to car selection. The Landing (ID 743, base 8) to Phat Thai (ID 63, base 5). Total base 13. UdriverX: 13 * 1 * 0.95 = $12.35. User states $12.35."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-40.json"
+    },
+    {
+        "id": "udriver-learned-evals-41",
+        "goal": "Navigate to the \"Package\" delivery section from the Ride page. What content is displayed there?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /ride/package and correctly states it shows a \"Work in progress...\" message."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-41.json"
+    },
+    {
+        "id": "udriver-learned-evals-42",
+        "goal": "From the home page, attempt to book a ride without selecting a destination. What happens when you click \"See prices\"?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User selects only a pickup location on the home page (e.g., \"Waterbar Restaurant\") and confirms that the \"See prices\" button remains inactive or does not navigate."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-42.json"
+    },
+    {
+        "id": "udriver-learned-evals-43",
+        "goal": "Schedule a ride from \"FITNESS SF - Castro\" to \"X Corp. HQ\" for 10:00 AM (July 18th). Choose the \"Comfort\" car. After booking, go to \"My Trips\" and find this trip. What is the formatted date and time shown for this upcoming trip on the card?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the ride. Navigates to /trips. Finds the trip and correctly states the date/time as \"18 jul, 10:00\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-43.json"
+    },
+    {
+        "id": "udriver-learned-evals-44",
+        "goal": "What is the most expensive Udriver car option available for a ride from \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" to \"Pier Market Seafood Restaurant\"? State the car type and its price.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User enters locations. Palace Hotel (ID 691, base 6) to Pier Market (ID 4, base 8). Total base 14. UdriverX: 14 * 1 * 0.95 = $13.30. Comfort: 14 * 1.25 * 0.9 = $15.75. UdriverXL: 14 * 1.15 * 0.85 = $13.69. User correctly identifies \"Comfort\" at $15.75."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-44.json"
+    },
+    {
+        "id": "udriver-learned-evals-45",
+        "goal": "Check the price for a UdriverX from \"333 Fremont Apartments\" to \"Pacific Catch\" (2027 Chestnut St). Then, change the pickup to \"The Landing San Francisco Apartments\" and check the UdriverX price again for the same destination. Report both prices.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "1st ride: 333 Fremont (ID 733, base 15) to Pacific Catch (ID 1, base 15). Total base 30. UdriverX: 30*0.95 = $28.50. 2nd ride: The Landing (ID 743, base 8) to Pacific Catch (ID 1, base 15). Total base 23. UdriverX: 23*0.95 = $21.85. User reports $28.50 and $21.85."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-45.json"
+    },
+    {
+        "id": "udriver-learned-evals-46",
+        "goal": "Find the past trip that went to \"Budget rental car\" (821 Howard St). What was the origin of this trip?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, finds the trip to \"Budget rental car\", and correctly states the origin was \"The Landing San Francisco Apartments\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-46.json"
+    },
+    {
+        "id": "udriver-learned-evals-47",
+        "goal": "Book a UdriverX ride from \"Waterbar Restaurant\" to \"Coit Tower\" for now. During the \"Searching drivers\" phase, what message is displayed below the loading spinner?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the ride and, during the searching phase, correctly reports the message \"Searching drivers, please wait...\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-47.json"
+    },
+    {
+        "id": "udriver-learned-evals-48",
+        "goal": "For a ride from \"Fitness Urbano\" to \"de Young Museum\", what is the discounted price of a UdriverXL and its original price (price without discount)?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User enters locations. Fitness Urbano (ID 522, base 5) to de Young (ID 143, base 6). Total base 11. UdriverXL: Discounted = 11 * 1.15 * 0.85 = $10.75 (rounded from 10.7525). Original = 11 * 1.15 = $12.65. User states $10.75 (discounted) and $12.65 (original)."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-48.json"
+    },
+    {
+        "id": "udriver-learned-evals-49",
+        "goal": "Go to the \"My Trips\" page. If there are no upcoming trips, what is the text on the button shown within the \"You have no upcoming trips scheduled\" message?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User ensures no upcoming trips are booked (or cancels any existing). Navigates to /trips. Correctly identifies the button text as \"Reserve ride\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-49.json"
+    },
+    {
+        "id": "udriver-learned-evals-50",
+        "goal": "Initiate a ride request from \"San Francisco Museum of Modern Art\" to \"333 Fremont Apartments\". Choose the UdriverX option. Before confirming the request, what payment method is displayed as default?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Medium",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User sets up the ride, proceeds to car selection, selects UdriverX. Correctly identifies the payment method in the footer as \"Cash\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-50.json"
+    },
+    {
+        "id": "udriver-learned-evals-51",
+        "goal": "You need a ride for yourself and 2 friends from \"Pier Market Seafood Restaurant\" to \"X Corp. HQ\". What is the cheapest suitable car option and its price?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "3 people fit in UdriverX or Comfort. Pier Market (ID 4, base 8) to X Corp HQ (ID 262, base 5). Total base 13. UdriverX: 13 * 1 * 0.95 = $12.35. Comfort: 13 * 1.25 * 0.9 = $14.63. Cheapest suitable is UdriverX at $12.35."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-51.json"
+    },
+    {
+        "id": "udriver-learned-evals-52",
+        "goal": "Schedule a ride from \"333 Fremont Apartments\" to \"Waterbar Restaurant\" for 2:15 PM on July 18th. Choose the Comfort option. After booking, go to its details page. What is the message regarding when your driver will wait until?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the Comfort ride for 2:15 PM. Navigates to trip details. Correctly identifies the message: \"Your driver will wait until 02:20 PM (PDT)\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-52.json"
+    },
+    {
+        "id": "udriver-learned-evals-53",
+        "goal": "Find the most expensive past trip recorded in June 2024. What was its destination and price?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, examines past trips. All 6 default trips are in June. Home (8) -> PC (15) = Base 23. UdriverX: $21.85. PC (15) -> Home (8) = Base 23. UdriverX: $21.85. Home (8) -> Phat Thai (5) = Base 13. UdriverX: $12.35. Phat Thai (5) -> Home (8) = Base 13. UdriverX: $12.35. Home (8) -> Budget (7) = Base 15. UdriverX: $14.25. Budget (7) -> Home (8) = Base 15. UdriverX: $14.25. The most expensive are the trips to/from Pacific Catch at $21.85. Destination of one is \"Pacific Catch\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-53.json"
+    },
+    {
+        "id": "udriver-learned-evals-54",
+        "goal": "Book an UdriverXL ride from \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" to \"Sotto Mare\" for now. Once the driver (Alvaro) is found, identify the make and model of the car.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the ride. On the driver details screen, correctly identifies car as \"Toyota Prius\". (Note: The car image might be UdriverXL but details screen always shows Toyota Prius for Alvaro)."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-54.json"
+    },
+    {
+        "id": "udriver-learned-evals-55",
+        "goal": "I need to get from \"333 Fremont Apartments\" to \"Pacific Catch\" (2027 Chestnut St) now. If the \"Comfort\" option is less than $5 more expensive than \"UdriverX\", book \"Comfort\". Otherwise, book \"UdriverX\". State which one you booked.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "333 Fremont (ID 733, base 15) to Pacific Catch (ID 1, base 15). Total base 30. UdriverX: 30 * 1 * 0.95 = $28.50. Comfort: 30 * 1.25 * 0.9 = $33.75. Difference is $33.75 - $28.50 = $5.25. This is NOT less than $5. So UdriverX should be booked. User states they booked UdriverX and completes the booking."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-55.json"
+    },
+    {
+        "id": "udriver-learned-evals-56",
+        "goal": "How many past trips were to \"The Landing San Francisco Apartments\"?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, expands past trips if necessary, and correctly counts 3 trips."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-56.json"
+    },
+    {
+        "id": "udriver-learned-evals-57",
+        "goal": "Schedule a ride from \"Osha Thai BBQ San Francisco\" to \"333 Fremont Apartments\" for 5:00 PM on July 18th using UdriverX. Then, navigate to the \"My Trips\" page and cancel this specific trip. Confirm the trip is no longer in your upcoming list.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User successfully schedules, then navigates to \"My Trips\", finds the scheduled trip, views details, cancels it, and confirms it's removed from upcoming trips."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-57.json"
+    },
+    {
+        "id": "udriver-learned-evals-58",
+        "goal": "You need to travel from \"de Young Museum\" to \"Waterbar Restaurant\". First, find the price for UdriverX. Then, change the pickup to \"Coit Tower\" (destination remains \"Waterbar Restaurant\") and find the price for UdriverX again. Report both UdriverX prices.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "1st ride: de Young (ID 143, base 6) to Waterbar (ID 0, base 15). Total base 21. UdriverX: 21*0.95 = $19.95. 2nd ride: Coit Tower (ID 136, base 11) to Waterbar (ID 0, base 15). Total base 26. UdriverX: 26*0.95 = $24.70. User reports $19.95 and $24.70."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-58.json"
+    },
+    {
+        "id": "udriver-learned-evals-59",
+        "goal": "Find the earliest trip in your past trip history. What was the car type and the destination name?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, expands past trips. Earliest is \"The Landing San Francisco Apartments\" to \"Pacific Catch\" on 6/10/2024 6:15 PM. Car type UdriverX, Destination \"Pacific Catch\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-59.json"
+    },
+    {
+        "id": "udriver-learned-evals-60",
+        "goal": "What is the full address (street, city, state, zip, country) of \"Phat Thai\" according to the system? You'll need to select it in a search input to see the full address if it's truncated.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User selects \"Phat Thai\" (ID 63) in a location search (e.g., on home page or ride page). Correctly states \"2380 Lombard St, San Francisco, CA 94123, USA\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-60.json"
+    },
+    {
+        "id": "udriver-learned-evals-61",
+        "goal": "Book a ride for yourself and 4 friends from \"333 Fremont Apartments\" to \"Osha Thai BBQ San Francisco\" leaving now. What is the final price quoted before you request?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "5 people means UdriverXL. 333 Fremont (ID 733, base 15) to Osha Thai (ID 60, base 9). Total base 24. UdriverXL: 24 * 1.15 * 0.85 = $23.46. User selects UdriverXL and reports $23.46."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-61.json"
+    },
+    {
+        "id": "udriver-learned-evals-62",
+        "goal": "Find the cheapest car option to go from \"FITNESS SF - Castro\" to \"Pacific Catch\" (2027 Chestnut St). Book this ride for now.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "FITNESS SF - Castro (ID 528, base 12) to Pacific Catch (ID 1, base 15). Total base 27. UdriverX: 27 * 1 * 0.95 = $25.65. Comfort: 27 * 1.25 * 0.9 = $30.38. UdriverXL: 27 * 1.15 * 0.85 = $26.40. Cheapest is UdriverX ($25.65). User books UdriverX."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-62.json"
+    },
+    {
+        "id": "udriver-learned-evals-63",
+        "goal": "I want to schedule a ride from \"Waterbar Restaurant\" to \"The Landing San Francisco Apartments\" for 6:00 PM on July 18th. Which car type offers the biggest discount percentage, and what is that percentage?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User goes to schedule, sets locations and time. Proceeds to car selection. UdriverX: 5% discount. Comfort: 10% discount. UdriverXL: 15% discount. User correctly identifies UdriverXL with a 15% discount."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-63.json"
+    },
+    {
+        "id": "udriver-learned-evals-64",
+        "goal": "Check the price for a ride from \"San Francisco Museum of Modern Art\" to \"Coit Tower\" using the \"Comfort\" car type. Then, check the price if you change the destination to \"de Young Museum\" (keeping pickup and car type the same). What are the two prices?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "1st ride: SF MOMA (ID 144, base 13) to Coit Tower (ID 136, base 11). Total base 24. Comfort: 24*1.25*0.9 = $27.00. 2nd ride: SF MOMA (ID 144, base 13) to de Young (ID 143, base 6). Total base 19. Comfort: 19*1.25*0.9 = $21.38. User reports $27.00 and $21.38."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-64.json"
+    },
+    {
+        "id": "udriver-learned-evals-65",
+        "goal": "Go to \"My Trips\". Find the past trip that originated from \"Budget rental car\" (821 Howard St) on June 13th. What was the destination name for this trip?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, finds the specified trip. Correctly identifies the destination as \"The Landing San Francisco Apartments\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-65.json"
+    },
+    {
+        "id": "udriver-learned-evals-66",
+        "goal": "Schedule a UdriverX ride from \"X Corp. HQ\" to \"333 Fremont Apartments\" for 11:30 AM on July 18th. After booking, go to the trip details page. What is the displayed final price?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the trip. Navigates to details page. X Corp (ID 262, base 5) to 333 Fremont (ID 733, base 15). Base 20. UdriverX: 20*0.95 = $19.00. User correctly states $19.00."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-66.json"
+    },
+    {
+        "id": "udriver-learned-evals-67",
+        "goal": "Request a \"Comfort\" ride from \"Pier Market Seafood Restaurant\" to \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" for now. After the driver is found, what is the driver's star rating?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the ride. On the driver details screen, correctly identifies the rating as \"4.99\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-67.json"
+    },
+    {
+        "id": "udriver-learned-evals-68",
+        "goal": "Find the \"Terms and Conditions\" link on the ride scheduling page (/ride/trip/pickupnow). What page does it attempt to navigate to?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to the scheduling page, clicks \"View terms and conditions\", and reports that it navigates to /ride/terms (which will show a \"Work in progress\" page)."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-68.json"
+    },
+    {
+        "id": "udriver-learned-evals-69",
+        "goal": "Imagine you booked a UdriverX ride from \"Sotto Mare\" to \"Coit Tower\". If the pickup location's identifier is 'VRJ' and the destination's identifier is '88O', what would the license plate be? You do not need to actually book the ride.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User correctly deduces the license plate would be \"VRJ88O\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-69.json"
+    },
+    {
+        "id": "udriver-learned-evals-70",
+        "goal": "From the home page, start planning a ride from \"Waterbar Restaurant\" to \"Pacific Catch\" (2027 Chestnut St). When you reach the car selection page, identify the listed \"time away\" text for the UdriverX option.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User enters locations, proceeds to car selection, and correctly reports the text \"1 min away - 1:39 PM\" for UdriverX."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-70.json"
+    },
+    {
+        "id": "udriver-learned-evals-71",
+        "goal": "Go to the \"My Trips\" page. For the past trip from \"The Landing San Francisco Apartments\" to \"Phat Thai\", what was the car type used?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User navigates to /trips, finds the specified past trip, and correctly identifies the car type as \"UdriverX\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-71.json"
+    },
+    {
+        "id": "udriver-learned-evals-72",
+        "goal": "You want to go from \"Fitness Urbano\" to \"X Corp. HQ\". If UdriverX costs $X and Comfort costs $Y, would booking Comfort be more than $2 extra compared to UdriverX? State yes or no.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "Fitness Urbano (ID 522, base 5) to X Corp HQ (ID 262, base 5). Total base 10. UdriverX: 10 * 1 * 0.95 = $9.50. Comfort: 10 * 1.25 * 0.9 = $11.25. Difference: $11.25 - $9.50 = $1.75. This is NOT more than $2 extra. User states \"No\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-72.json"
+    },
+    {
+        "id": "udriver-learned-evals-73",
+        "goal": "Schedule a ride for 4:45 PM on July 18th from \"333 Fremont Apartments\" to \"San Francisco Museum of Modern Art\" using the UdriverXL option. What is the total price shown on the booking confirmation screen?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User schedules the ride. 333 Fremont (ID 733, base 15) to SF MOMA (ID 144, base 13). Total base 28. UdriverXL: 28 * 1.15 * 0.85 = $27.37. User confirms booking and reports $27.37 on the \"Thank you for reserving\" screen."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-73.json"
+    },
+    {
+        "id": "udriver-learned-evals-74",
+        "goal": "Look at your past trips. Which restaurant appears most frequently as either a pickup or destination?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User checks past trips: Pacific Catch (x2), Phat Thai (x2), Budget rental car (x2). User can state either \"Pacific Catch\" or \"Phat Thai\" (or \"Budget rental car\" if they consider it a destination type). Judge should accept \"Pacific Catch\" or \"Phat Thai\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-74.json"
+    },
+    {
+        "id": "udriver-learned-evals-75",
+        "goal": "What is the full street address listed for \"FITNESS SF - Castro\" in the location search?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Fairly Difficult",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User searches for \"FITNESS SF - Castro\" (ID 528) and correctly identifies the address component as \"2301 Market St, San Francisco, CA 94114, USA\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-75.json"
+    },
+    {
+        "id": "udriver-learned-evals-76",
+        "goal": "You and 5 friends (total 6 people) need a ride from \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" to \"Waterbar Restaurant\" right now. Book the appropriate ride and report the license plate of the driver.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "6 people require UdriverXL. User selects UdriverXL. Palace Hotel (ID 691, base 6) to Waterbar (ID 0, base 15). License plate: Pickup ID 'PGW', Dest ID 'HBR'. Plate is PGWHBR. User books the ride and reports \"PGWHBR\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-76.json"
+    },
+    {
+        "id": "udriver-learned-evals-77",
+        "goal": "I need to go from \"Pacific Catch\" (2027 Chestnut St) back home to \"333 Fremont Apartments\" now. If the UdriverXL version is within $10 of the UdriverX one, book UdriverXL. Otherwise, book UdriverX. Tell me which one you booked and its price.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "Pacific Catch (ID 1, base 15) to 333 Fremont (ID 733, base 15). Total base 30. UdriverX: 30 * 1 * 0.95 = $28.50. UdriverXL: 30 * 1.15 * 0.85 = $29.33. Difference is $29.33 - $28.50 = $0.83. This is within $10. User books UdriverXL and states \"UdriverXL\" and \"$29.33\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-77.json"
+    },
+    {
+        "id": "udriver-learned-evals-78",
+        "goal": "Find the latest past trip that involved \"The Landing San Francisco Apartments\". Re-book this exact trip (same pickup, destination, and car type) for now. What is the driver's name?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "Latest past trip involving \"The Landing San Francisco Apartments\" is from \"Budget rental car\" to \"The Landing San Francisco Apartments\" via UdriverX. User sets pickup: \"Budget rental car\" (821 Howard St), destination: \"The Landing San Francisco Apartments\". Selects UdriverX. Books for now. Reports driver name \"Alvaro\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-78.json"
+    },
+    {
+        "id": "udriver-learned-evals-79",
+        "goal": "Schedule a ride from \"de Young Museum\" to \"FITNESS SF - Castro\" for 2:00 PM on July 18th. Choose the car type that has a 10% discount. After booking, go to \"My Trips\", find this trip, and cancel it. Confirm successful cancellation.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "The \"Comfort\" car has a 10% discount. User schedules a Comfort ride for the specified route and time. Then successfully cancels it from the \"My Trips\" page."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-79.json"
+    },
+    {
+        "id": "udriver-learned-evals-80",
+        "goal": "You need a ride from \"X Corp. HQ\" to \"Pier Market Seafood Restaurant\". First, find the price for UdriverX. Then, change the car to Comfort and note its price. Finally, change to UdriverXL and note its price. Report all three prices.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "X Corp HQ (ID 262, base 5) to Pier Market (ID 4, base 8). Total base 13. UdriverX: 13 * 1 * 0.95 = $12.35. Comfort: 13 * 1.25 * 0.9 = $14.63. UdriverXL: 13 * 1.15 * 0.85 = $11.09. User reports $12.35 (UdriverX), $14.63 (Comfort), and $11.09 (UdriverXL)."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-80.json"
+    },
+    {
+        "id": "udriver-learned-evals-81",
+        "goal": "I want to go from \"333 Fremont Apartments\" to \"Coit Tower\". Check all car options. Which car option has the highest original price (before discount)? State the car type and its original price.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "333 Fremont (ID 733, base 15) to Coit Tower (ID 136, base 11). Total base 26. UdriverX: Original = 26 * 1 = $26.00. Comfort: Original = 26 * 1.25 = $32.50. UdriverXL: Original = 26 * 1.15 = $29.90. Highest original price is Comfort at $32.50."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-81.json"
+    },
+    {
+        "id": "udriver-learned-evals-82",
+        "goal": "Book a ride from \"Phat Thai\" to \"The Landing San Francisco Apartments\" for now using UdriverX. Report the estimated arrival time format shown on the car selection screen (e.g., \"X min away - HH:MM AM/PM\") and then the license plate of the driver once found.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User gets to car selection and reports format like \"1 min away - 1:39 PM\". Then books and reports license plate. Phat Thai (ID 63, identifier UDD) to The Landing (ID 743, identifier YTG). Plate: UDDYTG."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-82.json"
+    },
+    {
+        "id": "udriver-learned-evals-83",
+        "goal": "Go to \"My Trips\". Find the trip details for the past ride from \"The Landing San Francisco Apartments\" to \"Budget rental car\". What was the date and time of this trip? (Hint: you may need to click \"More\").",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User finds the trip: \"6/13/2024 \u2022 10:45:32 AM\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-83.json"
+    },
+    {
+        "id": "udriver-learned-evals-84",
+        "goal": "Schedule a ride from \"Osha Thai BBQ San Francisco\" to \"Waterbar Restaurant\" for 6:30 PM on July 18th using the UdriverXL option. After booking, view the trip details. What is the pickup address shown on the details page?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the trip. Navigates to trip details. Correctly states pickup address as \"692 Geary St, San Francisco, CA 94102, USA\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-84.json"
+    },
+    {
+        "id": "udriver-learned-evals-85",
+        "goal": "Plan a ride from \"Waterbar Restaurant\" to \"333 Fremont Apartments\". What is the difference in final price between the most expensive option and the cheapest option?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "Waterbar (ID 0, base 15) to 333 Fremont (ID 733, base 15). Total base 30. UdriverX: 30 * 1 * 0.95 = $28.50 (Cheapest). Comfort: 30 * 1.25 * 0.9 = $33.75 (Most Expensive). UdriverXL: 30 * 1.15 * 0.85 = $29.33. Difference: $33.75 - $28.50 = $5.25. User reports $5.25."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-85.json"
+    },
+    {
+        "id": "udriver-learned-evals-86",
+        "goal": "Book three separate UdriverX rides for now: \"333 Fremont Apartments\" to \"Coit Tower\", \"Coit Tower\" to \"Pier Market Seafood Restaurant\", \"Pier Market Seafood Restaurant\" to \"333 Fremont Apartments\". After all three are completed (modals closed), go to \"My Trips\". How many new past trips are listed compared to the initial state, and what is the destination of the most recent one you just booked?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books all three. Navigates to /trips. Confirms 3 new past trips are added. The last booked destination was \"333 Fremont Apartments\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-86.json"
+    },
+    {
+        "id": "udriver-learned-evals-87",
+        "goal": "Schedule a ride from \"FITNESS SF - Castro\" to \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" for 1:00 PM on July 18th using UdriverX. Then, schedule another ride from \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" to \"FITNESS SF - Castro\" for 3:00 PM on July 18th using Comfort. Go to \"My Trips\". How many upcoming trips are there and what are their car types?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books both. Goes to /trips. Confirms 2 upcoming trips. Correctly identifies car types as UdriverX and Comfort for the respective trips."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-87.json"
+    },
+    {
+        "id": "udriver-learned-evals-88",
+        "goal": "Find the price for a UdriverX ride from \"The Landing San Francisco Apartments\" to \"Pacific Catch\" (2027 Chestnut St). Then, find the price for a UdriverX ride from \"Pacific Catch\" (2027 Chestnut St) to \"The Landing San Francisco Apartments\". Are the prices the same?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "Ride 1: Landing (ID 743, base 8) to PC (ID 1, base 15). Total base 23. Price: 23*0.95 = $21.85. Ride 2: PC (ID 1, base 15) to Landing (ID 743, base 8). Total base 23. Price: 23*0.95 = $21.85. User reports both prices are $21.85 and states they are the same."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-88.json"
+    },
+    {
+        "id": "udriver-learned-evals-89",
+        "goal": "I need a ride from \"de Young Museum\" to \"333 Fremont Apartments\" for now. If the \"Comfort\" option's final price is exactly $30.38, book it. Otherwise, state that the condition was not met.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "de Young (ID 143, base 6) to 333 Fremont (ID 733, base 15). Total base 21. Comfort: 21 * 1.25 * 0.9 = $23.63. The price is not $30.38. User states the condition was not met and does not book."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-89.json"
+    },
+    {
+        "id": "udriver-learned-evals-90",
+        "goal": "Find the latest trip in your past trip history. Then, schedule a ride from that trip's pickup location to its destination location using the same car type, for 7:00 PM on July 18th.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "Latest past trip is Budget Rental Car (ID 595) to The Landing SF Apts (ID 743), UdriverX. User schedules a ride from \"Budget Car Rental\" to \"The Landing San Francisco Apartments\" for 7:00 PM, July 18th, using UdriverX. Confirms booking."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-90.json"
+    },
+    {
+        "id": "udriver-learned-evals-91",
+        "goal": "Plan a ride from \"Burger King\" (35 Powell St) to \"McDonald's\" (441 Sutter St). Select the UdriverXL option. What is the original price (before discount) and the final discounted price?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "BK (ID 20, base 7) to McD (ID 19, base 11). Total base 18. UdriverXL: Original = 18 * 1.15 = $20.70. Discounted = 18 * 1.15 * 0.85 = $17.60. User reports Original: $20.70, Discounted: $17.60."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-91.json"
+    },
+    {
+        "id": "udriver-learned-evals-92",
+        "goal": "Go to the ride booking page. Enter \"Sotto Mare\" as pickup and \"Waterbar Restaurant\" as dropoff. Click \"Search\". Now, change the pickup location to \"Phat Thai\" without going back to the home page. Which car type is now the cheapest?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "Initial: Sotto Mare (ID 6, base 11) to Waterbar (ID 0, base 15). Base 26. Changed pickup: Phat Thai (ID 63, base 5) to Waterbar (ID 0, base 15). Base 20. UdriverX: 20 * 0.95 = $19.00. Comfort: 20 * 1.25 * 0.9 = $22.50. UdriverXL: 20 * 1.15 * 0.85 = $19.55. Cheapest is UdriverX."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-92.json"
+    },
+    {
+        "id": "udriver-learned-evals-93",
+        "goal": "Schedule three rides for July 18th: \"333 Fremont Apartments\" to \"Coit Tower\" at 9:00 AM (UdriverX), \"Coit Tower\" to \"Pier Market Seafood Restaurant\" at 12:00 PM (Comfort), \"Pier Market Seafood Restaurant\" to \"333 Fremont Apartments\" at 3:00 PM (UdriverXL). Then go to \"My Trips\" and list the destinations and car types of your upcoming trips in chronological order.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books all three. Goes to /trips. Lists: Coit Tower - UdriverX, Pier Market Seafood Restaurant - Comfort, 333 Fremont Apartments - UdriverXL."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-93.json"
+    },
+    {
+        "id": "udriver-learned-evals-94",
+        "goal": "Clear all currently selected pickup and dropoff locations on the home page. Then, select \"The Landing San Francisco Apartments\" as pickup and \"Pacific Catch\" (2027 Chestnut St) as dropoff. Proceed to see prices. What is the price for the UdriverX option?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User clears any existing locations. Enters \"The Landing San Francisco Apartments\" (ID 743, base 8) as pickup and \"Pacific Catch\" (ID 1, base 15) as dropoff. Clicks \"See Prices\". The price for UdriverX is 23 * 1 * 0.95 = $21.85. User states $21.85."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-94.json"
+    },
+    {
+        "id": "udriver-learned-evals-95",
+        "goal": "Check the \"My Trips\" page. For each of the default past trips (6 of them), identify if the destination was \"The Landing San Francisco Apartments\". How many trips had this as their destination?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User checks past trips and correctly identifies 3 trips had \"The Landing San Francisco Apartments\" as their destination."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-95.json"
+    },
+    {
+        "id": "udriver-learned-evals-96",
+        "goal": "You want to go from \"Osha Thai BBQ San Francisco\" to \"333 Fremont Apartments\". Request a ride for now. First, check UdriverX price. Then, check UdriverXL price. If UdriverXL is less than $5 more than UdriverX, choose UdriverXL. Otherwise, choose UdriverX. Book the chosen ride and report the driver's license plate.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "Osha Thai (ID 60, base 9) to 333 Fremont (ID 733, base 15). Total base 24. UdriverX: 24 * 0.95 = $22.80. UdriverXL: 24 * 1.15 * 0.85 = $23.46. Difference $0.66, which is less than $5. User books UdriverXL. License plate: Pickup '3S1', Dest 'DLO'. Plate is 3S1DLO. User reports \"3S1DLO\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-96.json"
+    },
+    {
+        "id": "udriver-learned-evals-97",
+        "goal": "Schedule a ride from \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" to \"de Young Museum\" for 1:30 PM, July 18th. Use the \"Comfort\" option. After confirming, go to My Trips, open the trip details, and state the pickup location's name and the destination location's name as shown on the details page.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User schedules the ride. Navigates to trip details. Correctly states pickup as \"Palace Hotel, a Luxury Collection Hotel, San Francisco\" and destination as \"de Young Museum\" (or their full addresses if those are shown instead of names on this specific screen, judge to verify based on page content. The booking confirmation page shows NAME for pickup/dropoff locations)."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-97.json"
+    },
+    {
+        "id": "udriver-learned-evals-98",
+        "goal": "Book a ride for yourself (1 person) from \"Waterbar Restaurant\" to \"X Corp. HQ\" for now. Choose the UdriverX option. After the trip completes (you see the \"Trip Completed\" modal), go to \"My Trips\". What is the destination and price of the newest past trip?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User books the UdriverX ride. Waterbar (ID 0, base 15) to X Corp HQ (ID 262, base 5). Base 20. Price 20*0.95 = $19.00. After trip completion, user navigates to \u2018/trips\u2018 and verifies the new past trip has destination \"X Corp. HQ\" and price \"$19.00\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-98.json"
+    },
+    {
+        "id": "udriver-learned-evals-99",
+        "goal": "From the home page, input \"FITNESS SF - Castro\" as pickup and \"Coit Tower\" as destination. Click \"See prices\". On the ride selection screen, what is the description provided for the \"Comfort\" vehicle?",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User performs steps and correctly identifies the description for Comfort as \"Newer cars with extra legroom\"."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-99.json"
+    },
+    {
+        "id": "udriver-learned-evals-100",
+        "goal": "Schedule a ride from \"333 Fremont Apartments\" to \"Pier Market Seafood Restaurant\" for 2:40 PM on July 18th using UdriverX. Then, immediately schedule another ride from \"Pier Market Seafood Restaurant\" back to \"333 Fremont Apartments\" for 4:10 PM on July 18th, also UdriverX. Go to \"My Trips\" and cancel ONLY the first trip (the one TO Pier Market). Verify one trip remains in upcoming.",
+        "website": {
+            "id": "udriver",
+            "name": "UDriver",
+            "similarTo": "Uber",
+            "previewImage": "/websitePreviews/udriver_preview.jpg",
+            "url": "https://evals-udriver.vercel.app/"
+        },
+        "difficulty": "Hard",
+        "challengeType": "retrieval-action",
+        "possible": true,
+        "description": "eval not implemented yet",
+        "evals": [
+            {
+                "type": "learned_evaluator",
+                "criterion": "User schedules both. Goes to \"My Trips\". Identifies the 2:40 PM trip to Pier Market, views its details, and cancels it. Verifies that the 4:10 PM trip from Pier Market is still listed as upcoming."
+            }
+        ],
+        "points": 1,
+        "config": {},
+        "_filename": "udriver-learned-evals-100.json"
+    }
+]

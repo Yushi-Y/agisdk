@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: agisdk
-Version: 0.1.17
+Version: 0.1.18
 Summary: AGI SDK - tools for building and evaluating AI web agents
 Author-email: Diego Caples <diego@theagi.company>, Prannay Hebbar <prannay@theagi.company>
 Project-URL: Homepage, https://github.com/agi-inc/agisdk
@@ -35,54 +35,92 @@ Requires-Dist: lxml
 Dynamic: license-file
 
 <p align="center">
-  <h3 align="center">AGI SDK</h3>
+  <h1 align="center">🚀 AGI SDK</h1>
 </p>
 
-<p align="center"><a href="https://arxiv.org/abs/2504.11543">📄 Paper</a> | <a href="https://www.theagi.company/blog/introducing-real-bench">📝 Blog</a> | <a href="https://www.theagi.company">🏢 AGI Inc</a> | <a href="https://www.realevals.xyz">🏆 Leaderboard</a></p>
-
-AGI SDK is a toolkit for building and evaluating AI agents. 
-
-It comes with support for the [REAL benchmark](https://realevals.xyz) (Realistic Evaluations for Agents Leaderboard) to evaluate browser-based agents in real world settings.
 
 <p align="center">
-  <img src="images/real.gif" alt="Real benchmark gif">
+  <a href="https://arxiv.org/abs/2504.11543">📄 Paper</a> • 
+  <a href="https://www.theagi.company/blog/introducing-real-bench">📝 Blog</a> • 
+  <a href="https://www.theagi.company">🏢 AGI Inc</a> • 
+  <a href="https://www.realevals.xyz">🏆 Leaderboard</a>
 </p>
 
-## Installation
+
+<p align="center">
+  <a href="https://pypi.org/project/agisdk"><img src="https://img.shields.io/pypi/v/agisdk?color=brightgreen" alt="PyPI version"></a>
+  <a href="https://pypi.org/project/agisdk"><img src="https://img.shields.io/pypi/pyversions/agisdk" alt="Python versions"></a>
+  <a href="https://static.pepy.tech/badge/agisdk"><img src="https://static.pepy.tech/badge/agisdk" alt="Downloads"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/agi-inc/agisdk" alt="License"></a>
+</p>
+
+<p align="center">
+  <b>Build, evaluate, and level up your AI agents — for the real web.</b>
+</p>
+
+<p align="center">
+  <img src="images/real.gif" alt="REAL benchmark demo" width="600">
+</p>
+
+
+
+
+# ✨ What is AGI SDK?
+
+**AGI SDK** is a toolkit for **building** and **evaluating** AI browser agents in real-world environments.
+
+It powers [REAL Bench](https://realevals.xyz) — the first high-fidelity benchmark for AI agents navigating modern websites like Amazon, DoorDash, Airbnb, and more.
+
+🔹 **Train agents** to browse and interact with real apps  
+🔹 **Benchmark agents** with robust, standardized tasks  
+🔹 **Submit to the leaderboard** and see how your agents stack up!
+
+> **TL;DR**: Go from “idea” to “benchmarked agent” in <60 seconds
+
+## 🛠️ Installation (30 s)
 
 ```bash
-# Install from PyPI
+# Install the SDK
 pip install agisdk
 
-# Install browser binaries required by Playwright
+# Install Playwright browser dependencies
 playwright install --force
 
-# Set your OpenAI API key (required for evaluation)
-export OPENAI_API_KEY="your-api-key"
-```
-To test it out, run:
-```bash
-python starter.py
+# Set your LLM API key (for evaluation)
+export OPENAI_API_KEY="your-api-key" # any supported provider key works
 ```
 
-## Quick Start
+✅ Supports OpenAI, Anthropic, OpenRouter, and custom models! <br>
+On Apple Silicon run `brew install --cask playwright` first.
 
-Here's a simple example to get you started for benchmarking an AI agent on the REAL Bench environment:
+
+## ⏱️ 60-second Quick-Start
+
+Here's a minimql example to get you started for benchmarking an AI agent on the REAL Bench environment:
 
 ```python
 from agisdk import REAL
 
-# Create a harness with a pre-configured model
 harness = REAL.harness(
-    model="gpt-4o",
-    task_name="webclones.omnizon-1",
-    headless=False
+    model="gpt-4o",       # any LLM tag
+    task_type="omnizon",  # Amazon-like store
+    headless=False        # watch it click in real-time!
 )
 
-# Run the experiment
-results = harness.run()
-
+print(harness.run())      # 🎉
 ```
+Need more control? [See full examples ›](/example)
+
+## 🔥 Features
+
+- Full-stack **web replicas** of top real-world apps (Amazon, Uber, Gmail, Airbnb, etc.)
+- **Robust agent API**: Observations, Actions, Memory, Errors
+- **Leaderboard integration** (REAL Bench)
+- **Customizable harness**: plug your own agents
+- **Multi-model support**: OpenAI, Anthropic, OpenRouter, or your own model
+- **Parallel evaluation** for faster experiments
+
+
 
 ## Running Custom Agents
 
@@ -107,27 +145,29 @@ cd agisdk
 pip install -e .
 ```
 
-## Available Tasks
+## 🌐 Available Tasks
 
 The AGI SDK includes high-fidelity, fully-deterministic websites for agents to explore. These are modern web stack sites (React + Next.js) with rich functionality for core user flows, realistic mock data, and consistent behavior for testing and evaluation.
 
 The benchmark includes these environments:
 
-- **Omnizon** (`webclones.omnizon-*`): Similar to Amazon, for e-commerce shopping tasks
-- **DashDish** (`webclones.dashdish-*`): Similar to DoorDash, for food delivery tasks
-- **Fly Unified** (`webclones.fly-unified-*`): Similar to United Airlines, for flight booking
-- **Staynb** (`webclones.staynb-*`): Similar to Airbnb, for accommodation booking
-- **GoCalendar** (`webclones.gocalendar-*`): Similar to Google Calendar, for scheduling
-- **GoMail** (`webclones.gomail-*`): Similar to Gmail, for email tasks
-- **OpenDining** (`webclones.opendining-*`): Similar to OpenTable, for restaurant reservations
-- **NetworkIn** (`webclones.networkin-*`): Similar to LinkedIn, for professional networking
-- **Udriver** (`webclones.udriver-*`): Similar to Uber, for ride booking
-- **TopWork** (`webclones.topwork-*`): Similar to UpWork, for freelance job marketplace
-- **Zilloft** (`webclones.zilloft-*`): Similar to Zillow, for real estate browsing
+| App Clone | Task Prefix | Example Use Case |
+| :--- | :--- | :--- |
+| 🛒 Amazon → Omnizon | `webclones.omnizon-*` | Buy a laptop, find a gift |
+| 🍔 DoorDash → DashDish | `webclones.dashdish-*` | Order dinner |
+| ✈️ United → FlyUnified | `webclones.fly-unified-*` | Book a flight |
+| 🏡 Airbnb → Staynb | `webclones.staynb-*` | Reserve accommodation |
+| 📅 Google Calendar → GoCalendar | `webclones.gocalendar-*` | Schedule a meeting |
+| 📬 Gmail → GoMail | `webclones.gomail-*` | Compose an email |
+| 🍽️ OpenTable → OpenDining | `webclones.opendining-*` | Book a restaurant |
+| 👔 LinkedIn → NetworkIn | `webclones.networkin-*` | Accept a connection |
+| 🚗 Uber → Udriver | `webclones.udriver-*` | Book a ride |
+| 💼 UpWork → TopWork | `webclones.topwork-*` | Find a freelance gig |
+| 🏠 Zillow → Zilloft | `webclones.zilloft-*` | Browse houses |
 
-Each task comes with practical, human-written goals that test an agent's ability to navigate and complete realistic web tasks.
+Each task comes with **human-written goals** designed to stress-test agent capabilities.
 
-## Additional Environment Variables
+## 🔑 API Keys
 
 To use models from other providers, set their respective API keys:
 
@@ -136,7 +176,7 @@ To use models from other providers, set their respective API keys:
 export ANTHROPIC_API_KEY="your-anthropic-api-key"
 ```
 
-## Observation Structure
+## 👁️ Observation Structure
 
 Your agent gets access to the following observation structure:
 
@@ -160,7 +200,7 @@ Your agent gets access to the following observation structure:
 }
 ```
 
-## Available Actions
+## 🎯 Actions
 
 Actions are specified as strings in the format of function calls. Here are some commonly used actions:
 
@@ -182,7 +222,7 @@ Actions are specified as strings in the format of function calls. Here are some 
 "report_infeasible('The requested item is out of stock')"
 ```
 
-## Harness Configuration
+## ⚙️ Harness Configuration
 
 The harness function accepts the following parameters:
 
@@ -194,7 +234,7 @@ REAL.harness(
     model="openrouter/deepseek/deepseek-chat-v3-0324", # OpenRouter models (with openrouter/ prefix)
     agentargs=MyAgentArgs(),                       # Or provide your own agent arguments
 
-    # Task selection (provide one of these)
+    # Task selection (provide one of these or don't provide any to run all tasks)
     task_name="webclones.omnizon-1",  # Specific task to run
     task_type="omnizon",              # Run all tasks of this type
     task_id=1,                        # Run specific task ID within a type
@@ -225,19 +265,23 @@ REAL.harness(
 )
 ```
 
-# For OpenRouter models
-```
-export OPENROUTER_API_KEY="your-openrouter-api-key"
-```
 
-## Contributing
+## 🤝 Contributing
 
-We welcome any contributions to the AGI SDK, whether it's submitting an idea, fixing a typo, adding a new guide, or improving an existing one.
+We welcome contributions of all kinds:
+- 📢 Feature requests? [Open an Issue](https://github.com/agi-inc/agisdk/issues)
+- 🐛 Bug reports? [Create a ticket](https://github.com/agi-inc/agisdk/issues)
+- 📈 Improve REAL tasks? Join our [Project Board](https://github.com/orgs/agi-inc/projects/2)
+- 🛠️ Submit code? Fork + PR — we love clean commits!
 
-- For general ideas or issues, share them on the [issues page](https://github.com/agi-inc/agisdk/issues).
-- For issues with specific REAL tasks or websites, please report them in the corresponding column in our [project board](https://github.com/orgs/agi-inc/projects/2) so we can track and improve REAL.
+Let's build the future of agents together. 🔥
 
-If you want to directly contribute code, you can fork the repository, make your changes, and submit a pull request.
-To avoid duplication of efforts, please review the existing issues and pull requests before contributing.
+## 💬 Community
+- [Join our Discord](https://discord.gg/c95EJDfXzx) (_coming soon!_)
+- [Follow AGI Inc. on LinkedIn](https://www.linkedin.com/company/the-agi-company/)
 
-Happy building! 🙌
+## ⭐️ Why AGI SDK?
+
+Because **your agents deserve better** than toy environments. <br>
+Because **the real web is messy** — and that's where the magic happens. <br>
+Because **the future is agentic** — and it starts here.

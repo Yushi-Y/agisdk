@@ -101,6 +101,7 @@ src/agisdk/REAL/browsergym/webclones/tasks/networkin-8.json
 src/agisdk/REAL/browsergym/webclones/tasks/networkin-9.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-1.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-10.json
+src/agisdk/REAL/browsergym/webclones/tasks/omnizon-11.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-2.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-3.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-4.json
@@ -158,6 +159,7 @@ src/agisdk/REAL/browsergym/webclones/tasks/zilloft-6.json
 src/agisdk/REAL/browsergym/webclones/tasks/zilloft-7.json
 src/agisdk/REAL/browsergym/webclones/tasks/zilloft-8.json
 src/agisdk/REAL/browsergym/webclones/tasks/zilloft-9.json
+src/agisdk/REAL/browsergym/webclones/tasks/experimental/llm-generated.json
 src/agisdk/REAL/demo_agent/__init__.py
 src/agisdk/REAL/demo_agent/basic_agent.py
 src/agisdk/REAL/demo_agent/run_demo.py
