@@ -51,16 +51,17 @@ pip install agisdk
 playwright install --force
 
 # Set your LLM API key (for evaluation)
-export OPENAI_API_KEY="your-api-key" # any supported provider key works
+export OPENAI_API_KEY="your-api-key"   # any supported provider key works
 ```
 
 ✅ Supports OpenAI, Anthropic, OpenRouter, and custom models! <br>
+
 On Apple Silicon run `brew install --cask playwright` first.
 
 
 ## ⏱️ 60-second Quick-Start
 
-Here's a minimql example to get you started for benchmarking an AI agent on the REAL Bench environment:
+Here's a minimal example to get you started for benchmarking an AI agent on the REAL Bench environment:
 
 ```python
 from agisdk import REAL
