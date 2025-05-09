@@ -6,6 +6,12 @@ Below is where you will find your API keys: https://www.realevals.xyz/profile
 
 API keys are used to make submissions to the REAL Evals platform.
 
+There are currently two main APIs:
+
+1. `get_run_id`: Registers a new evaluation run on the REAL Evals platform and returns a unique run ID.
+2. `get_run_results`: Retrieves the results of a previously registered evaluation run.
+
+
 ## Functions
 
 ### `get_run_id(api_key: str, model_name: str, run_name: str) -> str`
@@ -22,16 +28,17 @@ Registers a new evaluation run on the REAL Evals platform and returns a unique r
 
 #### Example:
 ```python
-from nova_benchmark import get_run_id
-
-api_key = "your_api_key_here"
-model_name = "NovaAct_20240509"
-run_name = "Benchmark_Run_2024_05_09"
-
-run_id = get_run_id(api_key, model_name, run_name)
-print(f"New run ID: {run_id}")
+url = (
+            "https://www.realevals.xyz/api/runKey?"
+            + urllib.parse.urlencode(
+                {
+                    "api_key": api_key,
+                    "model_name": model_name,
+                    "run_name": run_name,
+                }
+            )
+        )
 ```
-
 #### Notes:
 - The run ID is required for submitting task results
 - Each run should have a unique run name for easy identification
@@ -64,23 +71,13 @@ Retrieves the results of a previously registered evaluation run.
 
 #### Example:
 ```python
-from nova_benchmark import get_run_results
-
-api_key = "your_api_key_here"
-display_name = "Benchmark_Run_2024_05_09"
-
-results = get_run_results(api_key, display_name)
-
-# Access overall statistics
-print(f"Success rate: {results['success_rate']}%")
-print(f"Total runs: {results['total_runs']}")
-
-# Access individual run data
-for run in results.get('runs', []):
-    print(f"Task {run['task_id']} - Points: {run['points']}")
+url = (
+            "https://www.realevals.xyz/api/getRunTask?"
+            + urllib.parse.urlencode(
+                {
+                    "api_key": api_key,
+                    "display_name": display_name,
+                }
+            )
+        )
 ```
-
-#### Notes:
-- The API endpoint used is `https://www.realevals.xyz/api/getRunTask`
-- Results include both summary statistics and detailed information for each task
-- Error handling is included to handle connection issues or API errors
