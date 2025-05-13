@@ -1,17 +1,17 @@
 
 from __future__ import annotations
-
 import argparse
-import json
-import os
 import time
 import urllib.parse
+import json
+import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
 import requests  # pip install requests
 from nova_act import NovaAct
 from agisdk.REAL.tasks import all_tasks as tasks
+from agisdk.REAL.browsergym.webclones.evaluate import WebCloneEvaluator
 
 ###############################################################################
 # Realevals helpers
@@ -108,10 +108,37 @@ def run_task(task: dict, run_id: str, headless: bool) -> dict:
             answer = nova_result.response or ""
             result["response"] = answer
             
-            # Submit the response
+            # # Submit the response
+            # bot.go_to_url(
+            #     f"{base}/submit?retrieved_answer={urllib.parse.quote(answer)}"
+            # )
+            
+            # Finish the task
             bot.go_to_url(
-                f"{base}/submit?retrieved_answer={urllib.parse.quote(answer)}"
+                f"{base}/finish"
             )
+            
+            # Get visible text
+            pre_element = bot.page.wait_for_selector("pre")
+            if pre_element:
+                env_state = pre_element.inner_text()
+                try:
+                    env_state_json = json.loads(env_state)
+                except json.JSONDecodeError as e:
+                    error_message = f"Invalid JSON format: {str(e)}"
+            
+            model_response = ""
+            # Import TaskConfig
+            from agisdk.REAL.browsergym.webclones.task_config import TaskConfig
+            # Create a TaskConfig object from the task ID
+            task_config = TaskConfig(tid)
+            # Create evaluator with the TaskConfig
+            evaluator = WebCloneEvaluator(task_config=task_config)
+            reward, done, message, info = evaluator.evaluate(env_state=env_state_json, model_response=result["response"])
+            print("\n__________________________________________________________")
+            print(f"Evaluation result: {message}, Reward: {reward}")
+            print("__________________________________________________________\n")
+            
             
             result["ok"] = True
             result["success"] = True
@@ -120,6 +147,7 @@ def run_task(task: dict, run_id: str, headless: bool) -> dict:
         print(f"Error on task {tid}: {exc}")
     
     elapsed = time.time() - t0
+    
     result["elapsed_time"] = elapsed
     result["t"] = elapsed
     result["end_time"] = datetime.now().isoformat()
@@ -136,10 +164,10 @@ def main() -> None:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     model_name = f"NovaAct_{ts}"
     run_name = f"NovaAct_{ts}"
-    api_key = "b0c2f93d0c461eed5b99b51ed6e934baa600ba0907185edd93c949ab20f34d21"
+    api_key = ""
     run_id = get_run_id(api_key, model_name, run_name)
     
-    p = argparse.ArgumentParser("Tiny NovaAct benchmark")
+    p = argparse.ArgumentParser("NovaAct benchmark")
     p.add_argument("--api-key", default=api_key)
     p.add_argument("--run-name", default=run_name)
     p.add_argument("--workers", type=int, default=1)  # Reduced to 1 worker
@@ -148,7 +176,8 @@ def main() -> None:
     p.add_argument("--run-id", default=run_id)
     args = p.parse_args()
     
-    selected = [t for t in tasks if args.filter in t["id"]] if args.filter else tasks
+    # Select exactly one task by ID
+    selected = [t for t in tasks if t["id"] == args.filter]
     print(f"{len(selected)} tasks → {args.workers} workers")
 
     results = []
@@ -164,19 +193,11 @@ def main() -> None:
     
     print(f"✓ {len(successful_tasks)}/{len(results)} tasks succeeded ({success_rate:.2%})")
     print(f"Average time per task: {avg_time:.2f} seconds")
-
-    out = {
-        "timestamp": ts,
-        "run_id": run_id,
-        "model_name": model_name,
-        "run_name": run_name,
-        "total_tasks": len(results),
-        "successful_tasks": len(successful_tasks),
-        "success_rate": success_rate,
-        "average_time": avg_time,
-        "results": results,
-    }
-    # Print summary instead of saving to file
+    
+    # Get results from REAL Evals
+    get_run_results(api_key, run_name)
+    
+    # Print summary
     print("\nRun Summary:")
     print(f"Timestamp: {ts}")
     print(f"Run ID: {run_id}")
