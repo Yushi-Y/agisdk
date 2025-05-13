@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <img src="images/real.gif" alt="REAL benchmark demo" width="600">
+  <img src="docs/images/real.gif" alt="REAL benchmark demo" width="600">
 </p>
 
 
