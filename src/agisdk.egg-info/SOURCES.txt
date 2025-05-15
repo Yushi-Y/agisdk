@@ -101,7 +101,6 @@ src/agisdk/REAL/browsergym/webclones/tasks/networkin-8.json
 src/agisdk/REAL/browsergym/webclones/tasks/networkin-9.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-1.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-10.json
-src/agisdk/REAL/browsergym/webclones/tasks/omnizon-11.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-2.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-3.json
 src/agisdk/REAL/browsergym/webclones/tasks/omnizon-4.json
