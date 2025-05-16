@@ -1,0 +1,50 @@
+{
+    "config": {
+      "hide_aria_labels": true,
+      "latency": 2000,
+      "latency_response_search": 2000,
+      "run_id": "",
+      "task_id": ""
+    },
+    "differences": {
+      "requestTours": {
+        "added": {
+          "0": {
+            "id": "09a39c48-e903-4bb4-8473-1c2883d3432d",
+            "requestTourData": {
+              "options": [
+                {
+                  "option": 1,
+                  "date": "2024-07-18T07:00:00.000Z",
+                  "time": "9:00 AM"
+                }
+              ],
+              "formValues": {
+                "name": "Prannay Hebbar",
+                "email": "prannay@theagi.company",
+                "phone": "1233249035",
+                "message": "I am interested in 1610 E 61st St, Long Beach, CA 90805.",
+                "wantFinancingInformation": true
+              },
+              "shareInfoDetails": {
+                "whenToBuy": "3-6 months",
+                "exclusiveAgencyAgreement": "No, I haven’t signed with an agent."
+              }
+            }
+          }
+        },
+        "deleted": {},
+        "updated": {}
+      },
+      "contactAgents": {
+        "added": {},
+        "deleted": {},
+        "updated": {}
+      },
+      "savedHomes": {
+        "added": {},
+        "deleted": {},
+        "updated": {}
+      }
+    }
+  }
