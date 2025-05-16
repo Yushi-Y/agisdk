@@ -46,11 +46,9 @@ src/agisdk/REAL/browsergym/webclones/base.py
 src/agisdk/REAL/browsergym/webclones/evaluate.py
 src/agisdk/REAL/browsergym/webclones/task_config.py
 src/agisdk/REAL/browsergym/webclones/utils.py
-src/agisdk/REAL/browsergym/webclones/tasks/dashdish-1.json
 src/agisdk/REAL/browsergym/webclones/tasks/dashdish-10.json
 src/agisdk/REAL/browsergym/webclones/tasks/dashdish-11.json
 src/agisdk/REAL/browsergym/webclones/tasks/dashdish-2.json
-src/agisdk/REAL/browsergym/webclones/tasks/dashdish-3.json
 src/agisdk/REAL/browsergym/webclones/tasks/dashdish-4.json
 src/agisdk/REAL/browsergym/webclones/tasks/dashdish-5.json
 src/agisdk/REAL/browsergym/webclones/tasks/dashdish-6.json
