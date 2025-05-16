@@ -72,9 +72,16 @@ class Task:
         return asdict(self)
 
 class TaskConfig:
-    def __init__(self, id: str,  ) -> None:
-        self.id = id
-        self.config_json = self.load_from_id(self.id)
+    def __init__(self, input_source: str, is_path: bool = False) -> None:
+        # Check if the input is a file path or an ID
+        if os.path.exists(input_source) and input_source.endswith('.json'):
+            # It's a file path
+            self.config_json = self.from_json_file(input_source)
+            self.id = self.config_json.get('id', '')
+        else:
+            # It's an ID
+            self.id = id_or_path
+            self.config_json = self.load_from_id(self.id)
         
         # Validate configuration first
         if not self.is_valid_config():
@@ -94,7 +101,7 @@ class TaskConfig:
         
         # Create Task instance with the eval instance
         self.task = Task(evals=eval_instances, start_url=url, **config_without_eval_and_url)
-
+    
     def load_from_id(self, id: str) -> Dict[str, Any]:
         """
         Load the task configuration from a JSON file given a task ID.

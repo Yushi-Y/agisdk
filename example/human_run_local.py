@@ -52,10 +52,12 @@ def run_task(task: dict, run_id: str, headless: bool = True) -> dict:
                 pre_element = bot.page.wait_for_selector("pre")
                 if pre_element:
                     env_state = json.loads(pre_element.inner_text())
-                    
-                task_config = TaskConfig.from_json_file(self, os.path.join(os.path.dirname(__file__), f"tasks/{tid}.json"))
-                evaluator = WebCloneEvaluator(task_config=task_config)
-                reward, done, message = evaluator.evaluate(env_state=env_state, model_response=result["response"])
+                
+                # import code; code.interact(local=locals())
+                
+                config_json = TaskConfig(os.path.join(os.path.dirname(__file__), f"tasks/{tid}"), is_path=True)
+                evaluator = WebCloneEvaluator(task_config=config_json)
+                reward, done, message, info = evaluator.evaluate(env_state=env_state, model_response=result["response"])
                 print(f"Evaluation result: {message}, Reward: {reward}")
                 
                 result["ok"] = True
