@@ -44,7 +44,7 @@ def run_task(task: dict, run_id: str, headless: bool = True) -> dict:
         with NovaAct(starting_page=cfg, headless=headless) as bot:
             bot.go_to_url(base)
             try:
-                result["response"] = input("Press Enter when ready to finish:")
+                result["response"] = input("Return the response to finish the task:")
                 
                 # Finish the task
                 bot.go_to_url(f"{base}/finish")
