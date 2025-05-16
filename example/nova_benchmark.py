@@ -135,9 +135,7 @@ def run_task(task: dict, run_id: str, headless: bool) -> dict:
             # Create evaluator with the TaskConfig
             evaluator = WebCloneEvaluator(task_config=task_config)
             reward, done, message, info = evaluator.evaluate(env_state=env_state_json, model_response=result["response"])
-            print("\n__________________________________________________________")
             print(f"Evaluation result: {message}, Reward: {reward}")
-            print("__________________________________________________________\n")
             
             
             result["ok"] = True
@@ -165,7 +163,8 @@ def main() -> None:
     model_name = f"NovaAct_{ts}"
     run_name = f"NovaAct_{ts}"
     api_key = ""
-    run_id = get_run_id(api_key, model_name, run_name)
+    # run_id = get_run_id(api_key, model_name, run_name)
+    run_id = "b0c2f93d0c461eed5b99b51ed6e934baa600ba0907185edd93c949ab20f34d21"
     
     p = argparse.ArgumentParser("NovaAct benchmark")
     p.add_argument("--api-key", default=api_key)

@@ -72,7 +72,7 @@ class Task:
         return asdict(self)
 
 class TaskConfig:
-    def __init__(self, id: str) -> None:
+    def __init__(self, id: str,  ) -> None:
         self.id = id
         self.config_json = self.load_from_id(self.id)
         

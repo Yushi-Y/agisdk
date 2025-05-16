@@ -3,11 +3,11 @@ from agisdk import REAL
 def run_agent(api_key=None, run_name=None):
     harness = REAL.harness(
         model="gpt-4o-mini",
-        task_name="webclones.omnizon-2",
         headless=False,
-        max_steps=25,
+        max_steps=15,
         use_screenshot=True,
         use_axtree=True,
+        local_task="udriver-10.json"
     )
     return harness.run()
 
