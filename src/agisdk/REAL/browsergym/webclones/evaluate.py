@@ -4,7 +4,7 @@ import jmespath
 import json
 
 class WebCloneEvaluator:
-    def __init__(self, task_config: Dict[str, Any], llm: str = "gpt-4o"):
+    def __init__(self, task_config: Dict[str, Any], llm: str = "gpt-4.1"):
         """
         Initializes the evaluator with an optional LLM instance for fuzzy matching.
         
