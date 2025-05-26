@@ -11,7 +11,6 @@
   "difficulty": "hard",
   "challengeType": "retrieval-action",
   "possible": true,
-  "description": "eval not implemented yet",
   "evals": [
     {
       "description": "tour request submitted",

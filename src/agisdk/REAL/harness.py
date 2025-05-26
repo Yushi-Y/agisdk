@@ -70,6 +70,7 @@ class harness:
         api_key: str = None,
         run_name: str = None,
         model_id_name: str = None,
+        system_message_handling: str = None,
     ):
         """
         Initialize the harness with the provided configuration.
@@ -97,6 +98,12 @@ class harness:
             use_cache: Whether to use cached results
             cache_only: Only use cached results, don't run missing tasks
             force_refresh: Force re-running tasks even if cached results exist
+            sample_tasks: Number of times to run each task
+            api_key: API key for leaderboard submission
+            run_name: Name for the run (used with api_key to get run_id)
+            model_id_name: Model ID name for API (defaults to model parameter)
+            system_message_handling: How to handle system messages - "separate" (default) or "combined" (no system prompt).
+                                   Only applies when using the model parameter. For o1-mini, defaults to "combined".
         """
         self.results_dir = results_dir
         self.parallel = parallel
@@ -111,10 +118,22 @@ class harness:
         logger.info(f"Harness initialized with model={model or 'custom'}, task={task_name or task_type}, Sampling each task {sample_tasks} times")
         # Initialize agent arguments
         if agentargs is not None:
+            if system_message_handling is not None:
+                logger.warning("system_message_handling parameter is ignored when using custom agentargs")
             self.agent_args = agentargs
         elif model is not None:
-            # Set system message handling based on model
-            system_message_handling = "combined" if model == "o1-mini" else "separate"
+            # Validate system_message_handling parameter if provided
+            if system_message_handling is not None:
+                valid_values = ["separate", "combined"]
+                if system_message_handling not in valid_values:
+                    raise ValueError(f"system_message_handling must be one of {valid_values}, got: {system_message_handling}")
+            
+            # Set system message handling based on parameter or model default
+            if system_message_handling is not None:
+                use_system_message_handling = system_message_handling
+            else:
+                use_system_message_handling = "combined" if model == "o1-mini" else "separate"
+                
             self.agent_args = DemoAgentArgs(
                 model_name=model,
                 chat_mode=False,
@@ -122,7 +141,7 @@ class harness:
                 use_html=use_html,
                 use_axtree=use_axtree,
                 use_screenshot=use_screenshot,
-                system_message_handling=system_message_handling
+                system_message_handling=use_system_message_handling
             )
         else:
             raise ValueError("Either model or agentargs must be provided")

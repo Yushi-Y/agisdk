@@ -144,17 +144,36 @@ class DemoAgent(Agent):
             
             # Define function to query OpenRouter models
             def query_model(system_msgs, user_msgs):
-                response = self.client.chat.completions.create(
-                    extra_headers={
-                        "HTTP-Referer": self.openrouter_site_url,
-                        "X-Title": self.openrouter_site_name,
-                    },
-                    model=self.model_name,
-                    messages=[
-                        {"role": "system", "content": system_msgs},
-                        {"role": "user", "content": user_msgs},
-                    ],
-                )
+                if self.system_message_handling == "combined":
+                    # Combine system and user messages into a single user message
+                    combined_content = ""
+                    if system_msgs:
+                        combined_content += system_msgs[0]["text"] + "\n\n"
+                    for msg in user_msgs:
+                        if msg["type"] == "text":
+                            combined_content += msg["text"] + "\n"
+                    response = self.client.chat.completions.create(
+                        extra_headers={
+                            "HTTP-Referer": self.openrouter_site_url,
+                            "X-Title": self.openrouter_site_name,
+                        },
+                        model=self.model_name,
+                        messages=[
+                            {"role": "user", "content": combined_content},
+                        ],
+                    )
+                else:
+                    response = self.client.chat.completions.create(
+                        extra_headers={
+                            "HTTP-Referer": self.openrouter_site_url,
+                            "X-Title": self.openrouter_site_name,
+                        },
+                        model=self.model_name,
+                        messages=[
+                            {"role": "system", "content": system_msgs},
+                            {"role": "user", "content": user_msgs},
+                        ],
+                    )
                 return response.choices[0].message.content
             self.query_model = query_model
         
