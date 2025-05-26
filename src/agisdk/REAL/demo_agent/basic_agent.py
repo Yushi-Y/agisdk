@@ -76,6 +76,7 @@ class DemoAgent(Agent):
         use_axtree: bool,
         use_screenshot: bool,
         system_message_handling: Literal["separate", "combined"] = "separate",
+        thinking_budget: int = 10000,
         openai_api_key: Optional[str] = None,
         openrouter_api_key: Optional[str] = None,
         openrouter_site_url: Optional[str] = None,
@@ -87,8 +88,8 @@ class DemoAgent(Agent):
         self.use_html = use_html
         self.use_axtree = use_axtree
         self.use_screenshot = use_screenshot
-        self.previous_thinking_blocks = []
         self.system_message_handling = system_message_handling
+        self.thinking_budget = thinking_budget
 
         if not (use_html or use_axtree):
             raise ValueError(f"Either use_html or use_axtree must be set to True.")
@@ -204,18 +205,40 @@ class DemoAgent(Agent):
                 
             self.query_model = query_model
     
-        elif model_name.startswith("sonnet-3.7"):
+        elif any(model_name.startswith(prefix) for prefix in ["claude-", "sonnet-"]):
+            # Comprehensive model mapping for all Claude models
+            ANTHROPIC_MODELS = {
+                "claude-3-opus": "claude-3-opus-20240229",
+                "claude-3-sonnet": "claude-3-sonnet-20240229",
+                "claude-3-haiku": "claude-3-haiku-20240307",
+                "claude-3.5-sonnet": "claude-3-5-sonnet-20241022",
+                "claude-opus-4": "claude-opus-4-20250514",
+                "claude-sonnet-4": "claude-sonnet-4-20250514",
+                "sonnet-3.7": "claude-3-7-sonnet-20250219"
+            }
+            
+            # Parse model name and thinking mode
+            base_model_name = model_name.replace(":thinking", "")
+            thinking_enabled = model_name.endswith(":thinking")
+            
+            # Get the actual model ID
+            if base_model_name in ANTHROPIC_MODELS:
+                self.model_name = ANTHROPIC_MODELS[base_model_name]
+            else:
+                # If not in mapping, assume it's a direct model ID
+                self.model_name = base_model_name
+            
+            # Initialize Anthropic client
             self.client = Anthropic(api_key=anthropic_api_key or os.getenv("ANTHROPIC_API_KEY"))
-            self.model_name = "claude-3-7-sonnet-20250219"
-            if model_name.endswith(":thinking"):
+            
+            # Configure thinking based on model capabilities and user request
+            if thinking_enabled:
                 thinking = {
-                        "type": "enabled",
-                        "budget_tokens": 4000,
-                    }
-                self.thinking_enabled = True
+                    "type": "enabled",
+                    "budget_tokens": self.thinking_budget
+                }
             else:
                 thinking = {"type": "disabled"}
-                self.thinking_enabled = False
                 
             # Define function to query Anthropic models
             def query_model(system_msgs, user_msgs):
@@ -244,62 +267,62 @@ class DemoAgent(Agent):
                             # Skip external URLs or unsupported image formats
                             anthropic_content.append({"type": "text", "text": "[Image URL not supported by Anthropic API]"})
                 
-                # Set up messages array for API call
-                messages = []
+                # Handle system message based on system_message_handling
+                if self.system_message_handling == "combined" and system_msgs:
+                    # Prepend system message to user content
+                    combined_content = [{"type": "text", "text": system_msgs[0]["text"]}]
+                    combined_content.extend(anthropic_content)
+                    anthropic_content = combined_content
+                    system_content = None
+                else:
+                    # Use separate system message - extract text from the list
+                    system_content = system_msgs[0]["text"] if system_msgs else ""
                 
-                # If we have previous thinking blocks, need to create an assistant message
-                if self.thinking_enabled and self.previous_thinking_blocks:
-                    # Add previous assistant message with thinking blocks
-                    messages.append({
-                        "role": "assistant",
-                        "content": self.previous_thinking_blocks
-                    })
-                
-                # Add the current user message
-                messages.append({
+                # Simple messages array - no manual thinking block management
+                messages = [{
                     "role": "user", 
                     "content": anthropic_content
-                })
+                }]
                 
-                # Make API request
-                response = self.client.messages.create(
-                    model=self.model_name,
-                    max_tokens=8000,
-                    messages=messages,
-                    thinking=thinking,
-                    system=system_msgs[0]["text"] if system_msgs else "",
-                )
+                # Make API request - conditionally include system parameter
+                create_params = {
+                    "model": self.model_name,
+                    "max_tokens": 8000,
+                    "messages": messages,
+                    "thinking": thinking,
+                }
                 
-                # Log complete response for debugging
+                # Only add system parameter if we have content
+                if system_content is not None:
+                    create_params["system"] = system_content
+                    
+                response = self.client.messages.create(**create_params)
+                
+                # Log response content types for debugging
                 logger.info(f"Response content types: {[content.type for content in response.content]}")
                 
-                # Store thinking blocks for future use
-                if self.thinking_enabled:
-                    # Clear previous blocks
-                    self.previous_thinking_blocks = []
-                    
-                    # Store all thinking and redacted_thinking blocks
-                    for content_block in response.content:
-                        if content_block.type in ["thinking", "redacted_thinking"]:
-                            self.previous_thinking_blocks.append(content_block)
-                
-                # Extract only the text content for the agent's action
+                # Extract text content, handling all block types properly
                 text_content = None
                 for content_block in response.content:
                     if content_block.type == "text":
                         text_content = content_block.text
                         break
+                    elif content_block.type == "thinking":
+                        # Log thinking content for debugging but don't return it
+                        logger.debug(f"Thinking block: {content_block.thinking[:100]}...")
+                    elif content_block.type == "redacted_thinking":
+                        # Log that we encountered redacted thinking
+                        logger.debug("Encountered redacted thinking block")
                 
-                # Fallback if no text content found
                 if text_content is None:
                     logger.warning("No text content found in response")
-                    # Default to first block's text as a fallback
-                    text_content = response.content[0].text
+                    # This shouldn't happen with a properly formed response
+                    raise ValueError("No text content in Anthropic response")
                 
                 return text_content
             self.query_model = query_model
         else:
-            raise ValueError(f"Model {model_name} not supported. Use a model name starting with 'gpt-', 'sonnet-3.7', or 'openrouter/' followed by the OpenRouter model ID.")
+            raise ValueError(f"Model {model_name} not supported. Use a model name starting with 'gpt-', 'claude-', 'sonnet-', or 'openrouter/' followed by the OpenRouter model ID.")
 
         self.action_set = HighLevelActionSet(
             subsets=["chat", "bid", "infeas"],  # define a subset of the action space
@@ -566,14 +589,23 @@ class DemoAgentArgs(AbstractAgentArgs):
     
     The model_name parameter can be:
     - An OpenAI model starting with "gpt-" (e.g., "gpt-4o", "gpt-4o-mini")
-    - An Anthropic model ("sonnet-3.7" or "sonnet-3.7:thinking")
+    - An Anthropic model:
+      - "claude-3-opus", "claude-3-sonnet", "claude-3-haiku"
+      - "claude-3.5-sonnet"
+      - "claude-opus-4", "claude-sonnet-4"
+      - "sonnet-3.7" (alias for Claude 3.7 Sonnet)
+      - Add ":thinking" suffix to enable extended thinking (e.g., "claude-opus-4:thinking")
     - An OpenRouter model with the prefix "openrouter/" (e.g., "openrouter/anthropic/claude-3-5-sonnet")
+    - A local model with the prefix "local/" (e.g., "local/llama-2-7b")
     
     API keys can be provided directly as parameters or through environment variables:
     - OpenAI models: provide openai_api_key or set OPENAI_API_KEY env var
     - Anthropic models: provide anthropic_api_key or set ANTHROPIC_API_KEY env var
     - OpenRouter models: provide openrouter_api_key or set OPENROUTER_API_KEY env var
       Optional: provide openrouter_site_url/openrouter_site_name or set the corresponding env vars
+    
+    The thinking_budget parameter controls the token budget for Anthropic's extended thinking feature.
+    Only applies when using ":thinking" suffix with supported Claude models.
     """
 
     model_name: str = "gpt-4o"
@@ -583,6 +615,7 @@ class DemoAgentArgs(AbstractAgentArgs):
     use_axtree: bool = True
     use_screenshot: bool = False
     system_message_handling: Literal["separate", "combined"] = "separate"
+    thinking_budget: int = 10000
     
     # API keys and configuration - these can be None and the agent will fall back to environment variables
     openai_api_key: Optional[str] = None
@@ -600,6 +633,7 @@ class DemoAgentArgs(AbstractAgentArgs):
             use_axtree=self.use_axtree,
             use_screenshot=self.use_screenshot,
             system_message_handling=self.system_message_handling,
+            thinking_budget=self.thinking_budget,
             # Pass API keys and configuration
             openai_api_key=self.openai_api_key,
             openrouter_api_key=self.openrouter_api_key,
