@@ -80,7 +80,7 @@ class TaskConfig:
             self.id = self.config_json.get('id', '')
         else:
             # It's an ID
-            self.id = id_or_path
+            self.id = input_source
             self.config_json = self.load_from_id(self.id)
         
         # Validate configuration first
