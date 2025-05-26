@@ -33,4 +33,4 @@ experimental_tasks = load_experimental_tasks()
 all_including_experimental = all_tasks + experimental_tasks
 
 # Print count for verification
-print(f"Regular tasks: {len(all_tasks)}, Experimental tasks: {len(experimental_tasks)}, Combined: {len(all_including_experimental)}")
+# print(f"Regular tasks: {len(all_tasks)}, Experimental tasks: {len(experimental_tasks)}, Combined: {len(all_including_experimental)}")
