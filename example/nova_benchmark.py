@@ -82,7 +82,7 @@ def run_task(task: dict, run_id: str, headless: bool) -> dict:
     """Execute *task* with NovaAct and submit the answer."""
     t0 = time.time()
     tid, goal, base = task["id"], task["goal"], task["website"]["url"]
-    cfg = f"{base}/config?run_id={run_id}&task_id={tid}"
+    cfg = f"{base}/config?run_id={run_id}&task_id={tid}&removePopup=true"
     
     result = {
         "id": tid,
