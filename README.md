@@ -219,7 +219,6 @@ REAL.harness(
     run_id="my_unique_id",            # Unique ID for the submission
 
     # Execution options
-    parallel=False,                   # Run tasks in parallel
     num_workers=4,                    # Number of parallel workers
     use_cache=True,                   # Use cached results when available
     cache_only=False,                 # Only use cached results
