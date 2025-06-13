@@ -31,6 +31,7 @@ Requires-Dist: jmespath>=1.0.0
 Requires-Dist: beautifulsoup4>=4.10.0
 Requires-Dist: tiktoken>=0.3.0
 Requires-Dist: anthropic>=0.5.0
+Requires-Dist: ray>=2.8.0
 Requires-Dist: lxml
 Dynamic: license-file
 

@@ -2,246 +2,210 @@
 
 ## Overview
 
-The `harness.py` file is a core component of the AGI SDK, providing a unified interface for running AI agents on browser-based tasks. It simplifies the process of setting up, running, and evaluating agents on various tasks while providing features like caching, parallel execution, and leaderboard submission.
+The `harness.py` file is the main orchestrator for running AI agents on browser-based tasks. It provides a unified interface that handles agent setup, task execution, caching, parallel processing, and result collection. The harness abstracts away the complexity of running experiments while providing powerful features for both development and production use.
 
-## Key Components
+## Architecture and Flow
 
-### `harness` Class
+### 1. Initialization (`__init__`)
 
-The main class that orchestrates agent execution, environment setup, and result management. It provides a clean API for running both built-in and custom agents on browsergym tasks.
+When you create a harness instance, several key components are set up:
 
-#### Initialization Parameters
+**Agent Configuration:**
+- If `model` is provided (e.g., "gpt-4o"), creates a `DemoAgentArgs` with the specified model
+- If `agentargs` is provided, uses your custom agent implementation
+- Handles system message configuration (`"separate"` vs `"combined"` modes)
 
-- **Model Configuration**
-  - `model`: Name of the AI model to use (e.g., "gpt-4o", "deepseek/deepseek-r1:free")
-  - `agentargs`: Arguments for a custom agent (if not using a built-in model)
+**Environment Setup:**
+- Configures browser settings (headless mode, dimensions, extensions)
+- Sets up task parameters (max_steps, observation types)
+- Prepares results directory structure
 
-- **Task Selection**
-  - `task_name`: Specific task name to run (e.g., "webclones.omnizon-1")
-  - `task_type`: Task type to run (e.g., "omnizon")
-  - `task_id`: Specific task ID within a task type
+**Task Selection Logic:**
+- Stores task filtering parameters (`task_name`, `task_type`, `task_id`)
+- These will be used later to determine which tasks to run
 
-- **Leaderboard Settings**
-  - `leaderboard`: Flag indicating whether to submit results to a leaderboard
-  - `run_id`: Identifier for this run (required for leaderboard submission)
+**Leaderboard Integration:**
+- Optionally retrieves `run_id` from API using `api_key` and `run_name`
+- Sets up environment variables for leaderboard submission
 
-- **Browser Configuration**
-  - `headless`: Whether to run the browser in headless mode
-  - `max_steps`: Maximum number of steps per task
-  - `use_html`: Whether to include HTML in observations
-  - `use_axtree`: Whether to include accessibility tree in observations
-  - `use_screenshot`: Whether to include screenshots in observations
-  - `browser_dimensions`: Tuple of (width, height) for browser viewport
-  - `golden_user_data_dir`: Path to browser user data directory
-  - `extensions_dir`: Path to Chrome extensions directory
-  - `viewport`: Dictionary with width and height for browser viewport
+### 2. Task Discovery (`_get_tasks`)
 
-- **Execution Settings**
-  - `results_dir`: Directory to store results
-  - `parallel`: Whether to run tasks in parallel
-  - `num_workers`: Number of parallel workers
-  - `use_cache`: Whether to use cached results
-  - `cache_only`: Only use cached results, don't run missing tasks
-  - `force_refresh`: Force re-running tasks even if cached results exist
+When `harness.run()` is called, the system first determines which tasks to execute:
 
-## Core Features
+**Task File Discovery:**
+- Scans `browsergym/webclones/tasks/*.json` for available tasks
+- Filters out tasks marked as `"possible": false` (unless `include_impossible=True`)
 
-### Task Management
+**Filtering Logic:**
+- If `task_name` is specified: runs that exact task
+- If `task_type` is specified: finds all tasks matching that type (e.g., "omnizon-1", "omnizon-2")
+- If `task_id` is also specified: runs only that specific task within the type
+- Otherwise: runs all available tasks
 
-The harness provides methods for:
-- Selecting tasks based on task type or specific task names
-- Sampling random tasks for benchmarking
-- Supporting both single and multi-task execution
+**Task Sampling:**
+- Each selected task is repeated `sample_tasks` times (default: 1)
+- Tasks are formatted as `"webclones.{task_name}"` for browsergym
 
-### Agent Integration
+### 3. Execution Planning (`_run_tasks`)
 
-The harness supports:
-- Built-in agents using specified models (like GPT-4o)
-- Custom agents that implement the `Agent` interface
-- Automatic agent selection based on model name or custom arguments
+Before running any tasks, the harness creates an execution plan:
 
-### Caching System
+**Run UUID Generation:**
+- Creates a unique identifier for this batch of tasks
+- For leaderboard runs, may reuse cached `run_id` if available
+- Sets `RUNID` environment variable for leaderboard integration
 
-The caching system helps avoid redundant computation:
+**Cache Lookup Process:**
+- For each task, calls `_find_cached_result()` to check for existing results
+- Cache keys are generated using: `{task_name}_{agent_type}_{model_name}_{max_steps}[_leaderboard]`
+- Only uses cached results that don't have errors (`err_msg` or `stack_trace`)
+- Separates leaderboard and development caches
 
-1. **Cache Key Generation**
-   - Each task-agent combination generates a unique cache key
-   - Cache keys include: `{task_name}_{agent_type}_{model_name}_{max_steps}`
-   - Leaderboard runs append `_leaderboard` to cache keys for separation
+**Task Queue Preparation:**
+- Determines which tasks need to be run (not in cache or `force_refresh=True`)
+- Skips tasks if `cache_only=True` and no cache exists
 
-2. **Cache Storage**
-   - Experiment results are stored in the results directory
-   - Each experiment directory contains a `summary_info.json` with metadata
-   - Metadata includes the cache key, task name, agent type, model name, etc.
+### 4. Parallel Execution (Ray Integration)
 
-3. **Cache Lookup**
-   - Before running a task, the system checks for cached results with matching cache keys
-   - Only uses cached results from leaderboard runs for new leaderboard submissions
-   - Results with errors are never cached to prevent propagating failures
+When `num_workers > 1`, the harness uses Ray for parallel processing:
 
-4. **Cache Control**
-   - `use_cache`: Enable/disable using cached results
-   - `cache_only`: Only use cached results, don't run missing tasks
-   - `force_refresh`: Force re-running tasks even if cached results exist
-
-### Parallel Execution
-
-For running multiple tasks efficiently:
-
-- `parallel`: Enable parallel execution using Python's multiprocessing
-- `num_workers`: Control the number of parallel workers
-- Automatically distributes tasks across available workers
-
-### Leaderboard Integration
-
-For submitting results to evaluation leaderboards:
-
-- `leaderboard`: Flag indicating whether to submit results to a leaderboard
-- `run_id`: Unique identifier for tracking leaderboard submissions
-- Proper environment variable setup for leaderboard submissions
-- Special caching behavior that separates leaderboard and development runs
-
-## Usage Examples
-
-### Basic Usage with Built-in Agent
-
+**Ray Initialization:**
 ```python
-from agisdk import REAL
+ray.init(resources={"memory_gb": num_workers})
+```
+- Creates `num_workers` memory tokens as a concurrency control mechanism
+- No CPU resources are explicitly allocated
 
-# Create a harness with a built-in agent using GPT-4o
+**Task Submission:**
+```python
+@ray.remote(resources={"memory_gb": 1})
+def run_task_ray(task_name, agent_args, ...):
+```
+- Each task function requires 1 memory token
+- Ray automatically queues tasks when all tokens are in use
+- Tasks start immediately when a token becomes available
+
+**Execution Pattern:**
+- All tasks are submitted as futures simultaneously
+- Ray manages the queue and executes up to `num_workers` tasks concurrently
+- Results are collected using `ray.get(ray_futures)`
+
+### 5. Single Task Execution (`_run_single_task` / `run_task_ray`)
+
+Each individual task follows this flow:
+
+**Environment Setup:**
+- Creates `EnvArgs` and `ExpArgs` objects with task-specific configuration
+- Calls `exp_args.prepare(results_dir)` to create experiment directory
+
+**Metadata Creation:**
+- Generates `summary_info.json` with essential cache metadata
+- Includes cache key, agent info, task name, run UUID, and leaderboard flag
+- This ensures cache integrity even if the task crashes
+
+**Task Execution:**
+- Calls `exp_args.run()` to start the browser and run the agent
+- Times the execution for performance metrics
+
+**Result Collection:**
+- Uses `get_exp_result(exp_dir)` to extract experiment results
+- Adds timing information and experiment directory path
+- Returns task name and complete result record
+
+### 6. Caching System
+
+The caching system operates on multiple levels:
+
+**Cache Key Generation (`_create_cache_key`):**
+- Combines task name, agent type, model name, max_steps
+- Adds `_leaderboard` suffix for leaderboard runs
+- Ensures cache separation between different configurations
+
+**Cache Storage:**
+- Each experiment directory contains `summary_info.json` with metadata
+- Results are stored in structured directories under `results_dir`
+- Cache keys are embedded in the metadata for fast lookup
+
+**Cache Retrieval (`_find_cached_result`):**
+- Scans all experiment directories for matching cache keys
+- Returns the most recent result if multiple matches exist
+- Automatically skips results with errors to prevent error propagation
+
+### 7. Result Processing and Display
+
+After all tasks complete:
+
+**Result Aggregation:**
+- Combines cached results with newly executed results
+- Maintains task name as the key for result lookup
+
+**Statistics Calculation:**
+- Computes success rates, timing statistics, and error counts
+- Groups results by task type for detailed breakdown
+- Uses the run UUID to track experiment-specific metrics
+
+**Output Formatting (`_format_results`):**
+- Displays overall success rate and timing statistics
+- Shows per-task-type breakdowns
+- Provides detailed timing analysis for both all tasks and successful tasks only
+
+## Key Design Principles
+
+### 1. Simplicity and Hackability
+- Ray memory tokens provide simple concurrency control without complex actor management
+- Standard futures pattern instead of custom pooling logic
+- Clear separation between caching, execution, and result processing
+
+### 2. Robust Caching
+- Cache keys prevent conflicts between different configurations
+- Error results are never cached to avoid propagating failures
+- Leaderboard and development runs maintain separate caches
+
+### 3. Fault Tolerance
+- Each task is isolated - failures don't affect other tasks
+- Metadata is written before task execution to ensure cache integrity
+- Automatic error detection and exclusion from cache
+
+### 4. Performance Optimization
+- Parallel execution using Ray's resource management
+- Intelligent cache reuse to avoid redundant computation
+- Batched result collection for efficiency
+
+## Configuration Examples
+
+### Development Usage
+```python
 harness = REAL.harness(
     model="gpt-4o",
-    task_name="webclones.omnizon-1",  # Specific task
-    headless=False,                   # Show browser window
-    max_steps=25,                     # Maximum steps per task
-    use_screenshot=True,              # Include screenshots in observations
-    use_axtree=True,                  # Include accessibility tree
+    task_type="omnizon",
+    headless=False,        # Watch browser actions
+    max_steps=10,          # Quick iteration
+    num_workers=1,         # Sequential execution
+    use_cache=True,        # Reuse previous results
 )
-
-# Run the task and get results
-results = harness.run()
 ```
 
-### Using a Custom Agent
-
+### Production Benchmarking
 ```python
-from agisdk import REAL
-
-# Create harness with custom agent
 harness = REAL.harness(
-    agentargs=YourCustomAgentArgs(),
-    headless=False,
+    model="gpt-4o",
+    headless=True,         # Faster execution
+    max_steps=25,          # Full evaluation
+    num_workers=8,         # Parallel execution
+    force_refresh=True,    # Fresh results
 )
-
-# Run the task
-results = harness.run()
-```
-
-### Using OpenRouter with Deepseek R1
-
-```python
-from agisdk import REAL
-
-# Create harness with OpenRouter agent for Deepseek R1
-harness = REAL.harness(
-    agentargs=OpenRouterAgentArgs(
-        model_name="deepseek/deepseek-r1:free",
-    ),
-    task_name="webclones.omnizon-1",
-    headless=False,
-    max_steps=25,
-    use_screenshot=True,
-    use_axtree=True,
-)
-
-# Run the task
-results = harness.run()
 ```
 
 ### Leaderboard Submission
-
 ```python
-from agisdk import REAL
-
-# Create a harness for leaderboard submission
 harness = REAL.harness(
     model="gpt-4o-mini",
     leaderboard=True,
-    run_id="your-unique-run-id",    # Your unique run ID for the leaderboard
-    headless=True,                  # Run headless for submissions
-    parallel=True,                  # Run tasks in parallel
-    num_workers=20,                 # Number of parallel workers
-)
-
-# Run all available tasks
-results = harness.run()
-```
-
-## Advanced Cache Control
-
-The caching system can be controlled in several ways:
-
-```python
-# No caching - always run tasks
-harness = REAL.harness(
-    model="gpt-4o",
-    use_cache=False
-)
-
-# Cache-only mode - only use cached results, don't run missing tasks
-harness = REAL.harness(
-    model="gpt-4o",
-    cache_only=True
-)
-
-# Force refresh - run all tasks even if cached results exist
-harness = REAL.harness(
-    model="gpt-4o",
-    force_refresh=True
+    run_id="unique-submission-id",
+    headless=True,
+    num_workers=20,        # High parallelism
+    use_cache=True,        # Reuse valid results
 )
 ```
 
-## Working with Leaderboard Caching
-
-Leaderboard runs maintain a separate cache from development runs:
-
-```python
-# For a leaderboard run (uses and creates leaderboard-specific cache)
-harness = REAL.harness(
-    model="gpt-4o",
-    leaderboard=True,
-    run_id="your-unique-run-id",
-)
-
-# For a development run (uses and creates non-leaderboard cache)
-harness = REAL.harness(
-    model="gpt-4o",
-    leaderboard=False,
-)
-```
-
-## Internal Flow
-
-1. **Initialization**: Set up agent args, environment args, and other settings
-2. **Task Selection**: Determine which tasks to run based on task_name, task_type, etc.
-3. **Cache Lookup**: Check if there are cached results for the tasks
-4. **Task Execution**: Run tasks that aren't in the cache or need re-running
-5. **Result Collection**: Aggregate results from both cache and new runs
-6. **Result Formatting**: Format and display the final results
-
-## Extending the Harness
-
-To extend the harness:
-
-1. Create a custom agent by inheriting from `REAL.Agent`
-2. Create agent arguments by inheriting from `REAL.AbstractAgentArgs`
-3. Use your custom agent with the harness via `agentargs`
-
-## Tips for Effective Use
-
-- Use `use_cache=True` during development to speed up iteration
-- Use `headless=False` when you want to visualize browser actions
-- Use `leaderboard=True` and provide a `run_id` for leaderboard submissions
-- Set appropriate `max_steps` to avoid excessively long runs
-- Consider lower `max_steps` during development and higher for final evaluation
-- Use `parallel=True` with an appropriate `num_workers` when running multiple tasks
+This architecture provides a robust, scalable system for running AI agent evaluations while maintaining simplicity and hackability.
