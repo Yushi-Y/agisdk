@@ -1,15 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+real/
+
+# Environment variables
+.env
+.venv
+
+# IDE / Editor specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Results/Data
+results/
+*.csv
+*.log
+
 results
 *.DS_Store
-*.pyc
 browser-use
 browseruse
 learnstagehand
 udrive
 build
 .trash
-# Environment variables
-.env
-*.env
-.env.*
 
 **/.claude/settings.local.json
