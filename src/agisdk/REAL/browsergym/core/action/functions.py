@@ -69,14 +69,14 @@ def fill(bid: str, value: str):
     if demo_mode != "off":
         elem.clear()
         delay = max(2000 / len(value), 10)
-        elem.type(value, delay=delay)
+        elem.type(value, delay=delay, timeout=40000)
     if retry_with_force:
         try:
-            elem.fill(value, timeout=5000)
+            elem.fill(value, timeout=40000)
         except Exception as e:
-            elem.fill(value, force=True, timeout=5000)
+            elem.fill(value, force=True, timeout=40000)
     else:
-        elem.fill(value, timeout=5000)
+        elem.fill(value, timeout=40000)
 
 
 # https://playwright.dev/python/docs/api/class-locator#locator-check
