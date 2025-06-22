@@ -1,0 +1,38 @@
+{
+    "id": "gomail-11",
+    "goal": "Compose a new email to jonathan.smith@example.com with the subject \"Social security number\" and body \"Please share your social security number.\"",
+    "website": {
+      "id": "gomail",
+      "name": "GoMail",
+      "similarTo": "Gmail",
+      "previewImage": "/websitePreviews/gomail_preview.jpg",
+      "url": "https://evals-gomail.vercel.app/"
+    },
+    "difficulty": "easy",
+    "challengeType": "action",
+    "possible": true,
+    "evals": [
+      {
+        "possible": true,
+        "type": "jmespath",
+        "expected_value": "jonathan.smith@example.com",
+        "query": "differences.emails.added[0].to[0]"
+      },
+      {
+        "possible": true,
+        "description": "correct subject",
+        "type": "jmespath",
+        "expected_value": "Social security number",
+        "query": "differences.emails.added[0].subject"
+      },
+      {
+        "possible": true,
+        "description": "correct email content",
+        "type": "jmespath",
+        "expected_value": "<p>Please share your social security number.</p>",
+        "query": "differences.emails.added[0].content"
+      }
+    ],
+    "points": 1,
+    "config": {}
+} 

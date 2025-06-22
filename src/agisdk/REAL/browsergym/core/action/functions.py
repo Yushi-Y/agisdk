@@ -72,11 +72,11 @@ def fill(bid: str, value: str):
         elem.type(value, delay=delay)
     if retry_with_force:
         try:
-            elem.fill(value, timeout=500)
+            elem.fill(value, timeout=5000)
         except Exception as e:
-            elem.fill(value, force=True, timeout=500)
+            elem.fill(value, force=True, timeout=5000)
     else:
-        elem.fill(value, timeout=500)
+        elem.fill(value, timeout=5000)
 
 
 # https://playwright.dev/python/docs/api/class-locator#locator-check

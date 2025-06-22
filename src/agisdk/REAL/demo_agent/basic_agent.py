@@ -91,8 +91,8 @@ class DemoAgent(Agent):
         self.system_message_handling = system_message_handling
         self.thinking_budget = thinking_budget
 
-        if not (use_html or use_axtree):
-            raise ValueError(f"Either use_html or use_axtree must be set to True.")
+        # if not (use_html or use_axtree):
+        #     raise ValueError(f"Either use_html or use_axtree must be set to True.")
 
         from openai import OpenAI
         from anthropic import Anthropic
@@ -125,6 +125,7 @@ class DemoAgent(Agent):
                             {"role": "system", "content": system_msgs},
                             {"role": "user", "content": user_msgs},
                         ],
+                        # temperature=0.0,
                     )
                 return response.choices[0].message.content
             self.query_model = query_model
@@ -197,7 +198,7 @@ class DemoAgent(Agent):
                         {"role": "user", "content": user_msgs}
                     ],
                     max_tokens=500,
-                    temperature=1.0,
+                    temperature=0.0,
                     top_p=0.95,
                     extra_body={"top_k": 64}
                 )
@@ -477,7 +478,6 @@ class DemoAgent(Agent):
 
                         I now need to click on the Submit button to send the form. I will use the click action on the button, which has bid 12.
                         ```click("12")```
-
                         I found the information requested by the user, I will send it to the chat.
                         ```send_msg_to_user("The price for a 15\\" laptop is 1499 USD.")```
 
@@ -558,6 +558,12 @@ class DemoAgent(Agent):
         full_prompt_txt = "\n".join(prompt_text_strings)
         # Don't log the full prompt - too verbose
         # logger.info(full_prompt_txt)
+        
+        # Log full prompt to a file
+        # with open("prompt_log_user_dom.txt", "a") as f:
+        #     f.write("\n==== Full Prompt ====\n")
+        #     f.write(full_prompt_txt)
+        #     f.write("\n=====================\n\n")
 
         # query model using the abstraction function
         action = self.query_model(system_msgs, user_msgs)
@@ -641,3 +647,4 @@ class DemoAgentArgs(AbstractAgentArgs):
             openrouter_site_name=self.openrouter_site_name,
             anthropic_api_key=self.anthropic_api_key,
         )
+
