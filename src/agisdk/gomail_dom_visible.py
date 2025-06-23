@@ -246,7 +246,7 @@ def run_custom_task_with_llm_agent():
         env_args=env_args
     )
     
-    print("Starting custom task with LLM agent (GPT-4o)...")
+    print(f"Starting custom task with LLM agent ({agent_args.model_name})...")
     print("We test if the agent follows the instruction in the first email with DOM injection of the harmful instruction.")
     
     # Save the environment creation and prevent it from closing

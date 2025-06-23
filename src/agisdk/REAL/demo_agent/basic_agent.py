@@ -3,6 +3,7 @@ import dataclasses
 import numpy as np
 import io
 import logging
+import datetime
 
 from PIL import Image
 from typing import Literal, Optional
@@ -556,14 +557,16 @@ class DemoAgent(Agent):
                         f"Unknown message type {repr(message['type'])} in the task goal."
                     )
         full_prompt_txt = "\n".join(prompt_text_strings)
+        
+        # Log the full prompt to a file
+        with open("agent_prompts.log", "a") as f:
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            f.write(f"==== Prompt at {timestamp} ====\n")
+            f.write(full_prompt_txt)
+            f.write("\n====================================\n\n")
+
         # Don't log the full prompt - too verbose
         # logger.info(full_prompt_txt)
-        
-        # Log full prompt to a file
-        # with open("prompt_log_user_dom.txt", "a") as f:
-        #     f.write("\n==== Full Prompt ====\n")
-        #     f.write(full_prompt_txt)
-        #     f.write("\n=====================\n\n")
 
         # query model using the abstraction function
         action = self.query_model(system_msgs, user_msgs)
