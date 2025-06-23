@@ -121,10 +121,10 @@ register_task(GoMailUserTask.get_task_id(), GoMailUserTask)
 
 def run_user_instruction_task():
     agent_args = DemoAgentArgs(
-        model_name="gpt-4o",
+        model_name="gpt-4.1-mini",
         chat_mode=False,
         demo_mode="default",
-        use_html=False,
+        use_html=True,
         use_axtree=True,
         use_screenshot=True,
         system_message_handling="separate"

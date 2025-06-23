@@ -338,6 +338,7 @@ class DemoAgent(Agent):
 
         self.action_history = []
         self.last_observation = None
+        self.prompt_log_filename = f"agent_prompts_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
     def get_action(self, obs: dict) -> tuple[str, dict]:
         # Print task start information if this is the first action
@@ -559,7 +560,7 @@ class DemoAgent(Agent):
         full_prompt_txt = "\n".join(prompt_text_strings)
         
         # Log the full prompt to a file
-        with open("agent_prompts.log", "a") as f:
+        with open(self.prompt_log_filename, "a") as f:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             f.write(f"==== Prompt at {timestamp} ====\n")
             f.write(full_prompt_txt)
